@@ -20,8 +20,10 @@ namespace ProjetC__
 
         //}
 
-        private float ValeurScore=50;
-        private float ValeurScoreMoyen=30;
+        private float ValeurScore = 50;
+        private float ValeurScoreMoyen = 30;
+        private int ValeurIntervalleMax = 300;
+        private int ValeurIntervalleMin = 1;
 
 
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
@@ -30,9 +32,9 @@ namespace ProjetC__
                               e.SignalTime);
         }
 
-     
 
-      
+
+
 
         private void B_Lancer_Click_1(object sender, EventArgs e)
         {
@@ -157,22 +159,22 @@ namespace ProjetC__
         //}
         void AfficheScore(System.Windows.Forms.Label label, float score)
         {
-           label.Text = score.ToString()+"%";
+            label.Text = score.ToString() + "%";
         }
-       
+
         private void BT_Test(object sender, EventArgs e) // but test
         {
             timer1.Start();
-            
+
         }
-       void ColorePanel(System.Windows.Forms.Panel panel, float score)
+        void ColorePanel(System.Windows.Forms.Panel panel, float score)
         {
             if (score >= 75)
-                panel.BackColor = Color.Green; 
+                panel.BackColor = Color.Green;
             else if (score >= 50)
-                panel.BackColor = Color.Orange; 
+                panel.BackColor = Color.Orange;
             else
-                panel.BackColor = Color.Red;    
+                panel.BackColor = Color.Red;
         }
         private void Test()
         {
@@ -190,6 +192,222 @@ namespace ProjetC__
         {
             Test();
         }
-    }
+
+        private void Tb_DebutInterval_TextChanged(object sender, EventArgs e)
+        {
+            //if (int.TryParse(Tb_DebutInterval.Text, out int ValeurIntervalleMin))
+            //{
+            //    // Vérifier si la valeur minimale est inférieure à 1
+            //    if (ValeurIntervalleMin < 1)
+            //    {
+            //        ValeurIntervalleMin = 1;
+            //    }
+            //    Tb_DebutInterval.Text = ValeurIntervalleMin.ToString();
+            //    // Vérifier que la valeur maximale est supérieure ou égale à la valeur minimale
+            //    if (ValeurIntervalleMin < ValeurIntervalleMax && Cb_Intervalle.Checked)
+            //    {
+            //        MessageBox.Show("La valeur maximale doit être supérieure à la valeur minimale");
+            //        Tb_DebutInterval.Text = ValeurIntervalleMax.ToString();
+
+            //        if (ValeurIntervalleMax == 1) ValeurIntervalleMax += 1;
+            //        ValeurIntervalleMin = ValeurIntervalleMax + 1;
+            //    }
+            //    // Si la case à cocher "Image seule" est cochée
+            //    if (Cb_ImageSeule.Checked)
+            //    {
+
+            //        Tb_DebutInterval.Text = ValeurIntervalleMin.ToString();
+            //        ValeurIntervalleMax = ValeurIntervalleMin;
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Valeur minimale non valide.");
+            //    Tb_DebutInterval.Clear();
+            //}
+        }
+
+        private void Tb_FinInterval_TextChanged(object sender, EventArgs e)
+        {
+
+
+        }
+
+      
+        private void ChoixIntervalle()
+        {
+
+
+            // Vérifier et convertir le texte en nombre pour la valeur minimale
+            if (int.TryParse(Tb_DebutInterval.Text, out int ValeurIntervalleMin))
+            {
+                // Vérifier si la valeur minimale est inférieure à 1
+                if (ValeurIntervalleMin < 1)
+                {
+
+                    ValeurIntervalleMin = 1;
+                    Tb_DebutInterval.Text = ValeurIntervalleMin.ToString();
+                }
+                // Si la valeur minimale est 300, la réduire à 299 si la case à cocher "intervalle" est cochée
+                if (ValeurIntervalleMin == 300 && Cb_Intervalle.Checked)
+                {
+                    ValeurIntervalleMin = 299;
+                    Tb_DebutInterval.Text = ValeurIntervalleMin.ToString();
+                }
+            }
+            else
+            {
+
+                Tb_DebutInterval.Clear();
+            }
+
+            // Vérifier et convertir le texte en nombre pour la valeur maximale
+            if (int.TryParse(Tb_FinInterval.Text, out int ValeurIntervalleMax))
+            {
+                // Limiter la valeur maximale à 300
+                if (ValeurIntervalleMax > 300)
+                {
+
+                    ValeurIntervalleMax = 300;
+                    Tb_FinInterval.Text = ValeurIntervalleMax.ToString();
+                }
+
+                // Vérifier que la valeur maximale est supérieure ou égale à la valeur minimale
+                if (ValeurIntervalleMax < ValeurIntervalleMin)
+                {
+
+                    ValeurIntervalleMax = ValeurIntervalleMin;
+                    Tb_FinInterval.Text = ValeurIntervalleMax.ToString();
+                }
+            }
+            else
+            {
+
+                Tb_FinInterval.Clear();
+            }
+
+            // Si la case à cocher "Image seule" est cochée
+            if (Cb_ImageSeule.Checked)
+            {
+                ValeurIntervalleMin = Math.Max(ValeurIntervalleMin, 1);
+                ValeurIntervalleMax = ValeurIntervalleMin;
+                Tb_DebutInterval.Text = ValeurIntervalleMin.ToString();
+                Tb_FinInterval.Text = ValeurIntervalleMax.ToString();
+            }
+            if (Cb_ToutesImages.Checked)
+            {
+                ValeurIntervalleMin = 1;
+                ValeurIntervalleMax = 300;
+                Tb_DebutInterval.Text = ValeurIntervalleMin.ToString();
+                Tb_FinInterval.Text = ValeurIntervalleMax.ToString();
+            }
+
+        }
+
+        private void Bt_ValiderChoixIntervalle_Click(object sender, EventArgs e)
+        {
+            ChoixIntervalle();
+        }
+        private void Cb_ImageSeule_CheckedChanged(object sender, EventArgs e)
+        {
+            ChoixIntervalle();
+            MiseAJourCheckBoxIntervalles(Cb_ImageSeule);
+        }
+        private void Cb_Intervalle_CheckedChanged(object sender, EventArgs e)
+        {
+            ChoixIntervalle();
+            MiseAJourCheckBoxIntervalles(Cb_Intervalle);
+        }
+
+        private void Cb_ToutesImages_CheckedChanged(object sender, EventArgs e)
+        {
+            ChoixIntervalle();
+            MiseAJourCheckBoxIntervalles(Cb_ToutesImages);
+        }
+
+        private void MiseAJourCheckBoxIntervalles(System.Windows.Forms.CheckBox checkBox)
+        {
+            Cb_ToutesImages.CheckedChanged -= Cb_ToutesImages_CheckedChanged;
+            Cb_ImageSeule.CheckedChanged -= Cb_ImageSeule_CheckedChanged;
+            Cb_Intervalle.CheckedChanged -= Cb_Intervalle_CheckedChanged;
+            if (Cb_ToutesImages != checkBox)
+            {
+                Cb_ToutesImages.Checked = false;
+
+            }
+            if (Cb_ImageSeule != checkBox)
+            {
+                Cb_ImageSeule.Checked = false;
+
+            }
+            if (Cb_Intervalle != checkBox)
+            {
+                Cb_Intervalle.Checked = false;
+
+            }
+            Cb_ToutesImages.CheckedChanged += Cb_ToutesImages_CheckedChanged;
+            Cb_ImageSeule.CheckedChanged += Cb_ImageSeule_CheckedChanged;
+            Cb_Intervalle.CheckedChanged += Cb_Intervalle_CheckedChanged;
+
+            
+        
+
+          }
+        private void MiseAJourCheckBoxTypeImages(System.Windows.Forms.CheckBox checkBox)
+        {
+            Cb_ImageIn.CheckedChanged -= Cb_ImageIn_CheckedChanged;
+            Cb_ImageSc.CheckedChanged -= Cb_ImageSc_CheckedChanged;
+            Cb_DeuxTypes.CheckedChanged -= Cb_DeuxTypes_CheckedChanged;
+            if (Cb_ImageIn != checkBox)
+                {
+                    
+                    Cb_ImageIn.Checked = false;
+                   
+                }
+                if (Cb_ImageSc != checkBox)
+                {
+                 
+                    Cb_ImageSc.Checked = false;
+                  
+                }
+                if (Cb_DeuxTypes != checkBox)
+                {
+                 
+                    Cb_DeuxTypes.Checked = false;
+                    
+                }
+            Cb_ImageIn.CheckedChanged += Cb_ImageIn_CheckedChanged;
+            Cb_ImageSc.CheckedChanged += Cb_ImageSc_CheckedChanged;
+            Cb_DeuxTypes.CheckedChanged += Cb_DeuxTypes_CheckedChanged;
+
+          
+
+        }
+
+        private void Cb_ImageIn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Cb_ImageIn.Checked)
+            {
+                MiseAJourCheckBoxTypeImages(Cb_ImageIn);
+            }
+        }
+
+        private void Cb_ImageSc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Cb_ImageSc.Checked)
+            {
+                MiseAJourCheckBoxTypeImages(Cb_ImageSc);
+            }
+        }
+
+        private void Cb_DeuxTypes_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Cb_DeuxTypes.Checked)
+            {
+                MiseAJourCheckBoxTypeImages(Cb_DeuxTypes);
+            }
+        }
+
 
     }
+}

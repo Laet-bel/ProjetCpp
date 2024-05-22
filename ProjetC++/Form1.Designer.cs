@@ -44,6 +44,7 @@
             this.B_Lancer = new System.Windows.Forms.Button();
             this.ofd = new System.Windows.Forms.OpenFileDialog();
             this.P_IntervalleImages = new System.Windows.Forms.Panel();
+            this.L_Textà = new System.Windows.Forms.Label();
             this.Tb_FinInterval = new System.Windows.Forms.TextBox();
             this.Tb_DebutInterval = new System.Windows.Forms.TextBox();
             this.L_TextDe = new System.Windows.Forms.Label();
@@ -67,6 +68,7 @@
             this.Cb_ImageIn = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Bt_ValiderChoixIntervalle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PB_InitialImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_TreatedImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_TreatedImage1)).BeginInit();
@@ -219,6 +221,7 @@
             // 
             // P_IntervalleImages
             // 
+            this.P_IntervalleImages.Controls.Add(this.L_Textà);
             this.P_IntervalleImages.Controls.Add(this.Tb_FinInterval);
             this.P_IntervalleImages.Controls.Add(this.Tb_DebutInterval);
             this.P_IntervalleImages.Controls.Add(this.L_TextDe);
@@ -227,12 +230,22 @@
             this.P_IntervalleImages.Size = new System.Drawing.Size(194, 64);
             this.P_IntervalleImages.TabIndex = 17;
             // 
+            // L_Textà
+            // 
+            this.L_Textà.AutoSize = true;
+            this.L_Textà.Location = new System.Drawing.Point(95, 20);
+            this.L_Textà.Name = "L_Textà";
+            this.L_Textà.Size = new System.Drawing.Size(25, 25);
+            this.L_Textà.TabIndex = 4;
+            this.L_Textà.Text = "à:";
+            // 
             // Tb_FinInterval
             // 
-            this.Tb_FinInterval.Location = new System.Drawing.Point(113, 17);
+            this.Tb_FinInterval.Location = new System.Drawing.Point(135, 17);
             this.Tb_FinInterval.Name = "Tb_FinInterval";
             this.Tb_FinInterval.Size = new System.Drawing.Size(40, 31);
             this.Tb_FinInterval.TabIndex = 3;
+            this.Tb_FinInterval.TextChanged += new System.EventHandler(this.Tb_FinInterval_TextChanged);
             // 
             // Tb_DebutInterval
             // 
@@ -240,6 +253,7 @@
             this.Tb_DebutInterval.Name = "Tb_DebutInterval";
             this.Tb_DebutInterval.Size = new System.Drawing.Size(40, 31);
             this.Tb_DebutInterval.TabIndex = 1;
+            this.Tb_DebutInterval.TextChanged += new System.EventHandler(this.Tb_DebutInterval_TextChanged);
             // 
             // L_TextDe
             // 
@@ -369,6 +383,7 @@
             this.Cb_ToutesImages.TabIndex = 2;
             this.Cb_ToutesImages.Text = "Totalité des images";
             this.Cb_ToutesImages.UseVisualStyleBackColor = true;
+            this.Cb_ToutesImages.CheckedChanged += new System.EventHandler(this.Cb_ToutesImages_CheckedChanged);
             // 
             // Cb_Intervalle
             // 
@@ -379,6 +394,7 @@
             this.Cb_Intervalle.TabIndex = 1;
             this.Cb_Intervalle.Text = "Intervalle";
             this.Cb_Intervalle.UseVisualStyleBackColor = true;
+            this.Cb_Intervalle.CheckedChanged += new System.EventHandler(this.Cb_Intervalle_CheckedChanged);
             // 
             // Cb_ImageSeule
             // 
@@ -391,6 +407,7 @@
             this.Cb_ImageSeule.TabIndex = 0;
             this.Cb_ImageSeule.Text = "Image Seule";
             this.Cb_ImageSeule.UseVisualStyleBackColor = true;
+            this.Cb_ImageSeule.CheckedChanged += new System.EventHandler(this.Cb_ImageSeule_CheckedChanged);
             // 
             // P_TypeImage
             // 
@@ -412,6 +429,7 @@
             this.Cb_ImageSc.TabIndex = 2;
             this.Cb_ImageSc.Text = "Image Sc";
             this.Cb_ImageSc.UseVisualStyleBackColor = true;
+            this.Cb_ImageSc.CheckedChanged += new System.EventHandler(this.Cb_ImageSc_CheckedChanged);
             // 
             // Cb_DeuxTypes
             // 
@@ -422,6 +440,7 @@
             this.Cb_DeuxTypes.TabIndex = 1;
             this.Cb_DeuxTypes.Text = "Deux types";
             this.Cb_DeuxTypes.UseVisualStyleBackColor = true;
+            this.Cb_DeuxTypes.CheckedChanged += new System.EventHandler(this.Cb_DeuxTypes_CheckedChanged);
             // 
             // Cb_ImageIn
             // 
@@ -434,6 +453,7 @@
             this.Cb_ImageIn.TabIndex = 0;
             this.Cb_ImageIn.Text = "Image In";
             this.Cb_ImageIn.UseVisualStyleBackColor = true;
+            this.Cb_ImageIn.CheckedChanged += new System.EventHandler(this.Cb_ImageIn_CheckedChanged);
             // 
             // button1
             // 
@@ -449,11 +469,22 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // Bt_ValiderChoixIntervalle
+            // 
+            this.Bt_ValiderChoixIntervalle.Location = new System.Drawing.Point(400, 703);
+            this.Bt_ValiderChoixIntervalle.Name = "Bt_ValiderChoixIntervalle";
+            this.Bt_ValiderChoixIntervalle.Size = new System.Drawing.Size(217, 34);
+            this.Bt_ValiderChoixIntervalle.TabIndex = 29;
+            this.Bt_ValiderChoixIntervalle.Text = "ValiderChoixIntervalle";
+            this.Bt_ValiderChoixIntervalle.UseVisualStyleBackColor = true;
+            this.Bt_ValiderChoixIntervalle.Click += new System.EventHandler(this.Bt_ValiderChoixIntervalle_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1751, 768);
+            this.Controls.Add(this.Bt_ValiderChoixIntervalle);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.P_TypeImage);
             this.Controls.Add(this.P_NbImages);
@@ -543,5 +574,7 @@
         private CheckBox Cb_ImageIn;
         private Button button1;
         private System.Windows.Forms.Timer timer1;
+        private Label L_Textà;
+        private Button Bt_ValiderChoixIntervalle;
     }
 }
