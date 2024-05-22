@@ -1,9 +1,12 @@
 using libImage;
+using Microsoft.VisualBasic.ApplicationServices;
+using Microsoft.VisualBasic.Devices;
 using System.ComponentModel;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Timers;
 using System.Windows.Forms;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace ProjetC__
 {
@@ -53,6 +56,14 @@ namespace ProjetC__
                     TreatedBmp = new Bitmap(img);
                     bmpGroundTruth = new Bitmap(imgGroundTruth);
                     ClImage processor = new ClImage();
+                    // ajout pour export csv
+
+
+
+                    // Choisissez le chemin pour sauvegarder le fichier CSV
+                    string csvPath =/* Path.GetFolderPath(/*"C: \\Users\\MD272295\\Documents\\Visual Studio 2022\\ProjetCpp"),*/ "Score.csv";
+                    ExportCSV(ValeurScore, ValeurScoreMoyen, csvPath);
+                    CB_ExportCSV.Checked = true;
                     unsafe
                     {
                         try
@@ -70,7 +81,7 @@ namespace ProjetC__
                             MessageBox.Show(ex.Message);
                         }
                     }
-
+                   
 
 
                     //PB_InitialImage.Width = bmp.Width;
@@ -88,6 +99,8 @@ namespace ProjetC__
 
                     //PB_TreatedImage.Hide();
                     //valeurSeuilAuto.Hide();
+
+
                 }
                 catch (Exception ex)
                 {
@@ -96,7 +109,35 @@ namespace ProjetC__
             }
         }
 
-        private void B_Quitter_Click_1(object sender, EventArgs e)
+        private void ExportCSV(float valeurScore, float valeurScoreMoyen, string csvPath)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ExportCSV (List<float> ValeurScore, float ValeurScoreMoy, string filepath)
+        {
+            using (StreamWriter file = new StreamWriter("filepath"))
+            {
+                // Entêtes des colonnes
+                file.WriteLine("Type d'image, Numéro d'image, Score");
+
+                for (int i = 0; i < ValeurScore.Count; i++)
+                {
+                    string imageType = Cb_ImageIn.Checked ? "In" : "Sc";
+                    float score = ValeurScore[i];
+
+                    // Écrire chaque ligne pour l'image
+                    file.WriteLine($"{imageType}, {i + 1}, {score}");
+                }
+
+                // Écrire la moyenne en dernière ligne
+                file.WriteLine($"Moyenne totale du score,,{ValeurScoreMoy}");
+            }
+
+            MessageBox.Show("Export CSV réussi !");
+        }
+    
+    private void B_Quitter_Click_1(object sender, EventArgs e)
         {
             Close();
         }
