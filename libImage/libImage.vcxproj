@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\ElementStructurant.cpp" />
     <ClCompile Include="..\src\ImageClasse.cpp" />
     <ClCompile Include="..\src\ImageCouleur.cpp" />
     <ClCompile Include="..\src\ImageDouble.cpp" />
@@ -26,6 +27,7 @@
     <ClCompile Include="..\src\libIHM.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\ElementStructurant.h" />
     <ClInclude Include="..\include\ImageNdg.h" />
     <ClInclude Include="..\include\libIHM.h" />
   </ItemGroup>
