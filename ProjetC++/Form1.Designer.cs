@@ -57,9 +57,9 @@
             LB_Timer = new Label();
             LB_ValeurTimer = new Label();
             P_NbImages = new Panel();
-            Cb_ImageSeule = new CheckBox();
-            Cb_Intervalle = new CheckBox();
             Cb_ToutesImages = new CheckBox();
+            Cb_Intervalle = new CheckBox();
+            Cb_ImageSeule = new CheckBox();
             P_TypeImage = new Panel();
             Cb_ImageSc = new CheckBox();
             Cb_DeuxTypes = new CheckBox();
@@ -353,17 +353,15 @@
             P_NbImages.Size = new Size(194, 89);
             P_NbImages.TabIndex = 26;
             // 
-            // Cb_ImageSeule
+            // Cb_ToutesImages
             // 
-            Cb_ImageSeule.AutoSize = true;
-            Cb_ImageSeule.Checked = true;
-            Cb_ImageSeule.CheckState = CheckState.Checked;
-            Cb_ImageSeule.Location = new Point(5, 5);
-            Cb_ImageSeule.Name = "Cb_ImageSeule";
-            Cb_ImageSeule.Size = new Size(135, 29);
-            Cb_ImageSeule.TabIndex = 0;
-            Cb_ImageSeule.Text = "Image Seule";
-            Cb_ImageSeule.UseVisualStyleBackColor = true;
+            Cb_ToutesImages.AutoSize = true;
+            Cb_ToutesImages.Location = new Point(5, 30);
+            Cb_ToutesImages.Name = "Cb_ToutesImages";
+            Cb_ToutesImages.Size = new Size(189, 29);
+            Cb_ToutesImages.TabIndex = 2;
+            Cb_ToutesImages.Text = "Totalité des images";
+            Cb_ToutesImages.UseVisualStyleBackColor = true;
             // 
             // Cb_Intervalle
             // 
@@ -375,15 +373,17 @@
             Cb_Intervalle.Text = "Intervalle";
             Cb_Intervalle.UseVisualStyleBackColor = true;
             // 
-            // Cb_ToutesImages
+            // Cb_ImageSeule
             // 
-            Cb_ToutesImages.AutoSize = true;
-            Cb_ToutesImages.Location = new Point(5, 30);
-            Cb_ToutesImages.Name = "Cb_ToutesImages";
-            Cb_ToutesImages.Size = new Size(189, 29);
-            Cb_ToutesImages.TabIndex = 2;
-            Cb_ToutesImages.Text = "Totalité des images";
-            Cb_ToutesImages.UseVisualStyleBackColor = true;
+            Cb_ImageSeule.AutoSize = true;
+            Cb_ImageSeule.Checked = true;
+            Cb_ImageSeule.CheckState = CheckState.Checked;
+            Cb_ImageSeule.Location = new Point(5, 5);
+            Cb_ImageSeule.Name = "Cb_ImageSeule";
+            Cb_ImageSeule.Size = new Size(135, 29);
+            Cb_ImageSeule.TabIndex = 0;
+            Cb_ImageSeule.Text = "Image Seule";
+            Cb_ImageSeule.UseVisualStyleBackColor = true;
             // 
             // P_TypeImage
             // 

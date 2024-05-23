@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing.Imaging;
 using System.Timers;
 using System.Windows.Forms;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace ProjetC__
 {
@@ -14,12 +15,10 @@ namespace ProjetC__
             InitializeComponent();
         }
 
-        //private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        //{
-
-        //}
-
         private static System.Timers.Timer aTimer;
+        private int nbImagesTraitees = 0;
+        private float moyenneScore = 0;
+
 
         private void B_Lancer_Click(object sender, EventArgs e)
         {
@@ -27,16 +26,19 @@ namespace ProjetC__
             {
                 try
                 {
-                    Bitmap initialImageBmp,TreatedBmp, bmpGroundTruth;
+                    Bitmap initialImageBmp, TreatedBmp, bmpGroundTruth;
                     Image img = Image.FromFile(ofd.FileName);
-                    bool imageIn = false;
-                    if(Cb_ImageIn.Checked) imageIn = true; // TODO LABE gérer les in / sc 
+                    bool imageIn = false; // TODO LABE mettre en variable globale de MDD
+                    if (Cb_ImageIn.Checked) imageIn = true; // TODO LABE gérer les in / sc 
                     string pathGroundTruth = Path.Combine("C:\\Users\\laetb\\OneDrive\\Bureau\\cour\\IPSI\\IPSI2\\ReelProjetCpp\\ProjetCpp\\Image\\Ground truth - png\\", Path.GetFileNameWithoutExtension(ofd.FileName) + ".png");
                     Image imgGroundTruth = Image.FromFile(pathGroundTruth);
                     initialImageBmp = new Bitmap(img);
                     TreatedBmp = new Bitmap(img);
                     bmpGroundTruth = new Bitmap(imgGroundTruth);
                     ClImage processor = new ClImage();
+                    // TODO LABE prende variable globale de MDD
+                    moyenneScore = 0;
+                    nbImagesTraitees = 0;
                     unsafe
                     {
                         try
@@ -44,10 +46,18 @@ namespace ProjetC__
                             var bmpDataImageInitial = TreatedBmp.LockBits(new Rectangle(0, 0, TreatedBmp.Width, TreatedBmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
                             var bmpDataImageGroundTruth = bmpGroundTruth.LockBits(new Rectangle(0, 0, bmpGroundTruth.Width, bmpGroundTruth.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
                             //var bmpDataGt = bmpGt.LockBits(new Rectangle(0, 0, bmpGt.Width, bmpGt.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-
-                            processor.objetLibDataImgPtr(1, bmpDataImageInitial.Scan0, bmpDataImageInitial.Stride, bmpDataImageGroundTruth.Scan0, bmpDataImageGroundTruth.Stride, TreatedBmp.Height, TreatedBmp.Width, imageIn);
+                            string type = "V4";
+                            int largeur = 3;
+                            int hauteur = 3;
+                            processor.objetLibDataImgPtr(1, bmpDataImageInitial.Scan0, bmpDataImageInitial.Stride, bmpDataImageGroundTruth.Scan0, bmpDataImageGroundTruth.Stride, TreatedBmp.Height, TreatedBmp.Width, imageIn, type, largeur, hauteur);
                             TreatedBmp.UnlockBits(bmpDataImageInitial);
                             bmpGroundTruth.UnlockBits(bmpDataImageGroundTruth);
+
+                            double score = processor.objetLibValeurChamp(0); // TODO LABE prende variable globale
+                            Lb_ValeurScore.Text = (score * 100).ToString("F2") + "%";
+                            nbImagesTraitees++;
+                            moyenneScore += (float)score;
+
                         }
                         catch (Exception ex)
                         {
@@ -69,6 +79,9 @@ namespace ProjetC__
                     PB_InitialImage.Image = initialImageBmp;
                     PB_TreatedImage.Image = TreatedBmp;
                     PB_GroundTruth.Image = bmpGroundTruth;
+
+                    moyenneScore /= nbImagesTraitees; //TODO LABE remettre cette ligne
+                    Lb_ValeurScoreMoy.Text = (moyenneScore * 100).ToString("F2") + "%";
 
                     //PB_TreatedImage.Hide();
                     //valeurSeuilAuto.Hide();
