@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -17,7 +17,8 @@ ClibIHM::ClibIHM() {
 	this->imgPt = NULL;
 }
 
-ClibIHM::ClibIHM(int nbChamps, byte* dataImage1, int strideImage1, const byte* dataImage2, const int strideImage2, int nbLig, int nbCol, bool imageIn) {
+ClibIHM::ClibIHM(int nbChamps, byte* dataImage1, int strideImage1, const byte* dataImage2, const int strideImage2, int nbLig, int nbCol, const bool imageIn, char* typeSE, const int largeurSE, const int hauteurSE)
+{
 	this->nbDataImg = nbChamps;
 	this->dataFromImg.resize(nbChamps);
 	this->imgPt = new CImageCouleur(nbLig, nbCol);
@@ -41,20 +42,22 @@ ClibIHM::ClibIHM(int nbChamps, byte* dataImage1, int strideImage1, const byte* d
 			groundTruth.operator()(y, x)[2] = pixPtr2[3 * x];
 		}
 		pixPtr += strideImage1; // largeur une seule ligne gestion multiple 32 bits
+		pixPtr2 += strideImage2; // largeur une seule ligne gestion multiple 32 bits
 	}
 
-	CImageNdg image = this->imgPt->plan(3); //TODO LABE remettre
-	CImageNdg groundTruthNdg = groundTruth.plan(3); //TODO LABE remettre
+	CImageNdg image = this->imgPt->plan(3);
+	CImageNdg groundTruthNdg = groundTruth.plan(3);
 	float score = 0.0;
 
-	// TODO LABE 
-	// Faire le traitement sur l'image et ressortir le score et l'image traitée.
-	CImageNdg traite; //TODO LABE remettre
-	if (imageIn) traite = Image_In(image, groundTruthNdg, score/*, se*/);
+	// Faire le traitement sur l'image et ressortir le score et l'image traitÃ©e.
+	CImageNdg traitee;
+	ElementStructurant se(typeSE, largeurSE, hauteurSE);
+	if (imageIn) traitee = Image_In(image, groundTruthNdg, score, se);
+	else traitee = Image_Sc(image, groundTruthNdg, score, se);
 
+	this->dataFromImg[0] = score; // RÃ©cupÃ©ration du scrore dans dataFromImg
 
-	//this->dataFromImg[0] = score;
-	out = CImageCouleur(traite); //TODO LABE remettre
+	out = CImageCouleur(traitee);
 
 	pixPtr = (byte*)dataImage1;
 	for (int y = 0; y < nbLig; y++)
@@ -69,7 +72,6 @@ ClibIHM::ClibIHM(int nbChamps, byte* dataImage1, int strideImage1, const byte* d
 	}
 }
 
-
 ClibIHM::~ClibIHM() {
 
 	if (imgPt)
@@ -77,67 +79,35 @@ ClibIHM::~ClibIHM() {
 	this->dataFromImg.clear();
 }
 
-CImageNdg ClibIHM::Image_In(const CImageNdg image,const CImageNdg imageGroundTruth, float score)/*, ELEMENT_STRUCTURANT se*/
+CImageNdg ClibIHM::Image_In(const CImageNdg& image, CImageNdg& imageGroundTruth, float& score, ElementStructurant& se)
 {
-	CImageNdg imageTraitee = CImageNdg(image);
-	CImageNdg blanche = CImageNdg(image.lireHauteur(), image.lireLargeur(), 255);
-	// Traitement sur l'image
-	for (int i = 0; i < image.lireHauteur()* image.lireLargeur(); i++) {
-		imageTraitee(i) = blanche(i) - image(i);
-		if (imageTraitee(i)< 0) imageTraitee(i) = 0;
-	}
-	//imageTraitee = blanche.operator-(image); // verifier
-	//imageTraitee = whiteTopHatavecSE(imageTraitee, se, 30);
-	//imageTraitee = seuillageOtsu(imageTraitee);
-	//imageTraitee = erosionImageavecSE(imageTraitee, se);
-	//imageTraitee = erosionImageavecSE(imageTraitee, se);
-	//imageTraitee = dilatationImageavecSE(imageTraitee, se);
-	//imageTraitee = recuperation_blobs_communs(veriteTerrain, imageTraitee);
+	CImageNdg imageTraitee(image);
+	imageTraitee = imageTraitee.transformation("complement");
 
-	//// Calcul du score IOU
-	//score = IOU_score(imageTraitee, imageGroundTruth);
+	imageTraitee = imageTraitee.whiteTopHatavecSE(imageTraitee, se, 30);
+	imageTraitee = imageTraitee.seuillage();
+	imageTraitee = imageTraitee.erosionImageavecSE(imageTraitee, se);
+	imageTraitee = imageTraitee.erosionImageavecSE(imageTraitee, se);
+	imageTraitee = imageTraitee.dilatationImageavecSE(imageTraitee, se);
+	imageTraitee = imageTraitee.dilatationImageavecSE(imageTraitee, se);
+
+	// Calcul du score IOU
+	score = imageTraitee.IOU_score(imageTraitee, imageGroundTruth);
 	return imageTraitee;
 }
-//
-//float Image_Sc(char** imagePaths, char** veriteTerrainPaths, ELEMENT_STRUCTURANT se, int nb_it)
-//{
-//	int compteur = 0;
-//	float ajout_score = 0.0;
-//	float* tableau_IOU = malloc(sizeof(float) * nb_it);
-//	float* tableau_Moy = malloc(sizeof(float) * nb_it);
-//
-//	IMAGE imageTraitee;
-//	for (int i = 0; i < nb_it; i++)
-//	{
-//		// Charger l'image
-//		IMAGE image = lectureImage(imagePaths[i]);
-//		IMAGE veriteTerrain = lectureImage(veriteTerrainPaths[i]);
-//
-//		// Traitement sur l'image
-//		imageTraitee = whiteTopHatavecSE(image, se, 30);
-//		imageTraitee = seuillageOtsu(imageTraitee);
-//		imageTraitee = erosionImageavecSE(imageTraitee, se);
-//		imageTraitee = dilatationImageavecSE(imageTraitee, se);
-//		//imageTraitee = recuperation_blobs_communs(veriteTerrain, imageTraitee);
-//
-//		// Calcul du score IOU
-//		float IOU = IOU_score(imageTraitee, veriteTerrain);
-//		tableau_IOU[i] = IOU;
-//
-//		// Accumulation des scores
-//		ajout_score += IOU;
-//		compteur++;
-//
-//		// Calcul de la moyenne et ajout au tableau
-//		tableau_Moy[i] = ajout_score / compteur;
-//	}
-//
-//	// Sauvegarde du tableau dans un fichier CSV
-//	sauvegardeCSV(tableau_IOU, tableau_Moy, nb_it, "resultats.csv");
-//
-//	// Libération de la mémoire
-//	free(tableau_IOU);
-//	free(tableau_Moy);
-//
-//	return tableau_Moy[nb_it - 1];
-//}
+
+
+CImageNdg ClibIHM::Image_Sc(const CImageNdg& image, CImageNdg& imageGroundTruth, float& score, ElementStructurant& se)
+{
+	CImageNdg imageTraitee(image);
+
+	// Traitement sur l'image
+	imageTraitee = imageTraitee.whiteTopHatavecSE(imageTraitee, se, 30);
+	imageTraitee = imageTraitee.seuillage();
+	imageTraitee = imageTraitee.erosionImageavecSE(imageTraitee, se);
+	imageTraitee = imageTraitee.dilatationImageavecSE(imageTraitee, se);
+
+	// Calcul du score IOU
+	score = imageTraitee.IOU_score(imageTraitee, imageGroundTruth);
+	return imageTraitee;
+}
