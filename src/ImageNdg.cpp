@@ -144,7 +144,7 @@ void CImageNdg::sauvegarde(const std::string& fixe) {
 	BITMAPINFOHEADER infoHeader;
 
 	if (this->m_pucPixel) {
-		std::string nomFichier = "../Res/";
+		std::string nomFichier = "C:\\Users\\laetb\\OneDrive\\Bureau\\temp\\";
 		if (fixe.compare("") == 0)
 			nomFichier += this->lireNom() + ".bmp"; // force sauvegarde dans répertoire Res (doit exister)
 		else
@@ -226,7 +226,6 @@ return *this;
 }
 
 // fonctionnalités histogramme 
-
 std::vector<unsigned long> CImageNdg::histogramme(bool enregistrementCSV, int pas) {
 
 	std::vector<unsigned long> h;
@@ -252,28 +251,26 @@ std::vector<unsigned long> CImageNdg::histogramme(bool enregistrementCSV, int pa
 }
 
 // signatures globales
-
-MOMENTS CImageNdg::signatures(const std::vector<unsigned long>& h) {
+_declspec(dllexport) MOMENTS CImageNdg::signatures(const std::vector<unsigned long>& h) {
 
 	MOMENTS globales;
-	
+
 	// min
-	int i=0;
-	while ((i < (int)h.size()) && (h[i] == 0))
+	int i = 0;
+	while ((i < (int)h.size() - 1) && (h[i] == 0)) //!\\ MODIF
 		i++;
 	globales.min = i;
-		
+
 	// max
-	i=h.size()-1;
+	i = h.size() - 1;
 	while ((i > 0) && (h[i] == 0))
 		i--;
 	globales.max = i;
 
 	// mediane
+	int moitPop = this->lireNbPixels() / 2;
 
-	int moitPop = this->lireNbPixels()/2;
-
-	i=globales.min;
+	i = globales.min;
 	int somme = h[i];
 	while (somme < moitPop) {
 		i += 1;
@@ -283,26 +280,28 @@ MOMENTS CImageNdg::signatures(const std::vector<unsigned long>& h) {
 	globales.mediane = i;
 
 	// moyenne et écart-type
-	double moy=0,sigma=0;
-	for (i=globales.min;i<=globales.max;i++) {
-		moy += ((double)h[i])*i;
-		sigma += ((double)h[i])*i*i;
+	float moy = 0, sigma = 0;
+	for (i = globales.min; i <= globales.max; i++) {
+		moy += ((float)h[i]) * i;
+		sigma += ((float)h[i]) * i * i;
 	}
-	moy /= (double)this->lireNbPixels();
-	sigma = sqrt(sigma/(double)this->lireNbPixels() - (moy*moy));
+	moy /= (float)this->lireNbPixels();
+	sigma = sqrt(sigma / (float)this->lireNbPixels() - (moy * moy));
 	globales.moyenne = moy;
 	globales.ecartType = sigma;
 
 	return globales;
 }
 
-MOMENTS CImageNdg::signatures() {
-	
-	MOMENTS globales;
+_declspec(dllexport) MOMENTS CImageNdg::signatures() {
+
+	MOMENTS globales = { 0,0,0,0,0 };
+
 	std::vector<unsigned long> hist;
-	hist=this->histogramme();
+	hist = this->histogramme();
 
 	globales = this->signatures(hist);
+
 	return globales;
 }
 
@@ -331,94 +330,101 @@ CImageNdg CImageNdg::operation(const CImageNdg& im, const std::string& methode) 
 return out;
 }
 
-
 // seuillage
-CImageNdg CImageNdg::seuillage(const std::string& methode, int& seuilBas, int& seuilHaut) {
-	
+CImageNdg CImageNdg::seuillage(const std::string methode, int seuilBas, int seuilHaut) {
+
 	if (!this->m_bBinaire) {
-		CImageNdg out(this->lireHauteur(),this->lireLargeur());
-		out.m_sNom     = this->lireNom()+"S";
+		CImageNdg out(this->lireHauteur(), this->lireLargeur());
 		out.choixPalette("binaire"); // palette binaire par défaut
 		out.m_bBinaire = true;
-		seuilBas = 128;
-		seuilHaut = 255;
 
 		// création lut pour optimisation calcul
 		std::vector<int> lut;
 		lut.resize(256);
 
 		// recherche valeur seuil
-		// cas "manuel" -> seuil reste celui passé en paramètre
-
-		if (methode.compare("automatique") == 0) 
+		// cas "manuel" 
+		if (methode.compare("manuel") == 0)
 		{
-			std::vector<unsigned long> hist = this->histogramme();
-			std::vector<unsigned long> histC; // histogramme cumulé
-			histC.resize(256,0);
-			histC[0] = hist[0];
-			for (int i=1;i<(int)hist.size();i++) 
-				histC[i] = histC[i-1]+hist[i];
-
-			MOMENTS globales = this->signatures(hist);
-			int min = globales.min,
-				max = globales.max;
-
-			// f(s)
-			std::vector<double> tab;
-			tab.resize(256,0);
-		
-			double M1,M2;
-		
-			// initialisation
-			M1 = (double)min;
-			double nb=0;
-			M2=0;
-			for (int i=min+1;i<=max;i++) {
-				M2 += (double)hist[i]*i;
-				nb += (double)hist[i];
-			}
-			if (nb > 0)
-				M2 /= nb;
-			tab[min] = fabs(min - (M1 + M2)/2);
-		
-			// parcours
-			for (int i=min+1;i<=max;i++) {
-				M1 = ( (double)histC[i-1]*M1 + hist[i]*i ) / histC[i];
-				M2 = ( (double)(histC[max]-histC[i-1])*M2 - hist[i]*i) / (histC[max]-histC[i]);
-				tab[i] = fabs(i - (M1 + M2)/2);
-			}
-
-			// recherche s
-			seuilBas = min;
-			seuilHaut = 255;
-			for (int i=min+1;i<=max;i++)
-				if (tab[i] < tab[seuilBas])
-					seuilBas = i;
+			out.m_sNom = this->lireNom() + "SeMa";
 		}
+		else
+			if (methode.compare("otsu") == 0)
+			{
+				out.m_sNom = this->lireNom() + "SeAu";
+				// recherche seuil via Otsu
+				std::vector<unsigned long> hist = this->histogramme();
+				std::vector<unsigned long> histC; // histogramme cumulé
+				histC.resize(256, 0);
+				histC[0] = hist[0];
+				for (int i = 1; i < (int)hist.size(); i++)
+					histC[i] = histC[i - 1] + hist[i];
 
-		// fin recherche valeur seuil 
+				MOMENTS globales = this->signatures(hist);
+				int min = globales.min,
+					max = globales.max;
+
+				// f(s)
+				std::vector<double> tab;
+				tab.resize(256, 0);
+
+				double M1, M2, w1;
+
+				// initialisation
+				M1 = min;
+				seuilBas = min;
+				seuilHaut = 255;
+
+				w1 = (double)histC[min] / (double)(this->lireNbPixels());
+				M2 = 0;
+				for (int i = min + 1; i <= max; i++)
+					M2 += (double)hist[i] * i;
+				M2 /= (double)(histC[max] - hist[min]);
+				tab[min] = w1 * (1 - w1) * (M1 - M2) * (M1 - M2);
+
+				for (int i = min + 1; i < max; i++) {
+					M1 = ((double)histC[i - 1] * M1 + (double)hist[i] * i) / histC[i];
+					M2 = ((double)(histC[255] - histC[i - 1]) * M2 - hist[i] * i) / (double)(histC[255] - histC[i]);
+					w1 = (double)histC[i] / (double)(this->lireNbPixels());
+					tab[i] = w1 * (1 - w1) * (M1 - M2) * (M1 - M2);
+					if (tab[i] > tab[seuilBas])
+						seuilBas = i;
+				}
+			}
+			else {
+				if (methode.compare("moyenne") == 0) {
+					out.m_sNom = this->lireNom() + "SeMoy";
+					seuilBas = this->signatures().moyenne;
+					seuilHaut = 255;
+				}
+				if (methode.compare("mediane") == 0) {
+					out.m_sNom = this->lireNom() + "SeMed";
+					seuilBas = this->signatures().mediane;
+					seuilHaut = 255;
+				}
+			}
+
 
 		// génération lut
 		for (int i = 0; i < seuilBas; i++)
-			lut[i] =  0; 
+			lut[i] = 0;
 		for (int i = seuilBas; i <= seuilHaut; i++)
-			lut[i] = 1;
-		for (int i = seuilHaut+1; i <= 255; i++)
+			lut[i] = 255;
+		for (int i = seuilHaut + 1; i <= 255; i++)
 			lut[i] = 0;
 
 		// création image seuillée
 		std::cout << "Seuillage des pixels entre " << seuilBas << " et " << seuilHaut << std::endl;
-		for (int i=0; i < out.lireNbPixels(); i++) 
-			out(i) = lut[this->operator ()(i)]; 
+		for (int i = 0; i < out.lireNbPixels(); i++)
+			out(i) = lut[this->operator ()(i)];
 
 		return out;
-		}
+	}
 	else {
-		std::cout << "Seuillage image binaire impossible" << std::endl;
+		throw std::string("Seuillage image binaire impossible");
 		return (*this);
 	}
 }
-
 // transformation
 
 CImageNdg CImageNdg::transformation(const std::string& methode,int vMinOut, int vMaxOut) {
@@ -700,4 +706,140 @@ CImageNdg CImageNdg::filtrage(const std::string& methode, int Ni, int Nj) {
 	return out;
 }
 
+
+CImageNdg CImageNdg::erosionImageavecSE(CImageNdg& image, ElementStructurant& SE) {
+
+	CImageNdg image_erodee(image.lireHauteur(), image.lireLargeur(), 255);
+
+	for (int i = 0; i < image.lireHauteur(); i++)
+	{
+		for (int j = 0; j < image.lireLargeur(); j++)
+		{
+			image_erodee(i, j) = min_SE(image, SE, i, j);
+		}
+	}
+	return image_erodee;
+}
+
+int CImageNdg::min_SE(CImageNdg& img, ElementStructurant& SE, int& i, int& j)
+{
+	int value = 255;
+	int cmpt_x = 0, cmpt_y = 0;
+
+	for (int y = -SE.hauteur / 2.0; y < SE.hauteur / 2.0; y++)
+	{
+
+		for (int x = -SE.largeur / 2.0; x < SE.largeur / 2.0; x++)
+		{
+			//printf("SE.pixel[%d, %d] = %d", cmpt_y, cmpt_x, SE.pixel[cmpt_y, cmpt_x]);
+			if (((i + y >= 0) && (j + x >= 0))
+				&& ((i + y <= img.lireHauteur() - 1) && (j + x <= img.lireLargeur() - 1)) //in img
+				&& (SE.pixel[cmpt_y, cmpt_x] != 0))
+			{
+				value = min(value, img(i + y, j + x));
+			}
+			cmpt_x++;
+		}
+		cmpt_x = 0;
+		cmpt_y++;
+	}
+	return value;
+}
+
+
+
+CImageNdg CImageNdg::dilatationImageavecSE(CImageNdg& image, ElementStructurant& SE)
+{
+	CImageNdg image_dilatee(image.lireHauteur(), image.lireLargeur(), 255);
+
+	for (int i = 0; i < image.lireHauteur(); i++)
+	{
+		for (int j = 0; j < image.lireLargeur(); j++)
+		{
+			image_dilatee(i, j) = max_SE(image, SE, i, j);
+		}
+	}
+	return image_dilatee;
+}
+
+int CImageNdg::max_SE(CImageNdg& img, ElementStructurant& SE, int& i, int& j)
+{
+	int value = 0;
+	int cmpt_x = 0, cmpt_y = 0;
+
+	for (int y = -SE.hauteur / 2.0; y < SE.hauteur / 2.0; y++)
+	{
+
+		for (int x = -SE.largeur / 2.0; x < SE.largeur / 2.0; x++)
+		{
+			if (((i + y >= 0) && (j + x >= 0))
+				&& ((i + y <= img.lireHauteur() - 1) && (j + x <= img.lireLargeur() - 1)) //in img
+				&& (SE.pixel[cmpt_y][cmpt_x] != 0))
+			{
+				value = max(value, img(i + y, j + x));
+			}
+			cmpt_x++;
+		}
+		cmpt_x = 0;
+		cmpt_y++;
+	}
+	return value;
+}
+
+CImageNdg CImageNdg::whiteTopHatavecSE(CImageNdg& image, ElementStructurant& SE, int n_iteration)
+{
+	CImageNdg whiteTopHat(image.lireHauteur(), image.lireLargeur(), 255);
+	CImageNdg temp_image(image.lireHauteur(), image.lireLargeur(), 255);
+
+	temp_image = erosionImageavecSE(image, SE);
+	for (int i = 0; i < n_iteration - 1; i++)
+	{
+		temp_image = erosionImageavecSE(temp_image, SE);
+	}
+	for (int i = 0; i < n_iteration; i++)
+	{
+		temp_image = dilatationImageavecSE(temp_image, SE);
+	}
+
+	int temp;
+	for (int i = 0; i < image.lireLargeur() * image.lireHauteur(); i++)
+	{
+		temp = image(i) - temp_image(i);
+
+		if (temp < 0)
+		{
+			temp = 0;
+		}
+		if (temp > 255)
+		{
+			temp = 255;
+		}
+
+		whiteTopHat(i) = temp;
+	}
+
+	return whiteTopHat;
+}
+
+float CImageNdg::IOU_score(CImageNdg& traitee, CImageNdg& veritee) {
+	int intersection = 0;
+	int union_area = 0;
+
+	// Parcours de l'image pour compter tous les pixel de l'intersection et de l'union
+	for (int i = 0; i < traitee.lireHauteur(); i++) {
+		for (int j = 0; j < traitee.lireLargeur(); j++) {
+			if (traitee(i, j) != 0 && veritee(i, j) != 0) {
+				intersection++;
+			}
+			if (traitee(i, j) != 0 || veritee(i, j) != 0) {
+				union_area++;
+			}
+		}
+	}
+
+	// Calcul du score IoU (Intersection over Union)
+	if (union_area == 0) return 0;
+	float iou = (float)(intersection) / union_area;
+	return iou;
+}
 

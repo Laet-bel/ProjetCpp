@@ -1,7 +1,8 @@
 // ajouter _declspec(dllexport) devant tout public pour permettre à la dll d'exporter ces méthodes 
 // pour qu'elles puissent être utilisées par d'autres applications ou programmes
-
 #pragma once
+
+#include "ElementStructurant.h"
 
 #ifndef _IMAGE_NDG_
 #define _IMAGE_NDG_
@@ -17,6 +18,7 @@ typedef struct {
 	double	moyenne;
 	double	ecartType;
 } MOMENTS;
+
 
 class CImageNdg {
 
@@ -60,26 +62,6 @@ public:
 
 	// opérateur copie image par imOut = imIn
 	_declspec(dllexport) CImageNdg& operator=(const CImageNdg& im);
-
-	// opérateur copie image par imOut = image - imageArgument
-	_declspec(dllexport) CImageNdg& operator-(const CImageNdg& im) {
-		CImageNdg imOut = CImageNdg(m_iHauteur, m_iLargeur);
-		for (int i = 0; i < m_iHauteur * m_iLargeur; i++) {
-			imOut.m_pucPixel[i] = m_pucPixel[i] - im.m_pucPixel[i];
-			if (imOut.m_pucPixel[i] < 0) imOut.m_pucPixel[i] = 0;
-		}
-		return imOut;
-	}
-
-	// opérateur copie image par imOut = image + imageArgument
-	_declspec(dllexport) CImageNdg& operator+(const CImageNdg& im) {
-		CImageNdg imOut(im);
-		for (int i = 0; i < m_iHauteur * m_iLargeur; i++) {
-			imOut.m_pucPixel[i] = m_pucPixel[i] + im.m_pucPixel[i];
-			if (imOut.m_pucPixel[i] > 255) imOut.m_pucPixel[i] = 255;
-		}
-		return imOut;
-	}
 
 	// get et set 
 
@@ -211,7 +193,7 @@ public:
 	_declspec(dllexport) CImageNdg operation(const CImageNdg& im, const std::string& methode = "et"); // choix  "et" / "ou"
 
 	// seuillage
-	_declspec(dllexport) CImageNdg seuillage(const std::string& methode, int& seuilBas, int& seuilHaut);
+	_declspec(dllexport) CImageNdg seuillage(const std::string methode = "otsu", int seuilBas = 128, int seuilHaut = 255);
 
 	// transformation
 	_declspec(dllexport) CImageNdg transformation(const std::string& methode = "complement", int vMinOut = 0, int vMaxOut = 255); // choix "complement" / "expansion" / "egalisation"
@@ -222,6 +204,13 @@ public:
 
 	// filtrage
 	_declspec(dllexport) CImageNdg filtrage(const std::string& methode = "moyennage", int Ni = 3, int Nj = 3); // choix "moyennage" / "median"
+
+	_declspec(dllexport) int min_SE(CImageNdg& img, ElementStructurant& SE, int& i, int& j);
+	_declspec(dllexport) CImageNdg erosionImageavecSE(CImageNdg& image, ElementStructurant& SE);
+	_declspec(dllexport) int max_SE(CImageNdg& img, ElementStructurant& SE, int& i, int& j);
+	_declspec(dllexport) CImageNdg dilatationImageavecSE(CImageNdg& image, ElementStructurant& SE);
+	_declspec(dllexport) CImageNdg whiteTopHatavecSE(CImageNdg& image, ElementStructurant& SE, int n_iteration);
+	_declspec(dllexport) float IOU_score(CImageNdg& traitee, CImageNdg& veritee);
 
 };
 
