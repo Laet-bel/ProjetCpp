@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             PB_InitialImage = new PictureBox();
             PB_TreatedImage = new PictureBox();
             PB_TreatedImage1 = new PictureBox();
@@ -43,15 +44,16 @@
             B_Lancer = new Button();
             ofd = new OpenFileDialog();
             P_IntervalleImages = new Panel();
+            L_Textà = new Label();
             Tb_FinInterval = new TextBox();
             Tb_DebutInterval = new TextBox();
             L_TextDe = new Label();
             Tb_Timer = new TrackBar();
             Lb_ValeurScore = new Label();
-            panel1 = new Panel();
+            PanelAffichageScore = new Panel();
             label1 = new Label();
             Lb_ValeurScoreMoy = new Label();
-            panel2 = new Panel();
+            PanelAffichageScoreMoy = new Panel();
             B_Quitter = new Button();
             CB_ExportCSV = new CheckBox();
             LB_Timer = new Label();
@@ -64,6 +66,10 @@
             Cb_ImageSc = new CheckBox();
             Cb_DeuxTypes = new CheckBox();
             Cb_ImageIn = new CheckBox();
+            button1 = new Button();
+            timer1 = new System.Windows.Forms.Timer(components);
+            P_Error = new Panel();
+            L_Error = new Label();
             ((System.ComponentModel.ISupportInitialize)PB_InitialImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)PB_TreatedImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)PB_TreatedImage1).BeginInit();
@@ -72,10 +78,11 @@
             ((System.ComponentModel.ISupportInitialize)PB_GroundTruth).BeginInit();
             P_IntervalleImages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Tb_Timer).BeginInit();
-            panel1.SuspendLayout();
-            panel2.SuspendLayout();
+            PanelAffichageScore.SuspendLayout();
+            PanelAffichageScoreMoy.SuspendLayout();
             P_NbImages.SuspendLayout();
             P_TypeImage.SuspendLayout();
+            P_Error.SuspendLayout();
             SuspendLayout();
             // 
             // PB_InitialImage
@@ -208,7 +215,7 @@
             B_Lancer.TabIndex = 15;
             B_Lancer.Text = "Lancer";
             B_Lancer.UseVisualStyleBackColor = true;
-            B_Lancer.Click += B_Lancer_Click;
+            B_Lancer.Click += B_Lancer_Click_1;
             // 
             // ofd
             // 
@@ -216,20 +223,31 @@
             // 
             // P_IntervalleImages
             // 
+            P_IntervalleImages.Controls.Add(L_Textà);
             P_IntervalleImages.Controls.Add(Tb_FinInterval);
             P_IntervalleImages.Controls.Add(Tb_DebutInterval);
             P_IntervalleImages.Controls.Add(L_TextDe);
             P_IntervalleImages.Location = new Point(20, 692);
             P_IntervalleImages.Name = "P_IntervalleImages";
-            P_IntervalleImages.Size = new Size(194, 64);
+            P_IntervalleImages.Size = new Size(206, 64);
             P_IntervalleImages.TabIndex = 17;
+            // 
+            // L_Textà
+            // 
+            L_Textà.AutoSize = true;
+            L_Textà.Location = new Point(95, 20);
+            L_Textà.Name = "L_Textà";
+            L_Textà.Size = new Size(25, 25);
+            L_Textà.TabIndex = 4;
+            L_Textà.Text = "à:";
             // 
             // Tb_FinInterval
             // 
-            Tb_FinInterval.Location = new Point(113, 17);
+            Tb_FinInterval.Location = new Point(135, 17);
             Tb_FinInterval.Name = "Tb_FinInterval";
             Tb_FinInterval.Size = new Size(40, 31);
             Tb_FinInterval.TabIndex = 3;
+            Tb_FinInterval.TextChanged += Tb_FinInterval_TextChanged;
             // 
             // Tb_DebutInterval
             // 
@@ -237,6 +255,7 @@
             Tb_DebutInterval.Name = "Tb_DebutInterval";
             Tb_DebutInterval.Size = new Size(40, 31);
             Tb_DebutInterval.TabIndex = 1;
+            Tb_DebutInterval.TextChanged += Tb_DebutInterval_TextChanged;
             // 
             // L_TextDe
             // 
@@ -251,12 +270,14 @@
             // 
             Tb_Timer.Location = new Point(911, 628);
             Tb_Timer.Maximum = 1000;
+            Tb_Timer.Minimum = 10;
             Tb_Timer.Name = "Tb_Timer";
             Tb_Timer.Size = new Size(112, 69);
             Tb_Timer.TabIndex = 18;
             Tb_Timer.TickFrequency = 100;
             Tb_Timer.TickStyle = TickStyle.Both;
-            Tb_Timer.Scroll += Tb_Timer_Scroll;
+            Tb_Timer.Value = 10;
+            Tb_Timer.Scroll += Tb_Timer_Scroll_1;
             // 
             // Lb_ValeurScore
             // 
@@ -267,14 +288,14 @@
             Lb_ValeurScore.TabIndex = 19;
             Lb_ValeurScore.Text = "%";
             // 
-            // panel1
+            // PanelAffichageScore
             // 
-            panel1.Controls.Add(L_TextScore);
-            panel1.Controls.Add(Lb_ValeurScore);
-            panel1.Location = new Point(425, 493);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(177, 56);
-            panel1.TabIndex = 20;
+            PanelAffichageScore.Controls.Add(L_TextScore);
+            PanelAffichageScore.Controls.Add(Lb_ValeurScore);
+            PanelAffichageScore.Location = new Point(425, 493);
+            PanelAffichageScore.Name = "PanelAffichageScore";
+            PanelAffichageScore.Size = new Size(177, 56);
+            PanelAffichageScore.TabIndex = 20;
             // 
             // label1
             // 
@@ -288,30 +309,33 @@
             // Lb_ValeurScoreMoy
             // 
             Lb_ValeurScoreMoy.AutoSize = true;
-            Lb_ValeurScoreMoy.Location = new Point(106, 15);
+            Lb_ValeurScoreMoy.Location = new Point(109, 15);
             Lb_ValeurScoreMoy.Name = "Lb_ValeurScoreMoy";
             Lb_ValeurScoreMoy.Size = new Size(27, 25);
             Lb_ValeurScoreMoy.TabIndex = 19;
             Lb_ValeurScoreMoy.Text = "%";
             // 
-            // panel2
+            // PanelAffichageScoreMoy
             // 
-            panel2.Controls.Add(label1);
-            panel2.Controls.Add(Lb_ValeurScoreMoy);
-            panel2.Location = new Point(422, 572);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(177, 56);
-            panel2.TabIndex = 21;
+            PanelAffichageScoreMoy.Controls.Add(label1);
+            PanelAffichageScoreMoy.Controls.Add(Lb_ValeurScoreMoy);
+            PanelAffichageScoreMoy.Location = new Point(422, 572);
+            PanelAffichageScoreMoy.Name = "PanelAffichageScoreMoy";
+            PanelAffichageScoreMoy.Size = new Size(177, 56);
+            PanelAffichageScoreMoy.TabIndex = 21;
             // 
             // B_Quitter
             // 
+            B_Quitter.BackColor = SystemColors.ButtonHighlight;
+            B_Quitter.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            B_Quitter.ForeColor = Color.Firebrick;
             B_Quitter.Location = new Point(911, 521);
             B_Quitter.Name = "B_Quitter";
             B_Quitter.Size = new Size(112, 34);
             B_Quitter.TabIndex = 22;
             B_Quitter.Text = "Quitter";
-            B_Quitter.UseVisualStyleBackColor = true;
-            B_Quitter.Click += B_Quitter_Click;
+            B_Quitter.UseVisualStyleBackColor = false;
+            B_Quitter.Click += B_Quitter_Click_1;
             // 
             // CB_ExportCSV
             // 
@@ -340,7 +364,6 @@
             LB_ValeurTimer.Size = new Size(104, 25);
             LB_ValeurTimer.TabIndex = 25;
             LB_ValeurTimer.Text = "ValeurTimer";
-            LB_ValeurTimer.Click += LB_ValeurTimer_Click;
             // 
             // P_NbImages
             // 
@@ -350,7 +373,7 @@
             P_NbImages.Controls.Add(Cb_ImageSeule);
             P_NbImages.Location = new Point(20, 597);
             P_NbImages.Name = "P_NbImages";
-            P_NbImages.Size = new Size(194, 89);
+            P_NbImages.Size = new Size(206, 89);
             P_NbImages.TabIndex = 26;
             // 
             // Cb_ToutesImages
@@ -362,6 +385,9 @@
             Cb_ToutesImages.TabIndex = 2;
             Cb_ToutesImages.Text = "Totalité des images";
             Cb_ToutesImages.UseVisualStyleBackColor = true;
+
+            Cb_ToutesImages.CheckedChanged += Cb_ToutesImages_CheckedChanged;
+
             // 
             // Cb_Intervalle
             // 
@@ -372,6 +398,7 @@
             Cb_Intervalle.TabIndex = 1;
             Cb_Intervalle.Text = "Intervalle";
             Cb_Intervalle.UseVisualStyleBackColor = true;
+            Cb_Intervalle.CheckedChanged += Cb_Intervalle_CheckedChanged;
             // 
             // Cb_ImageSeule
             // 
@@ -384,6 +411,9 @@
             Cb_ImageSeule.TabIndex = 0;
             Cb_ImageSeule.Text = "Image Seule";
             Cb_ImageSeule.UseVisualStyleBackColor = true;
+
+            Cb_ImageSeule.CheckedChanged += Cb_ImageSeule_CheckedChanged;
+
             // 
             // P_TypeImage
             // 
@@ -393,7 +423,7 @@
             P_TypeImage.Controls.Add(Cb_ImageIn);
             P_TypeImage.Location = new Point(20, 502);
             P_TypeImage.Name = "P_TypeImage";
-            P_TypeImage.Size = new Size(194, 89);
+            P_TypeImage.Size = new Size(206, 89);
             P_TypeImage.TabIndex = 27;
             // 
             // Cb_ImageSc
@@ -405,6 +435,7 @@
             Cb_ImageSc.TabIndex = 2;
             Cb_ImageSc.Text = "Image Sc";
             Cb_ImageSc.UseVisualStyleBackColor = true;
+            Cb_ImageSc.CheckedChanged += Cb_ImageSc_CheckedChanged;
             // 
             // Cb_DeuxTypes
             // 
@@ -415,6 +446,7 @@
             Cb_DeuxTypes.TabIndex = 1;
             Cb_DeuxTypes.Text = "Deux types";
             Cb_DeuxTypes.UseVisualStyleBackColor = true;
+            Cb_DeuxTypes.CheckedChanged += Cb_DeuxTypes_CheckedChanged;
             // 
             // Cb_ImageIn
             // 
@@ -427,20 +459,57 @@
             Cb_ImageIn.TabIndex = 0;
             Cb_ImageIn.Text = "Image In";
             Cb_ImageIn.UseVisualStyleBackColor = true;
+            Cb_ImageIn.CheckedChanged += Cb_ImageIn_CheckedChanged;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(681, 701);
+            button1.Name = "button1";
+            button1.Size = new Size(112, 34);
+            button1.TabIndex = 28;
+            button1.Text = "Test";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += BT_Test;
+            // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
+            // 
+            // P_Error
+            // 
+            P_Error.Controls.Add(L_Error);
+            P_Error.Location = new Point(20, 762);
+            P_Error.Name = "P_Error";
+            P_Error.Size = new Size(1718, 47);
+            P_Error.TabIndex = 30;
+            // 
+            // L_Error
+            // 
+            L_Error.AutoSize = true;
+            L_Error.Dock = DockStyle.Fill;
+            L_Error.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            L_Error.ForeColor = Color.Firebrick;
+            L_Error.Location = new Point(0, 0);
+            L_Error.Name = "L_Error";
+            L_Error.Size = new Size(0, 28);
+            L_Error.TabIndex = 0;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1751, 768);
+            ClientSize = new Size(1751, 815);
+            ControlBox = false;
+            Controls.Add(P_Error);
+            Controls.Add(button1);
             Controls.Add(P_TypeImage);
             Controls.Add(P_NbImages);
             Controls.Add(LB_ValeurTimer);
             Controls.Add(LB_Timer);
             Controls.Add(CB_ExportCSV);
             Controls.Add(B_Quitter);
-            Controls.Add(panel2);
-            Controls.Add(panel1);
+            Controls.Add(PanelAffichageScoreMoy);
+            Controls.Add(PanelAffichageScore);
             Controls.Add(Tb_Timer);
             Controls.Add(P_IntervalleImages);
             Controls.Add(B_Lancer);
@@ -457,7 +526,8 @@
             Controls.Add(PB_InitialImage);
             Margin = new Padding(4);
             Name = "Form1";
-            Text = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Projet C++";
             ((System.ComponentModel.ISupportInitialize)PB_InitialImage).EndInit();
             ((System.ComponentModel.ISupportInitialize)PB_TreatedImage).EndInit();
             ((System.ComponentModel.ISupportInitialize)PB_TreatedImage1).EndInit();
@@ -467,14 +537,16 @@
             P_IntervalleImages.ResumeLayout(false);
             P_IntervalleImages.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)Tb_Timer).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            PanelAffichageScore.ResumeLayout(false);
+            PanelAffichageScore.PerformLayout();
+            PanelAffichageScoreMoy.ResumeLayout(false);
+            PanelAffichageScoreMoy.PerformLayout();
             P_NbImages.ResumeLayout(false);
             P_NbImages.PerformLayout();
             P_TypeImage.ResumeLayout(false);
             P_TypeImage.PerformLayout();
+            P_Error.ResumeLayout(false);
+            P_Error.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -502,10 +574,10 @@
         private Label L_TextDe;
         private TrackBar Tb_Timer;
         private Label Lb_ValeurScore;
-        private Panel panel1;
+        private Panel PanelAffichageScore;
         private Label label1;
         private Label Lb_ValeurScoreMoy;
-        private Panel panel2;
+        private Panel PanelAffichageScoreMoy;
         private Button B_Quitter;
         private CheckBox CB_ExportCSV;
         private Label LB_Timer;
@@ -518,5 +590,10 @@
         private CheckBox Cb_ImageSc;
         private CheckBox Cb_DeuxTypes;
         private CheckBox Cb_ImageIn;
+        private Button button1;
+        private System.Windows.Forms.Timer timer1;
+        private Label L_Textà;
+        private Panel P_Error;
+        private Label L_Error;
     }
 }
