@@ -19,13 +19,14 @@ namespace ProjetC__
             MiseAJourLabelIntervalle();
         }
 
+
         private float ValeurScore = 0;
         private float ValeurScoreMoyen = 0;
         private int ValeurIntervalleMax = 300;
         private int ValeurIntervalleMin = 1;
 
         //TODO LABE lancer tick du timer et extraire le tout dans une fonction traitement
-        private void B_Lancer_Click_1(object sender, EventArgs e)
+        private void B_Lancer_Click(object sender, EventArgs e)
         {
 
             if (ofd.ShowDialog() == DialogResult.OK)
@@ -34,22 +35,30 @@ namespace ProjetC__
                 {
                     Bitmap initialImageBmp, TreatedBmp, bmpGroundTruth;
                     Image img = Image.FromFile(ofd.FileName);
-                    bool imageIn = false;
-                    if (Cb_ImageIn.Checked) imageIn = true; // TODO LABE gérer les in / sc 
-                    string pathGroundTruth = Path.Combine("C:\\Users\\MD272295\\Documents\\Visual Studio 2022\\ProjetCpp\\Image\\Ground truth - png\\", Path.GetFileNameWithoutExtension(ofd.FileName) + ".png");
+
+                    bool imageIn = false; // TODO LABE mettre en variable globale de MDD
+                    if (Cb_ImageIn.Checked) imageIn = true; // TODO LABE gÃ©rer les in / sc 
+                    string pathGroundTruth = Path.Combine("C:\\Users\\laetb\\OneDrive\\Bureau\\cour\\IPSI\\IPSI2\\ReelProjetCpp\\ProjetCpp\\Image\\Ground truth - png\\", Path.GetFileNameWithoutExtension(ofd.FileName) + ".png");
+
                     Image imgGroundTruth = Image.FromFile(pathGroundTruth);
                     initialImageBmp = new Bitmap(img);
                     TreatedBmp = new Bitmap(img);
                     bmpGroundTruth = new Bitmap(imgGroundTruth);
                     ClImage processor = new ClImage();
 
-                    //TODOO LABE mettre à la fin fonction timer Tick
+
+                    //TODOO LABE mettre Ã  la fin fonction timer Tick
                     // ajout pour export csv
 
                     // Choisissez le chemin pour sauvegarder le fichier CSV
                     //string csvPath =/* Path.GetFolderPath(/*"C: \\Users\\MD272295\\Documents\\Visual Studio 2022\\ProjetCpp"),*/ "Score.csv";
                     //ExportCSV(ValeurScore, ValeurScoreMoyen, csvPath);
                     //CB_ExportCSV.Checked = true;
+
+
+                    // TODO LABE prende variable globale de MDD
+                    moyenneScore = 0;
+                    nbImagesTraitees = 0;
 
                     unsafe
                     {
@@ -58,10 +67,18 @@ namespace ProjetC__
                             var bmpDataImageInitial = TreatedBmp.LockBits(new Rectangle(0, 0, TreatedBmp.Width, TreatedBmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
                             var bmpDataImageGroundTruth = bmpGroundTruth.LockBits(new Rectangle(0, 0, bmpGroundTruth.Width, bmpGroundTruth.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
                             //var bmpDataGt = bmpGt.LockBits(new Rectangle(0, 0, bmpGt.Width, bmpGt.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-
-                            processor.objetLibDataImgPtr(1, bmpDataImageInitial.Scan0, bmpDataImageInitial.Stride, bmpDataImageGroundTruth.Scan0, bmpDataImageGroundTruth.Stride, TreatedBmp.Height, TreatedBmp.Width, imageIn);
+                            string type = "V4";
+                            int largeur = 3;
+                            int hauteur = 3;
+                            processor.objetLibDataImgPtr(1, bmpDataImageInitial.Scan0, bmpDataImageInitial.Stride, bmpDataImageGroundTruth.Scan0, bmpDataImageGroundTruth.Stride, TreatedBmp.Height, TreatedBmp.Width, imageIn, type, largeur, hauteur);
                             TreatedBmp.UnlockBits(bmpDataImageInitial);
                             bmpGroundTruth.UnlockBits(bmpDataImageGroundTruth);
+
+                            double score = processor.objetLibValeurChamp(0); // TODO LABE prende variable globale
+                            Lb_ValeurScore.Text = (score * 100).ToString("F2") + "%";
+                            nbImagesTraitees++;
+                            moyenneScore += (float)score;
+
                         }
                         catch (Exception ex)
                         {
@@ -74,6 +91,11 @@ namespace ProjetC__
                     PB_TreatedImage.Image = TreatedBmp;
                     PB_GroundTruth.Image = bmpGroundTruth;
 
+                    moyenneScore /= nbImagesTraitees; //TODO LABE remettre cette ligne
+                    Lb_ValeurScoreMoy.Text = (moyenneScore * 100).ToString("F2") + "%";
+
+                    //PB_TreatedImage.Hide();
+                    //valeurSeuilAuto.Hide();
                 }
                 catch (Exception ex)
                 {
@@ -86,23 +108,23 @@ namespace ProjetC__
         {
             using (StreamWriter file = new StreamWriter("filepath"))
             {
-                // Entêtes des colonnes
-                file.WriteLine("Type d'image, Numéro d'image, Score");
+                // EntÃªtes des colonnes
+                file.WriteLine("Type d'image, NumÃ©ro d'image, Score");
 
                 for (int i = 0; i < ValeurScore.Count; i++)
                 {
                     string imageType = Cb_ImageIn.Checked ? "In" : "Sc";
                     float score = ValeurScore[i];
 
-                    // Écrire chaque ligne pour l'image
+                    // Ã‰crire chaque ligne pour l'image
                     file.WriteLine($"{imageType}, {i + 1}, {score}");
                 }
 
-                // Écrire la moyenne en dernière ligne
+                // Ã‰crire la moyenne en derniÃ¨re ligne
                 file.WriteLine($"Moyenne totale du score,,{ValeurScoreMoy}");
             }
 
-            MessageBox.Show("Export CSV réussi !");
+            MessageBox.Show("Export CSV rÃ©ussi !");
         }
 
         private void B_Quitter_Click_1(object sender, EventArgs e)

@@ -385,7 +385,9 @@
             Cb_ToutesImages.TabIndex = 2;
             Cb_ToutesImages.Text = "Totalité des images";
             Cb_ToutesImages.UseVisualStyleBackColor = true;
+
             Cb_ToutesImages.CheckedChanged += Cb_ToutesImages_CheckedChanged;
+
             // 
             // Cb_Intervalle
             // 
@@ -409,7 +411,9 @@
             Cb_ImageSeule.TabIndex = 0;
             Cb_ImageSeule.Text = "Image Seule";
             Cb_ImageSeule.UseVisualStyleBackColor = true;
+
             Cb_ImageSeule.CheckedChanged += Cb_ImageSeule_CheckedChanged;
+
             // 
             // P_TypeImage
             // 
