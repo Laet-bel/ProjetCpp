@@ -89,9 +89,9 @@ namespace ProjetC__
 
         void ColorePanel(System.Windows.Forms.Panel panel, double score)
         {
-            if (score >= 75)
+            if (score >= 50)
                 panel.BackColor = Color.Green;
-            else if (score >= 50)
+            else if (score >= 40)
                 panel.BackColor = Color.Orange;
             else
                 panel.BackColor = Color.Red;
