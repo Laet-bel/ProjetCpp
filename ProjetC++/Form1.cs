@@ -27,18 +27,23 @@ namespace ProjetC__
         private int ValeurIntervalleMax = 300;
         private int ValeurIntervalleMin = 1;
         private int indiceImage = 0;
-        private bool deuxTypes = false;
-        Bitmap initialImageBmp;
-        Bitmap TreatedBmp;
-        Bitmap GroundTruthBmp;
+        private Bitmap initialImageBmp;
+        private Bitmap TreatedBmp;
+        private Bitmap GroundTruthBmp;
+
+        private bool firstDone = false;
+        private bool done = false;
+
+        private List<float> ValeurScores = new List<float>();
 
 
         //TODO LABE lancer tick du timer et extraire le tout dans une fonction traitement
         private void B_Lancer_Click(object sender, EventArgs e)
         {
-
             ValeurScoreMoyen = 0;
             indiceImage = ValeurIntervalleMin;
+            firstDone = false;
+            done = false;
             timer1.Start();
         }
 
@@ -48,30 +53,36 @@ namespace ProjetC__
         }
 
         //TODO LABE utiliser des variables globales
-        private void ExportCSV(List<float> ValeurScore, float ValeurScoreMoy, string filepath)
+        private void ExportCSV(string filepath)
         {
-            using (StreamWriter file = new StreamWriter("filepath"))
-
+            try
             {
-                // Ent�tes des colonnes
-                file.WriteLine("Type d'image, Num�ro d'image, Score");
+                using (StreamWriter file = new StreamWriter(filepath))
 
-                for (int i = 0; i < ValeurScore.Count; i++)
                 {
+                    // Ent�tes des colonnes
+                    file.WriteLine("Type d'image, Numéro d'image, Score");
 
-                    string imageType = Cb_ImageIn.Checked ? "In" : "Sc";
-                    float score = ValeurScore[i];
+                    for (int i = 0; i < ValeurScores.Count; i++)
+                    {
 
-                    // �crire chaque ligne pour l'image
-                    file.WriteLine($"{imageType}, {i + 1}, {score}");
+                        string imageType = Cb_ImageIn.Checked ? "In" : "Sc";
+                        float score = ValeurScores[i];
+
+                        // �crire chaque ligne pour l'image
+                        file.WriteLine($"{imageType}, {i + 1}, {score}");
+                    }
+
+
+                    // �crire la moyenne en derni�re ligne
+                    file.WriteLine($"Moyenne totale du score,,{ValeurScoreMoyen}");
+                    Lb_Error.Text = "Export CSV réussi !";
                 }
-
-
-                // �crire la moyenne en derni�re ligne
-                file.WriteLine($"Moyenne totale du score,,{ValeurScoreMoy}");
             }
-
-            Lb_Error.Text = "Export CSV r�ussi !";
+            catch (Exception ex)
+            {
+                Lb_Error.Text = ex.Message;
+            }            
         }
 
         void AfficheScore(System.Windows.Forms.Label label, System.Windows.Forms.Panel panel, double score)
@@ -120,6 +131,13 @@ namespace ProjetC__
                 string type = "V4";
                 int largeur = 3, hauteur = 3;
 
+                bool boolIn = true;
+                // TODO LABE corriger
+                //if (Cb_ImageIn.Checked) boolIn = true;
+                //if (Cb_ImageSc.Checked) boolIn = false;
+                //if (Cb_DeuxTypes.Checked && firstDone) boolIn = true;
+                //else boolIn = false;
+
                 unsafe
                 {
                     try
@@ -127,7 +145,8 @@ namespace ProjetC__
                         var bmpDataImageInitial = TreatedBmp.LockBits(new Rectangle(0, 0, TreatedBmp.Width, TreatedBmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
                         var bmpDataImageGroundTruth = GroundTruthBmp.LockBits(new Rectangle(0, 0, GroundTruthBmp.Width, GroundTruthBmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
-                        processor.objetLibDataImgPtr(1, bmpDataImageInitial.Scan0, bmpDataImageInitial.Stride, bmpDataImageGroundTruth.Scan0, bmpDataImageGroundTruth.Stride, TreatedBmp.Height, TreatedBmp.Width, Cb_ImageIn.Checked, type, largeur, hauteur);
+                        processor.objetLibDataImgPtr(1, bmpDataImageInitial.Scan0, bmpDataImageInitial.Stride, bmpDataImageGroundTruth.Scan0, bmpDataImageGroundTruth.Stride, TreatedBmp.Height, TreatedBmp.Width, boolIn, type, largeur, hauteur);
+                        
                         TreatedBmp.UnlockBits(bmpDataImageInitial);
                         GroundTruthBmp.UnlockBits(bmpDataImageGroundTruth);
 
@@ -151,7 +170,7 @@ namespace ProjetC__
 
         private void MajImages()
         {
-            // D�calage des images trait�es
+            // Décalage des images traitées
             if (Pb_TreatedImage2.Image != null)
             {
                 Pb_TreatedImage3.Image = Pb_TreatedImage2.Image;
@@ -165,7 +184,7 @@ namespace ProjetC__
                 Pb_TreatedImage1.Image = Pb_TreatedImage.Image;
             }
 
-            // Mise � jour des images actuelles
+            // Mise à jour des images actuelles
             Pb_InitialImage.Image = initialImageBmp;
             Pb_TreatedImage.Image = TreatedBmp;
             Pb_GroundTruth.Image = GroundTruthBmp;
@@ -175,41 +194,43 @@ namespace ProjetC__
         private void Tb_Timer_ValueChanged(object sender, EventArgs e)
         {
             timer1.Interval = Tb_Timer.Value;
-            Lb_ValeurTimer.Text = Tb_Timer.Value.ToString();
+            Lb_ValeurTimer.Text = Tb_Timer.Value.ToString() + " ms";
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            indiceImage++;
-            bool firstDone = false;
-            bool done = false;
             if (indiceImage > ValeurIntervalleMax)
             {
                 // TODO LABE faire correctement pour g�rer les deux types d'images
-                if (firstDone && Cb_ToutesImages.Checked) done = true;
-                else done = true;
+                if (Cb_ImageIn.Checked || Cb_ImageSc.Checked) done = true;
+                if (firstDone && Cb_DeuxTypes.Checked) done = true;
                 firstDone = true;
-                if(Cb_ToutesImages.Checked) indiceImage = ValeurIntervalleMin;
-                if(done) timer1.Stop();
-                // ExportCSV(ValeurScore, ValeurScoreMoyen, "C:\\Users\\laetb\\OneDrive\\Bureau\\cour\\IPSI\\IPSI2\\ProjetCpp\\Image\\Resultat.csv");
+                if (Cb_DeuxTypes.Checked && !done) indiceImage = ValeurIntervalleMin;
+                if (done)
+                {
+                    timer1.Stop();
+                    if(Cb_ExportCSV.Checked) ExportCSV("C:\\Users\\laetb\\OneDrive\\Bureau\\cour\\IPSI\\IPSI2\\ProjetCpp\\Image\\Resultat.csv");
+                }
             }
+            if (!done)
+            {
+                // TODO LABE faire correctement 
+                string solutionPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()))));
+                string typeImage;
+                if (!Cb_DeuxTypes.Checked) typeImage = Cb_ImageIn.Checked ? "In" : "Sc";
+                else typeImage = firstDone ? "Sc" : "In";
 
-            // TODO LABE faire correctement 
-            string solutionPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()))));
-            string typeImage;
-            if (!Cb_DeuxTypes.Checked) typeImage = Cb_ImageIn.Checked ? "In" : "Sc";
-            else typeImage = firstDone ? "Sc" : "In";
+                string InitialPath = Path.Combine(solutionPath, "Image", "Source Images - bmp", typeImage + "_" + indiceImage + ".bmp");
+                string GroundTruthPath = Path.Combine(solutionPath, "Image", "Ground truth - png", typeImage + "_" + indiceImage + ".png");
+                initialImageBmp = new Bitmap(InitialPath);
+                TreatedBmp = new Bitmap(InitialPath);
+                GroundTruthBmp = new Bitmap(GroundTruthPath);
 
-            string InitialPath = Path.Combine(solutionPath, "Image", "Source Images - bmp", typeImage + "_" + indiceImage + ".bmp");
-            string GroundTruthPath = Path.Combine(solutionPath, "Image", "Ground truth - png", typeImage + "_" + indiceImage + ".png");
-            initialImageBmp = new Bitmap(InitialPath);
-            TreatedBmp = new Bitmap(InitialPath);
-            //string path = "C:\\Users\\laetb\\OneDrive\\Bureau\\cour\\IPSI\\IPSI2\\ProjetCpp\\Image\\Source Images - bmp\\In_"+(indiceImage + 1) + ".bmp";
-            //string pathGroundTruth = "C:\\Users\\laetb\\OneDrive\\Bureau\\cour\\IPSI\\IPSI2\\ProjetCpp\\Image\\Ground truth - png\\In_" +(indiceImage + 1) + ".png";
-            GroundTruthBmp = new Bitmap(GroundTruthPath);
-            Traitement();
-            MajImages();
-            AfficheScore(Lb_ValeurScoreMoy, P_AffichageScoreMoy, ValeurScoreMoyen / indiceImage);
+                Traitement();
+                MajImages();
+                AfficheScore(Lb_ValeurScoreMoy, P_AffichageScoreMoy, ValeurScoreMoyen / indiceImage); // TODO LABE faire pout 2 images 
+                indiceImage++;
+            }
         }
 
         private void Tb_DebutInterval_TextChanged(object sender, EventArgs e)
@@ -283,7 +304,7 @@ namespace ProjetC__
             if (Cb_ToutesImages != checkBox) Cb_ToutesImages.Checked = false;
             if (Cb_Intervalle != checkBox) Cb_Intervalle.Checked = false;
             if (Cb_ToutesImages.Checked != true && Cb_ImageSeule.Checked != true && Cb_Intervalle.Checked != true) Cb_ImageSeule.Checked = true;
-            
+
             MiseAJourIntervalle();
         }
         private void Cb_ImageIn_CheckedChanged(object sender, EventArgs e)
@@ -307,8 +328,6 @@ namespace ProjetC__
             if (Cb_ImageSc != checkBox) Cb_ImageSc.Checked = false;
             if (Cb_DeuxTypes != checkBox) Cb_DeuxTypes.Checked = false;
             if (Cb_ImageIn.Checked != true && Cb_ImageSc.Checked != true && Cb_DeuxTypes.Checked != true) Cb_ImageIn.Checked = true;
-
-            deuxTypes = Cb_DeuxTypes.Checked;
         }
     }
 }
