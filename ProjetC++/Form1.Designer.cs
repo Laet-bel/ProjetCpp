@@ -229,7 +229,7 @@
             B_Lancer.TabIndex = 15;
             B_Lancer.Text = "Lancer";
             B_Lancer.UseVisualStyleBackColor = true;
-            B_Lancer.Click += B_Lancer_Click_1;
+            B_Lancer.Click += B_Lancer_Click;
             // 
             // ofd
             // 
