@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+
             Pb_InitialImage = new PictureBox();
             Pb_TreatedImage = new PictureBox();
             Pb_TreatedImage1 = new PictureBox();
             Pb_TreatedImage2 = new PictureBox();
             Pb_TreatedImage3 = new PictureBox();
             Pb_GroundTruth = new PictureBox();
+
             Lb_InitialImage = new Label();
             Lb_GroundTruth = new Label();
             Lb_TreatedImage = new Label();
@@ -44,16 +46,20 @@
             B_Lancer = new Button();
             ofd = new OpenFileDialog();
             P_IntervalleImages = new Panel();
+
             Lb_TextA = new Label();
+
             Tb_FinInterval = new TextBox();
             Tb_DebutInterval = new TextBox();
             Lb_TextDe = new Label();
             Tb_Timer = new TrackBar();
             Lb_ValeurScore = new Label();
+
             P_AffichageScore = new Panel();
             Lb_ScoreMoyenne = new Label();
             Lb_ValeurScoreMoy = new Label();
             P_AffichageScoreMoy = new Panel();
+
             B_Quitter = new Button();
             Cb_ExportCSV = new CheckBox();
             Lb_TextTimer = new Label();
@@ -66,6 +72,7 @@
             Cb_ImageSc = new CheckBox();
             Cb_DeuxTypes = new CheckBox();
             Cb_ImageIn = new CheckBox();
+
             B_Test = new Button();
             timer1 = new System.Windows.Forms.Timer(components);
             P_Error = new Panel();
@@ -87,6 +94,7 @@
             P_TypeImage.SuspendLayout();
             P_Error.SuspendLayout();
             P_Timer.SuspendLayout();
+
             SuspendLayout();
             // 
             // Pb_InitialImage
@@ -221,7 +229,7 @@
             B_Lancer.TabIndex = 15;
             B_Lancer.Text = "Lancer";
             B_Lancer.UseVisualStyleBackColor = true;
-            B_Lancer.Click += B_Lancer_Click;
+            B_Lancer.Click += B_Lancer_Click_1;
             // 
             // ofd
             // 
@@ -229,7 +237,9 @@
             // 
             // P_IntervalleImages
             // 
+
             P_IntervalleImages.Controls.Add(Lb_TextA);
+
             P_IntervalleImages.Controls.Add(Tb_FinInterval);
             P_IntervalleImages.Controls.Add(Tb_DebutInterval);
             P_IntervalleImages.Controls.Add(Lb_TextDe);
@@ -238,6 +248,7 @@
             P_IntervalleImages.Size = new Size(206, 64);
             P_IntervalleImages.TabIndex = 17;
             // 
+
             // Lb_TextA
             // 
             Lb_TextA.AutoSize = true;
@@ -246,6 +257,7 @@
             Lb_TextA.Size = new Size(30, 25);
             Lb_TextA.TabIndex = 4;
             Lb_TextA.Text = "à :";
+
             // 
             // Tb_FinInterval
             // 
@@ -274,16 +286,20 @@
             // 
             // Tb_Timer
             // 
+
             Tb_Timer.Location = new Point(22, 40);
             Tb_Timer.Maximum = 1500;
             Tb_Timer.Minimum = 100;
+
             Tb_Timer.Name = "Tb_Timer";
             Tb_Timer.Size = new Size(112, 69);
             Tb_Timer.TabIndex = 18;
             Tb_Timer.TickFrequency = 100;
             Tb_Timer.TickStyle = TickStyle.Both;
+
             Tb_Timer.Value = 500;
             Tb_Timer.ValueChanged += Tb_Timer_ValueChanged;
+
             // 
             // Lb_ValeurScore
             // 
@@ -294,6 +310,7 @@
             Lb_ValeurScore.TabIndex = 19;
             Lb_ValeurScore.Text = "%";
             // 
+
             // P_AffichageScore
             // 
             P_AffichageScore.Controls.Add(Lb_TextScore);
@@ -302,6 +319,7 @@
             P_AffichageScore.Name = "P_AffichageScore";
             P_AffichageScore.Size = new Size(253, 56);
             P_AffichageScore.TabIndex = 20;
+
             // 
             // Lb_ScoreMoyenne
             // 
@@ -315,12 +333,15 @@
             // Lb_ValeurScoreMoy
             // 
             Lb_ValeurScoreMoy.AutoSize = true;
+
             Lb_ValeurScoreMoy.Location = new Point(212, 15);
+
             Lb_ValeurScoreMoy.Name = "Lb_ValeurScoreMoy";
             Lb_ValeurScoreMoy.Size = new Size(27, 25);
             Lb_ValeurScoreMoy.TabIndex = 19;
             Lb_ValeurScoreMoy.Text = "%";
             // 
+
             // P_AffichageScoreMoy
             // 
             P_AffichageScoreMoy.Controls.Add(Lb_ScoreMoyenne);
@@ -330,19 +351,24 @@
             P_AffichageScoreMoy.Name = "P_AffichageScoreMoy";
             P_AffichageScoreMoy.Size = new Size(253, 56);
             P_AffichageScoreMoy.TabIndex = 21;
+
             // 
             // B_Quitter
             // 
             B_Quitter.BackColor = SystemColors.ButtonHighlight;
             B_Quitter.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             B_Quitter.ForeColor = Color.Firebrick;
+
             B_Quitter.Location = new Point(1377, 15);
+
             B_Quitter.Name = "B_Quitter";
             B_Quitter.Size = new Size(112, 34);
             B_Quitter.TabIndex = 22;
             B_Quitter.Text = "Quitter";
             B_Quitter.UseVisualStyleBackColor = false;
+
             B_Quitter.Click += B_Quitter_Click;
+
             // 
             // Cb_ExportCSV
             // 
@@ -365,11 +391,13 @@
             // 
             // Lb_ValeurTimer
             // 
+
             Lb_ValeurTimer.AutoSize = true;
             Lb_ValeurTimer.Location = new Point(65, 109);
             Lb_ValeurTimer.Name = "Lb_ValeurTimer";
             Lb_ValeurTimer.Size = new Size(0, 25);
             Lb_ValeurTimer.TabIndex = 25;
+
             // 
             // P_NbImages
             // 
@@ -391,7 +419,9 @@
             Cb_ToutesImages.TabIndex = 2;
             Cb_ToutesImages.Text = "Totalité des images";
             Cb_ToutesImages.UseVisualStyleBackColor = true;
+
             Cb_ToutesImages.CheckedChanged += Cb_ToutesImages_CheckedChanged;
+
             // 
             // Cb_Intervalle
             // 
@@ -415,7 +445,9 @@
             Cb_ImageSeule.TabIndex = 0;
             Cb_ImageSeule.Text = "Image Seule";
             Cb_ImageSeule.UseVisualStyleBackColor = true;
+
             Cb_ImageSeule.CheckedChanged += Cb_ImageSeule_CheckedChanged;
+
             // 
             // P_TypeImage
             // 
@@ -463,6 +495,7 @@
             Cb_ImageIn.UseVisualStyleBackColor = true;
             Cb_ImageIn.CheckedChanged += Cb_ImageIn_CheckedChanged;
             // 
+
             // B_Test
             // 
             B_Test.Location = new Point(778, 642);
@@ -472,6 +505,7 @@
             B_Test.Text = "Test";
             B_Test.UseVisualStyleBackColor = true;
             B_Test.Click += BT_Test;
+
             // 
             // timer1
             // 
@@ -479,6 +513,7 @@
             // 
             // P_Error
             // 
+
             P_Error.Controls.Add(Lb_Error);
             P_Error.Location = new Point(19, 715);
             P_Error.Name = "P_Error";
@@ -527,11 +562,13 @@
             B_Areter.TabIndex = 33;
             B_Areter.Text = "Arrêter";
             B_Areter.UseVisualStyleBackColor = true;
+
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+
             ClientSize = new Size(1532, 772);
             ControlBox = false;
             Controls.Add(B_Areter);
@@ -539,12 +576,15 @@
             Controls.Add(P_Timer);
             Controls.Add(P_Error);
             Controls.Add(B_Test);
+
             Controls.Add(P_TypeImage);
             Controls.Add(P_NbImages);
             Controls.Add(Cb_ExportCSV);
             Controls.Add(B_Quitter);
+
             Controls.Add(P_AffichageScoreMoy);
             Controls.Add(P_AffichageScore);
+
             Controls.Add(P_IntervalleImages);
             Controls.Add(B_Lancer);
             Controls.Add(Lb_Options);
@@ -561,6 +601,7 @@
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Projet C++";
+
             ((System.ComponentModel.ISupportInitialize)Pb_InitialImage).EndInit();
             ((System.ComponentModel.ISupportInitialize)Pb_TreatedImage).EndInit();
             ((System.ComponentModel.ISupportInitialize)Pb_TreatedImage1).EndInit();
@@ -574,14 +615,17 @@
             P_AffichageScore.PerformLayout();
             P_AffichageScoreMoy.ResumeLayout(false);
             P_AffichageScoreMoy.PerformLayout();
+
             P_NbImages.ResumeLayout(false);
             P_NbImages.PerformLayout();
             P_TypeImage.ResumeLayout(false);
             P_TypeImage.PerformLayout();
             P_Error.ResumeLayout(false);
             P_Error.PerformLayout();
+
             P_Timer.ResumeLayout(false);
             P_Timer.PerformLayout();
+
             ResumeLayout(false);
             PerformLayout();
         }
@@ -609,10 +653,12 @@
         private Label Lb_TextDe;
         private TrackBar Tb_Timer;
         private Label Lb_ValeurScore;
+
         private Panel P_AffichageScore;
         private Label Lb_ScoreMoyenne;
         private Label Lb_ValeurScoreMoy;
         private Panel P_AffichageScoreMoy;
+
         private Button B_Quitter;
         private CheckBox Cb_ExportCSV;
         private Label Lb_TextTimer;
@@ -625,6 +671,7 @@
         private CheckBox Cb_ImageSc;
         private CheckBox Cb_DeuxTypes;
         private CheckBox Cb_ImageIn;
+
         private Button B_Test;
         private System.Windows.Forms.Timer timer1;
         private Label Lb_TextA;
@@ -633,5 +680,6 @@
         private Panel P_Timer;
         private Label L_TextHistorique;
         private Button B_Areter;
+
     }
 }

@@ -18,6 +18,7 @@ namespace ProjetC__
         {
             InitializeComponent();
             MiseAJourLabelIntervalle();
+
             Lb_ValeurTimer.Text = Tb_Timer.Value.ToString() + " ms";
         }
 
@@ -31,8 +32,11 @@ namespace ProjetC__
         Bitmap TreatedBmp;
         Bitmap GroundTruthBmp;
 
+
+        //TODO LABE lancer tick du timer et extraire le tout dans une fonction traitement
         private void B_Lancer_Click(object sender, EventArgs e)
         {
+
             ValeurScoreMoyen = 0;
             indiceImage = ValeurIntervalleMin;
             timer1.Start();
@@ -47,24 +51,27 @@ namespace ProjetC__
         private void ExportCSV(List<float> ValeurScore, float ValeurScoreMoy, string filepath)
         {
             using (StreamWriter file = new StreamWriter("filepath"))
+
             {
-                // Entêtes des colonnes
-                file.WriteLine("Type d'image, Numéro d'image, Score");
+                // Entï¿½tes des colonnes
+                file.WriteLine("Type d'image, Numï¿½ro d'image, Score");
 
                 for (int i = 0; i < ValeurScore.Count; i++)
                 {
+
                     string imageType = Cb_ImageIn.Checked ? "In" : "Sc";
                     float score = ValeurScore[i];
 
-                    // Écrire chaque ligne pour l'image
+                    // ï¿½crire chaque ligne pour l'image
                     file.WriteLine($"{imageType}, {i + 1}, {score}");
                 }
 
-                // Écrire la moyenne en dernière ligne
+
+                // ï¿½crire la moyenne en derniï¿½re ligne
                 file.WriteLine($"Moyenne totale du score,,{ValeurScoreMoy}");
             }
 
-            Lb_Error.Text = "Export CSV réussi !";
+            Lb_Error.Text = "Export CSV rï¿½ussi !";
         }
 
         void AfficheScore(System.Windows.Forms.Label label, System.Windows.Forms.Panel panel, double score)
@@ -78,6 +85,7 @@ namespace ProjetC__
         {
             timer1.Start();
         }
+
 
         void ColorePanel(System.Windows.Forms.Panel panel, double score)
         {
@@ -140,9 +148,10 @@ namespace ProjetC__
 
         }
 
+
         private void MajImages()
         {
-            // Décalage des images traitées
+            // Dï¿½calage des images traitï¿½es
             if (Pb_TreatedImage2.Image != null)
             {
                 Pb_TreatedImage3.Image = Pb_TreatedImage2.Image;
@@ -156,11 +165,12 @@ namespace ProjetC__
                 Pb_TreatedImage1.Image = Pb_TreatedImage.Image;
             }
 
-            // Mise à jour des images actuelles
+            // Mise ï¿½ jour des images actuelles
             Pb_InitialImage.Image = initialImageBmp;
             Pb_TreatedImage.Image = TreatedBmp;
             Pb_GroundTruth.Image = GroundTruthBmp;
         }
+
 
         private void Tb_Timer_ValueChanged(object sender, EventArgs e)
         {
@@ -175,7 +185,7 @@ namespace ProjetC__
             bool done = false;
             if (indiceImage > ValeurIntervalleMax)
             {
-                // TODO LABE faire correctement pour gérer les deux types d'images
+                // TODO LABE faire correctement pour gï¿½rer les deux types d'images
                 if (firstDone && Cb_ToutesImages.Checked) done = true;
                 else done = true;
                 firstDone = true;

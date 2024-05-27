@@ -10,6 +10,7 @@
     <Platforms>AnyCPU;x64</Platforms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <BaseOutputPath>..\bin</BaseOutputPath>
+
     <StartupObject>ProjetC__.Program</StartupObject>
   </PropertyGroup>
 
