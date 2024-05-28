@@ -73,6 +73,14 @@
             P_Timer = new Panel();
             L_TextHistorique = new Label();
             B_Areter = new Button();
+            L_info = new Label();
+            Cb_TypeSE = new ComboBox();
+            P_SE = new Panel();
+            Tb_LargeurSE = new TextBox();
+            Tb_HauteurSE = new TextBox();
+            L_TexteLargeurSE = new Label();
+            L_TexteHauteurSE = new Label();
+            fileSystemWatcher1 = new FileSystemWatcher();
             ((System.ComponentModel.ISupportInitialize)Pb_InitialImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Pb_TreatedImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Pb_TreatedImage1).BeginInit();
@@ -87,6 +95,8 @@
             P_TypeImage.SuspendLayout();
             P_Error.SuspendLayout();
             P_Timer.SuspendLayout();
+            P_SE.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
             SuspendLayout();
             // 
             // Pb_InitialImage
@@ -188,9 +198,10 @@
             // Lb_Options
             // 
             Lb_Options.AutoSize = true;
-            Lb_Options.Location = new Point(67, 410);
+            Lb_Options.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            Lb_Options.Location = new Point(177, 416);
             Lb_Options.Name = "Lb_Options";
-            Lb_Options.Size = new Size(87, 25);
+            Lb_Options.Size = new Size(92, 25);
             Lb_Options.TabIndex = 9;
             Lb_Options.Text = "OPTIONS";
             // 
@@ -215,7 +226,7 @@
             // 
             B_Lancer.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             B_Lancer.ForeColor = Color.Green;
-            B_Lancer.Location = new Point(254, 634);
+            B_Lancer.Location = new Point(993, 503);
             B_Lancer.Name = "B_Lancer";
             B_Lancer.Size = new Size(112, 34);
             B_Lancer.TabIndex = 15;
@@ -229,19 +240,20 @@
             // 
             // P_IntervalleImages
             // 
+            P_IntervalleImages.Anchor = AnchorStyles.None;
             P_IntervalleImages.Controls.Add(Lb_TextA);
             P_IntervalleImages.Controls.Add(Tb_FinInterval);
             P_IntervalleImages.Controls.Add(Tb_DebutInterval);
             P_IntervalleImages.Controls.Add(Lb_TextDe);
-            P_IntervalleImages.Location = new Point(19, 642);
+            P_IntervalleImages.Location = new Point(12, 649);
             P_IntervalleImages.Name = "P_IntervalleImages";
-            P_IntervalleImages.Size = new Size(206, 64);
+            P_IntervalleImages.Size = new Size(193, 64);
             P_IntervalleImages.TabIndex = 17;
             // 
             // Lb_TextA
             // 
             Lb_TextA.AutoSize = true;
-            Lb_TextA.Location = new Point(95, 20);
+            Lb_TextA.Location = new Point(98, 20);
             Lb_TextA.Name = "Lb_TextA";
             Lb_TextA.Size = new Size(30, 25);
             Lb_TextA.TabIndex = 4;
@@ -249,7 +261,7 @@
             // 
             // Tb_FinInterval
             // 
-            Tb_FinInterval.Location = new Point(135, 17);
+            Tb_FinInterval.Location = new Point(124, 17);
             Tb_FinInterval.Name = "Tb_FinInterval";
             Tb_FinInterval.Size = new Size(40, 31);
             Tb_FinInterval.TabIndex = 3;
@@ -274,11 +286,11 @@
             // 
             // Tb_Timer
             // 
-            Tb_Timer.Location = new Point(22, 40);
+            Tb_Timer.Location = new Point(14, 40);
             Tb_Timer.Maximum = 1500;
             Tb_Timer.Minimum = 100;
             Tb_Timer.Name = "Tb_Timer";
-            Tb_Timer.Size = new Size(112, 69);
+            Tb_Timer.Size = new Size(229, 69);
             Tb_Timer.TabIndex = 18;
             Tb_Timer.TickFrequency = 100;
             Tb_Timer.TickStyle = TickStyle.Both;
@@ -298,7 +310,7 @@
             // 
             P_AffichageScore.Controls.Add(Lb_TextScore);
             P_AffichageScore.Controls.Add(Lb_ValeurScore);
-            P_AffichageScore.Location = new Point(516, 444);
+            P_AffichageScore.Location = new Point(517, 499);
             P_AffichageScore.Name = "P_AffichageScore";
             P_AffichageScore.Size = new Size(264, 56);
             P_AffichageScore.TabIndex = 20;
@@ -326,7 +338,7 @@
             P_AffichageScoreMoy.Controls.Add(Lb_ScoreMoyenne);
             P_AffichageScoreMoy.Controls.Add(Lb_ValeurScoreMoy);
             P_AffichageScoreMoy.Controls.Add(Lb_Score);
-            P_AffichageScoreMoy.Location = new Point(516, 506);
+            P_AffichageScoreMoy.Location = new Point(517, 561);
             P_AffichageScoreMoy.Name = "P_AffichageScoreMoy";
             P_AffichageScoreMoy.Size = new Size(264, 56);
             P_AffichageScoreMoy.TabIndex = 21;
@@ -347,7 +359,7 @@
             // Cb_ExportCSV
             // 
             Cb_ExportCSV.AutoSize = true;
-            Cb_ExportCSV.Location = new Point(267, 594);
+            Cb_ExportCSV.Location = new Point(993, 583);
             Cb_ExportCSV.Name = "Cb_ExportCSV";
             Cb_ExportCSV.Size = new Size(121, 29);
             Cb_ExportCSV.TabIndex = 23;
@@ -357,7 +369,7 @@
             // Lb_TextTimer
             // 
             Lb_TextTimer.AutoSize = true;
-            Lb_TextTimer.Location = new Point(25, 6);
+            Lb_TextTimer.Location = new Point(63, 6);
             Lb_TextTimer.Name = "Lb_TextTimer";
             Lb_TextTimer.Size = new Size(109, 25);
             Lb_TextTimer.TabIndex = 20;
@@ -366,7 +378,7 @@
             // Lb_ValeurTimer
             // 
             Lb_ValeurTimer.AutoSize = true;
-            Lb_ValeurTimer.Location = new Point(65, 109);
+            Lb_ValeurTimer.Location = new Point(100, 104);
             Lb_ValeurTimer.Name = "Lb_ValeurTimer";
             Lb_ValeurTimer.Size = new Size(0, 25);
             Lb_ValeurTimer.TabIndex = 25;
@@ -377,9 +389,9 @@
             P_NbImages.Controls.Add(Cb_ToutesImages);
             P_NbImages.Controls.Add(Cb_Intervalle);
             P_NbImages.Controls.Add(Cb_ImageSeule);
-            P_NbImages.Location = new Point(19, 539);
+            P_NbImages.Location = new Point(14, 546);
             P_NbImages.Name = "P_NbImages";
-            P_NbImages.Size = new Size(206, 89);
+            P_NbImages.Size = new Size(191, 89);
             P_NbImages.TabIndex = 26;
             // 
             // Cb_ToutesImages
@@ -423,9 +435,9 @@
             P_TypeImage.Controls.Add(Cb_ImageSc);
             P_TypeImage.Controls.Add(Cb_DeuxTypes);
             P_TypeImage.Controls.Add(Cb_ImageIn);
-            P_TypeImage.Location = new Point(19, 444);
+            P_TypeImage.Location = new Point(14, 444);
             P_TypeImage.Name = "P_TypeImage";
-            P_TypeImage.Size = new Size(206, 89);
+            P_TypeImage.Size = new Size(191, 89);
             P_TypeImage.TabIndex = 27;
             // 
             // Cb_ImageSc
@@ -465,7 +477,7 @@
             // 
             // B_Test
             // 
-            B_Test.Location = new Point(778, 642);
+            B_Test.Location = new Point(806, 397);
             B_Test.Name = "B_Test";
             B_Test.Size = new Size(112, 34);
             B_Test.TabIndex = 28;
@@ -480,9 +492,9 @@
             // P_Error
             // 
             P_Error.Controls.Add(Lb_Error);
-            P_Error.Location = new Point(19, 715);
+            P_Error.Location = new Point(12, 722);
             P_Error.Name = "P_Error";
-            P_Error.Size = new Size(1500, 47);
+            P_Error.Size = new Size(1507, 47);
             P_Error.TabIndex = 30;
             // 
             // Lb_Error
@@ -502,9 +514,9 @@
             P_Timer.Controls.Add(Lb_TextTimer);
             P_Timer.Controls.Add(Tb_Timer);
             P_Timer.Controls.Add(Lb_ValeurTimer);
-            P_Timer.Location = new Point(254, 444);
+            P_Timer.Location = new Point(209, 579);
             P_Timer.Name = "P_Timer";
-            P_Timer.Size = new Size(146, 134);
+            P_Timer.Size = new Size(252, 134);
             P_Timer.TabIndex = 31;
             // 
             // L_TextHistorique
@@ -521,12 +533,84 @@
             B_Areter.Enabled = false;
             B_Areter.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             B_Areter.ForeColor = Color.Red;
-            B_Areter.Location = new Point(254, 674);
+            B_Areter.Location = new Point(993, 543);
             B_Areter.Name = "B_Areter";
             B_Areter.Size = new Size(112, 34);
             B_Areter.TabIndex = 33;
             B_Areter.Text = "Arrêter";
             B_Areter.UseVisualStyleBackColor = true;
+            // 
+            // L_info
+            // 
+            L_info.AutoSize = true;
+            L_info.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            L_info.Location = new Point(517, 463);
+            L_info.Name = "L_info";
+            L_info.Size = new Size(77, 25);
+            L_info.TabIndex = 34;
+            L_info.Text = "Image : ";
+            // 
+            // Cb_TypeSE
+            // 
+            Cb_TypeSE.FormattingEnabled = true;
+            Cb_TypeSE.Items.AddRange(new object[] { "V4", "V8", "Disque", "Ellipse", "Ligne Verticale ", "Ligne Horizontale ", "Rectangle" });
+            Cb_TypeSE.Location = new Point(5, 3);
+            Cb_TypeSE.Name = "Cb_TypeSE";
+            Cb_TypeSE.Size = new Size(238, 33);
+            Cb_TypeSE.TabIndex = 35;
+            Cb_TypeSE.Text = "Type Element Structurant";
+            // 
+            // P_SE
+            // 
+            P_SE.BackColor = SystemColors.GradientInactiveCaption;
+            P_SE.Controls.Add(Tb_LargeurSE);
+            P_SE.Controls.Add(Tb_HauteurSE);
+            P_SE.Controls.Add(L_TexteLargeurSE);
+            P_SE.Controls.Add(L_TexteHauteurSE);
+            P_SE.Controls.Add(Cb_TypeSE);
+            P_SE.Location = new Point(209, 444);
+            P_SE.Name = "P_SE";
+            P_SE.Size = new Size(252, 129);
+            P_SE.TabIndex = 36;
+            // 
+            // Tb_LargeurSE
+            // 
+            Tb_LargeurSE.Location = new Point(100, 87);
+            Tb_LargeurSE.Name = "Tb_LargeurSE";
+            Tb_LargeurSE.Size = new Size(50, 31);
+            Tb_LargeurSE.TabIndex = 39;
+            Tb_LargeurSE.Text = "3";
+            // 
+            // Tb_HauteurSE
+            // 
+            Tb_HauteurSE.Location = new Point(100, 47);
+            Tb_HauteurSE.Name = "Tb_HauteurSE";
+            Tb_HauteurSE.Size = new Size(50, 31);
+            Tb_HauteurSE.TabIndex = 38;
+            Tb_HauteurSE.Text = "3";
+            // 
+            // L_TexteLargeurSE
+            // 
+            L_TexteLargeurSE.AutoSize = true;
+            L_TexteLargeurSE.Location = new Point(14, 89);
+            L_TexteLargeurSE.Name = "L_TexteLargeurSE";
+            L_TexteLargeurSE.Size = new Size(80, 25);
+            L_TexteLargeurSE.TabIndex = 37;
+            L_TexteLargeurSE.Text = "Largeur :";
+            // 
+            // L_TexteHauteurSE
+            // 
+            L_TexteHauteurSE.AutoSize = true;
+            L_TexteHauteurSE.Location = new Point(14, 50);
+            L_TexteHauteurSE.Name = "L_TexteHauteurSE";
+            L_TexteHauteurSE.Size = new Size(89, 25);
+            L_TexteHauteurSE.TabIndex = 36;
+            L_TexteHauteurSE.Text = "Hauteur : ";
+            // 
+            // fileSystemWatcher1
+            // 
+            fileSystemWatcher1.EnableRaisingEvents = true;
+            fileSystemWatcher1.SynchronizingObject = this;
             // 
             // Form1
             // 
@@ -534,20 +618,22 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1532, 772);
             ControlBox = false;
+            Controls.Add(P_IntervalleImages);
+            Controls.Add(P_NbImages);
+            Controls.Add(P_TypeImage);
+            Controls.Add(Lb_Options);
+            Controls.Add(L_info);
+            Controls.Add(P_Timer);
+            Controls.Add(P_SE);
             Controls.Add(B_Areter);
             Controls.Add(L_TextHistorique);
-            Controls.Add(P_Timer);
             Controls.Add(P_Error);
             Controls.Add(B_Test);
-            Controls.Add(P_TypeImage);
-            Controls.Add(P_NbImages);
             Controls.Add(Cb_ExportCSV);
             Controls.Add(B_Quitter);
             Controls.Add(P_AffichageScoreMoy);
             Controls.Add(P_AffichageScore);
-            Controls.Add(P_IntervalleImages);
             Controls.Add(B_Lancer);
-            Controls.Add(Lb_Options);
             Controls.Add(Lb_TreatedImage);
             Controls.Add(Lb_GroundTruth);
             Controls.Add(Lb_InitialImage);
@@ -582,6 +668,9 @@
             P_Error.PerformLayout();
             P_Timer.ResumeLayout(false);
             P_Timer.PerformLayout();
+            P_SE.ResumeLayout(false);
+            P_SE.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -636,6 +725,13 @@
         private Panel P_Timer;
         private Label L_TextHistorique;
         private Button B_Areter;
-
+        private Label L_info;
+        private ComboBox Cb_TypeSE;
+        private Panel P_SE;
+        private Label L_TexteLargeurSE;
+        private Label L_TexteHauteurSE;
+        private TextBox Tb_LargeurSE;
+        private TextBox Tb_HauteurSE;
+        private FileSystemWatcher fileSystemWatcher1;
     }
 }

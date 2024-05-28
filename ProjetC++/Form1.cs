@@ -23,7 +23,8 @@ namespace ProjetC__
         }
 
         private double ValeurScore = 0;
-        private double ValeurScoreMoyen = 0;
+        private double ValeurSommeScores = 0;
+        private double ValeurMoyenneScore = 0;
         private int ValeurIntervalleMax = 300;
         private int ValeurIntervalleMin = 1;
         private int indiceImage = 0;
@@ -40,7 +41,7 @@ namespace ProjetC__
         //TODO LABE lancer tick du timer et extraire le tout dans une fonction traitement
         private void B_Lancer_Click(object sender, EventArgs e)
         {
-            ValeurScoreMoyen = 0;
+            ValeurSommeScores = 0;
             indiceImage = ValeurIntervalleMin;
             firstDone = false;
             done = false;
@@ -75,14 +76,14 @@ namespace ProjetC__
 
 
                     // �crire la moyenne en derni�re ligne
-                    file.WriteLine($"Moyenne totale du score,,{ValeurScoreMoyen}");
+                    file.WriteLine($"Moyenne totale du score,,{ValeurMoyenneScore}");
                     Lb_Error.Text = "Export CSV réussi !";
                 }
             }
             catch (Exception ex)
             {
                 Lb_Error.Text = ex.Message;
-            }            
+            }
         }
 
         void AfficheScore(System.Windows.Forms.Label label, System.Windows.Forms.Panel panel, double score)
@@ -100,7 +101,7 @@ namespace ProjetC__
 
         void ColorePanel(System.Windows.Forms.Panel panel, double score)
         {
-            if (score >= 50)
+            if (score >= 60)
                 panel.BackColor = Color.Green;
             else if (score >= 40)
                 panel.BackColor = Color.Orange;
@@ -131,12 +132,14 @@ namespace ProjetC__
                 string type = "V4";
                 int largeur = 3, hauteur = 3;
 
-                bool boolIn = true;
-                // TODO LABE corriger
-                //if (Cb_ImageIn.Checked) boolIn = true;
-                //if (Cb_ImageSc.Checked) boolIn = false;
-                //if (Cb_DeuxTypes.Checked && firstDone) boolIn = true;
-                //else boolIn = false;
+                bool boolIn;
+                if (Cb_ImageIn.Checked) boolIn = true;
+                else if (Cb_ImageSc.Checked) boolIn = false;
+                else
+                {
+                    if (Cb_DeuxTypes.Checked && firstDone) boolIn = true;
+                    else boolIn = false;
+                }
 
                 unsafe
                 {
@@ -146,12 +149,12 @@ namespace ProjetC__
                         var bmpDataImageGroundTruth = GroundTruthBmp.LockBits(new Rectangle(0, 0, GroundTruthBmp.Width, GroundTruthBmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 
                         processor.objetLibDataImgPtr(1, bmpDataImageInitial.Scan0, bmpDataImageInitial.Stride, bmpDataImageGroundTruth.Scan0, bmpDataImageGroundTruth.Stride, TreatedBmp.Height, TreatedBmp.Width, boolIn, type, largeur, hauteur);
-                        
+
                         TreatedBmp.UnlockBits(bmpDataImageInitial);
                         GroundTruthBmp.UnlockBits(bmpDataImageGroundTruth);
 
                         ValeurScore = processor.objetLibValeurChamp(0) * 100;
-                        ValeurScoreMoyen += ValeurScore;
+                        ValeurSommeScores += ValeurScore;
                         AfficheScore(Lb_ValeurScore, P_AffichageScore, ValeurScore);
                     }
                     catch (Exception ex)
@@ -168,7 +171,13 @@ namespace ProjetC__
         }
 
 
-        private void MajImages()
+        private void MajAffichage()
+        {
+            MiseAJourImages();
+            MiseAJourInformations();
+        }
+
+        private void MiseAJourImages()
         {
             // Décalage des images traitées
             if (Pb_TreatedImage2.Image != null)
@@ -190,6 +199,14 @@ namespace ProjetC__
             Pb_GroundTruth.Image = GroundTruthBmp;
         }
 
+        private void MiseAJourInformations()
+        {
+            string type;
+            if(!Cb_DeuxTypes.Checked) type = Cb_ImageIn.Checked ? "In" : "Sc";
+            else type = firstDone ? "Sc" : "In";
+            L_info.Text = "Image : " + indiceImage + " \t Type : " + type;
+        }
+
 
         private void Tb_Timer_ValueChanged(object sender, EventArgs e)
         {
@@ -209,7 +226,13 @@ namespace ProjetC__
                 if (done)
                 {
                     timer1.Stop();
-                    if(Cb_ExportCSV.Checked) ExportCSV("C:\\Users\\laetb\\OneDrive\\Bureau\\cour\\IPSI\\IPSI2\\ProjetCpp\\Image\\Resultat.csv");
+
+                    if (Cb_ExportCSV.Checked)
+                    {
+                        string solutionPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()))));
+                        string filePath = Path.Combine(solutionPath, "Image", "Resultat.csv");
+                        ExportCSV(filePath);
+                    }
                 }
             }
             if (!done)
@@ -227,8 +250,12 @@ namespace ProjetC__
                 GroundTruthBmp = new Bitmap(GroundTruthPath);
 
                 Traitement();
-                MajImages();
-                AfficheScore(Lb_ValeurScoreMoy, P_AffichageScoreMoy, ValeurScoreMoyen / indiceImage); // TODO LABE faire pout 2 images 
+                MajAffichage();
+
+                // Calcul de la moyenne
+                if (!Cb_DeuxTypes.Checked) ValeurMoyenneScore = ValeurSommeScores / (ValeurIntervalleMax - ValeurIntervalleMin + 1);
+                else ValeurMoyenneScore = ValeurSommeScores / ((ValeurIntervalleMax - ValeurIntervalleMin + 1) * 2);
+                AfficheScore(Lb_ValeurScoreMoy, P_AffichageScoreMoy, ValeurMoyenneScore);
                 indiceImage++;
             }
         }
