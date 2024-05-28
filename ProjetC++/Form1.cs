@@ -311,7 +311,7 @@ namespace ProjetC__
                 if (done)
                 {
                     timer1.Stop();
-                    MajIhmLancerStop();
+                    if(!Cb_ImageSeule.Checked) MajIhmLancerStop();
                     pause = false;
 
                     if (Cb_ExportCSV.Checked)

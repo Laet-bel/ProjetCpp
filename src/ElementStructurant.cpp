@@ -93,51 +93,6 @@ void ElementStructurant::allocation_ElementStructurant_rect(const char* type, in
     }
 }
 
-//void ElementStructurant::allocation_ElementStructurant_ellipse(const char* type, int hauteur, int largeur) {
-//    /*
-//    this->ElementStructurant.type = type;
-//    this->ElementStructurant.hauteur = 2 * hauteur + 1;
-//    this->ElementStructurant.largeur = 2 * largeur + 1;
-//
-//    int centreSE;
-//    int tailleSE;
-//    int i, j;
-//
-//    tailleSE = ElementStructurant.hauteur * ElementStructurant.largeur;
-//    ElementStructurant.data = new unsigned char[tailleSE];
-//    if (ElementStructurant.data == nullptr) {
-//        return ElementStructurant;
-//    }
-//    ElementStructurant.pixel = new unsigned char* [ElementStructurant.hauteur];
-//    if (ElementStructurant.pixel == nullptr) {
-//        delete[] ElementStructurant.data;
-//        ElementStructurant.data = nullptr;
-//        return ElementStructurant;
-//    }
-//
-//    for (i = 0; i < ElementStructurant.hauteur; i++) {
-//        ElementStructurant.pixel[i] = &ElementStructurant.data[i * ElementStructurant.largeur];
-//    }
-//
-//    int centerX = largeur;
-//    int centerY = hauteur;
-//
-//    double x, y;
-//    double test;
-//
-//    for (i = 0; i < ElementStructurant.hauteur; i++) {
-//        for (j = 0; j < ElementStructurant.largeur; j++) {
-//            x = (j - centerX) * 1.0 / largeur;
-//            y = (i - centerY) * 1.0 / hauteur;
-//            test = x * x + y * y;
-//
-//            if (test <= 1) {
-//                ElementStructurant.pixel[i][j] = 1;
-//            }
-//        }
-//    }
-//    return ElementStructurant;*/
-//}
 void ElementStructurant::allocation_ElementStructurant_ellipse(const char* type, int hauteur, int largeur) {
     this->type = type;
     this->hauteur = 2 * hauteur + 1;
