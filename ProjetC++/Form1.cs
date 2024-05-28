@@ -129,14 +129,17 @@ namespace ProjetC__
                 ValeurScore = 0;
 
                 string type = "V4";
-                if (Cb_TypeSE.SelectedItem.ToString() == "V4") type = "V4";
-                else if (Cb_TypeSE.SelectedItem.ToString() == "V8") type = "V8";
-                else if (Cb_TypeSE.SelectedItem.ToString() == "Disque") type = "disk";
-                else if (Cb_TypeSE.SelectedItem.ToString() == "Ellipse") type = "elli";
-                else if (Cb_TypeSE.SelectedItem.ToString() == "Ligne Verticale") type = "ligV";
-                else if (Cb_TypeSE.SelectedItem.ToString() == "Ligne Horizontale") type = "ligH";
-                else if (Cb_TypeSE.SelectedItem.ToString() == "Rectangle") type = "rect";
-                else type = "V4";
+                if (Cb_TypeSE.SelectedItem != null)
+                {
+                    if (Cb_TypeSE.SelectedItem.ToString() == "V4") type = "V4";
+                    else if (Cb_TypeSE.SelectedItem.ToString() == "V8") type = "V8";
+                    else if (Cb_TypeSE.SelectedItem.ToString() == "Disque") type = "disk";
+                    else if (Cb_TypeSE.SelectedItem.ToString() == "Ellipse") type = "elli";
+                    else if (Cb_TypeSE.SelectedItem.ToString() == "Ligne Verticale") type = "ligV";
+                    else if (Cb_TypeSE.SelectedItem.ToString() == "Ligne Horizontale") type = "ligH";
+                    else if (Cb_TypeSE.SelectedItem.ToString() == "Rectangle") type = "rect";
+                    else type = "V4";
+                }
 
                 int largeur, hauteur;
                 if (!int.TryParse(Tb_LargeurSE.Text, out largeur))
