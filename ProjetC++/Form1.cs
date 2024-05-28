@@ -59,6 +59,8 @@ namespace ProjetC__
         {
             try
             {
+                //TEST COMMIT
+                //TEST COMMIT
                 using (StreamWriter file = new StreamWriter(filepath))
                 {
                     // Ent�tes des colonnes
@@ -138,7 +140,6 @@ namespace ProjetC__
                     else if (Cb_TypeSE.SelectedItem.ToString() == "Ligne Verticale") type = "ligV";
                     else if (Cb_TypeSE.SelectedItem.ToString() == "Ligne Horizontale") type = "ligH";
                     else if (Cb_TypeSE.SelectedItem.ToString() == "Rectangle") type = "rect";
-                    else type = "V4";
                 }
 
                 int largeur, hauteur;
