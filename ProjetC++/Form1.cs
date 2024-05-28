@@ -8,6 +8,7 @@ using System.Linq;
 using System.Timers;
 using System.Windows.Forms;
 using static System.Formats.Asn1.AsnWriter;
+using static System.Windows.Forms.LinkLabel;
 
 namespace ProjetC__
 {
@@ -59,7 +60,6 @@ namespace ProjetC__
             try
             {
                 using (StreamWriter file = new StreamWriter(filepath))
-
                 {
                     // Ent�tes des colonnes
                     file.WriteLine("Type d'image, Numéro d'image, Score");
@@ -128,9 +128,27 @@ namespace ProjetC__
 
                 ValeurScore = 0;
 
-                //TODO LABE ajouter dans IHM choix SE
                 string type = "V4";
-                int largeur = 3, hauteur = 3;
+                if (Cb_TypeSE.SelectedItem.ToString() == "V4") type = "V4";
+                else if (Cb_TypeSE.SelectedItem.ToString() == "V8") type = "V8";
+                else if (Cb_TypeSE.SelectedItem.ToString() == "Disque") type = "disk";
+                else if (Cb_TypeSE.SelectedItem.ToString() == "Ellipse") type = "elli";
+                else if (Cb_TypeSE.SelectedItem.ToString() == "Ligne Verticale") type = "ligV";
+                else if (Cb_TypeSE.SelectedItem.ToString() == "Ligne Horizontale") type = "ligH";
+                else if (Cb_TypeSE.SelectedItem.ToString() == "Rectangle") type = "rect";
+                else type = "V4";
+
+                int largeur, hauteur;
+                if (!int.TryParse(Tb_LargeurSE.Text, out largeur))
+                {
+                    Tb_LargeurSE.Text = "3";
+                    largeur = 3;
+                }
+                if (!int.TryParse(Tb_HauteurSE.Text, out hauteur))
+                {
+                    Tb_HauteurSE.Text = "3";
+                    hauteur = 3;
+                }
 
                 bool boolIn;
                 if (Cb_ImageIn.Checked) boolIn = true;
@@ -202,7 +220,7 @@ namespace ProjetC__
         private void MiseAJourInformations()
         {
             string type;
-            if(!Cb_DeuxTypes.Checked) type = Cb_ImageIn.Checked ? "In" : "Sc";
+            if (!Cb_DeuxTypes.Checked) type = Cb_ImageIn.Checked ? "In" : "Sc";
             else type = firstDone ? "Sc" : "In";
             L_info.Text = "Image : " + indiceImage + " \t Type : " + type;
         }
