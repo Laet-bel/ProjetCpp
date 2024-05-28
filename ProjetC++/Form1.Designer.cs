@@ -66,7 +66,6 @@
             Cb_ImageSc = new CheckBox();
             Cb_DeuxTypes = new CheckBox();
             Cb_ImageIn = new CheckBox();
-            B_Test = new Button();
             timer1 = new System.Windows.Forms.Timer(components);
             P_Error = new Panel();
             Lb_Error = new Label();
@@ -81,6 +80,7 @@
             L_TexteLargeurSE = new Label();
             L_TexteHauteurSE = new Label();
             fileSystemWatcher1 = new FileSystemWatcher();
+            B_Reinitialiser = new Button();
             ((System.ComponentModel.ISupportInitialize)Pb_InitialImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Pb_TreatedImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Pb_TreatedImage1).BeginInit();
@@ -226,9 +226,9 @@
             // 
             B_Lancer.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             B_Lancer.ForeColor = Color.Green;
-            B_Lancer.Location = new Point(993, 503);
+            B_Lancer.Location = new Point(993, 471);
             B_Lancer.Name = "B_Lancer";
-            B_Lancer.Size = new Size(112, 34);
+            B_Lancer.Size = new Size(136, 34);
             B_Lancer.TabIndex = 15;
             B_Lancer.Text = "Lancer";
             B_Lancer.UseVisualStyleBackColor = true;
@@ -302,9 +302,9 @@
             Lb_ValeurScore.AutoSize = true;
             Lb_ValeurScore.Location = new Point(191, 15);
             Lb_ValeurScore.Name = "Lb_ValeurScore";
-            Lb_ValeurScore.Size = new Size(27, 25);
+            Lb_ValeurScore.Size = new Size(61, 25);
             Lb_ValeurScore.TabIndex = 19;
-            Lb_ValeurScore.Text = "%";
+            Lb_ValeurScore.Text = "0,00%";
             // 
             // P_AffichageScore
             // 
@@ -329,9 +329,9 @@
             Lb_ValeurScoreMoy.AutoSize = true;
             Lb_ValeurScoreMoy.Location = new Point(197, 15);
             Lb_ValeurScoreMoy.Name = "Lb_ValeurScoreMoy";
-            Lb_ValeurScoreMoy.Size = new Size(27, 25);
+            Lb_ValeurScoreMoy.Size = new Size(61, 25);
             Lb_ValeurScoreMoy.TabIndex = 19;
-            Lb_ValeurScoreMoy.Text = "%";
+            Lb_ValeurScoreMoy.Text = "0,00%";
             // 
             // P_AffichageScoreMoy
             // 
@@ -359,7 +359,7 @@
             // Cb_ExportCSV
             // 
             Cb_ExportCSV.AutoSize = true;
-            Cb_ExportCSV.Location = new Point(993, 583);
+            Cb_ExportCSV.Location = new Point(1001, 590);
             Cb_ExportCSV.Name = "Cb_ExportCSV";
             Cb_ExportCSV.Size = new Size(121, 29);
             Cb_ExportCSV.TabIndex = 23;
@@ -475,16 +475,6 @@
             Cb_ImageIn.UseVisualStyleBackColor = true;
             Cb_ImageIn.CheckedChanged += Cb_ImageIn_CheckedChanged;
             // 
-            // B_Test
-            // 
-            B_Test.Location = new Point(806, 397);
-            B_Test.Name = "B_Test";
-            B_Test.Size = new Size(112, 34);
-            B_Test.TabIndex = 28;
-            B_Test.Text = "Test";
-            B_Test.UseVisualStyleBackColor = true;
-            B_Test.Click += BT_Test;
-            // 
             // timer1
             // 
             timer1.Tick += timer1_Tick;
@@ -533,12 +523,13 @@
             B_Areter.Enabled = false;
             B_Areter.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             B_Areter.ForeColor = Color.Red;
-            B_Areter.Location = new Point(993, 543);
+            B_Areter.Location = new Point(993, 511);
             B_Areter.Name = "B_Areter";
-            B_Areter.Size = new Size(112, 34);
+            B_Areter.Size = new Size(136, 34);
             B_Areter.TabIndex = 33;
             B_Areter.Text = "Arrêter";
             B_Areter.UseVisualStyleBackColor = true;
+            B_Areter.Click += B_Areter_Click;
             // 
             // L_info
             // 
@@ -546,14 +537,14 @@
             L_info.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
             L_info.Location = new Point(517, 463);
             L_info.Name = "L_info";
-            L_info.Size = new Size(77, 25);
+            L_info.Size = new Size(171, 25);
             L_info.TabIndex = 34;
-            L_info.Text = "Image : ";
+            L_info.Text = "Image : 0   Type : In";
             // 
             // Cb_TypeSE
             // 
             Cb_TypeSE.FormattingEnabled = true;
-            Cb_TypeSE.Items.AddRange(new object[] { "V4", "V8", "Disque", "Ellipse", "Ligne Verticale ", "Ligne Horizontale ", "Rectangle" });
+            Cb_TypeSE.Items.AddRange(new object[] { "V4", "V8", "Ligne Verticale ", "Ligne Horizontale ", "Rectangle" });
             Cb_TypeSE.Location = new Point(5, 3);
             Cb_TypeSE.Name = "Cb_TypeSE";
             Cb_TypeSE.Size = new Size(238, 33);
@@ -612,12 +603,25 @@
             fileSystemWatcher1.EnableRaisingEvents = true;
             fileSystemWatcher1.SynchronizingObject = this;
             // 
+            // B_Reinitialiser
+            // 
+            B_Reinitialiser.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            B_Reinitialiser.ForeColor = Color.DarkBlue;
+            B_Reinitialiser.Location = new Point(993, 551);
+            B_Reinitialiser.Name = "B_Reinitialiser";
+            B_Reinitialiser.Size = new Size(136, 34);
+            B_Reinitialiser.TabIndex = 37;
+            B_Reinitialiser.Text = "Réinitialiser";
+            B_Reinitialiser.UseVisualStyleBackColor = true;
+            B_Reinitialiser.Click += B_Reinitialiser_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1532, 772);
             ControlBox = false;
+            Controls.Add(B_Reinitialiser);
             Controls.Add(P_IntervalleImages);
             Controls.Add(P_NbImages);
             Controls.Add(P_TypeImage);
@@ -628,7 +632,6 @@
             Controls.Add(B_Areter);
             Controls.Add(L_TextHistorique);
             Controls.Add(P_Error);
-            Controls.Add(B_Test);
             Controls.Add(Cb_ExportCSV);
             Controls.Add(B_Quitter);
             Controls.Add(P_AffichageScoreMoy);
@@ -716,8 +719,6 @@
         private CheckBox Cb_ImageSc;
         private CheckBox Cb_DeuxTypes;
         private CheckBox Cb_ImageIn;
-
-        private Button B_Test;
         private System.Windows.Forms.Timer timer1;
         private Label Lb_TextA;
         private Panel P_Error;
@@ -733,5 +734,6 @@
         private TextBox Tb_LargeurSE;
         private TextBox Tb_HauteurSE;
         private FileSystemWatcher fileSystemWatcher1;
+        private Button B_Reinitialiser;
     }
 }

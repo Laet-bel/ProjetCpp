@@ -35,6 +35,7 @@ namespace ProjetC__
 
         private bool firstDone = false;
         private bool done = false;
+        private bool pause = false;
 
         private List<float> ValeurScores = new List<float>();
 
@@ -42,11 +43,83 @@ namespace ProjetC__
         //TODO LABE lancer tick du timer et extraire le tout dans une fonction traitement
         private void B_Lancer_Click(object sender, EventArgs e)
         {
+            if (!pause)
+            {
+                ValeurSommeScores = 0;
+                ValeurScore = 0;
+                indiceImage = ValeurIntervalleMin;
+                firstDone = false;
+                done = false;
+                pause = false;
+                ValeurScores.Clear();
+            }
+
+            timer1.Start();
+
+            if (ValeurIntervalleMax > ValeurIntervalleMin)
+            {
+                MajIhmLancerStop();
+            }
+        }
+        private void B_Areter_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+            MajIhmLancerStop();
+            pause = true;
+        }
+        private void B_Reinitialiser_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+
             ValeurSommeScores = 0;
-            indiceImage = ValeurIntervalleMin;
+            ValeurScore = 0;
+            indiceImage = 0;
             firstDone = false;
             done = false;
-            timer1.Start();
+            pause = false;
+
+            AfficheScore(Lb_ValeurScore, P_AffichageScore, ValeurScore);
+            AfficheScore(Lb_ValeurScoreMoy, P_AffichageScoreMoy, ValeurScore);
+
+            MajAffichage();
+
+            Pb_InitialImage.Image = null;
+            Pb_TreatedImage.Image = null;
+            Pb_GroundTruth.Image = null;
+            Pb_TreatedImage1.Image = null;
+            Pb_TreatedImage2.Image = null;
+            Pb_TreatedImage3.Image = null;
+
+            Cb_ImageIn.Checked = true;
+            Cb_ImageSeule.Checked = true;
+            Cb_ExportCSV.Checked = false;
+
+            P_AffichageScore.BackColor = Color.Empty;
+            P_AffichageScoreMoy.BackColor = Color.Empty;
+
+            Tb_Timer.Value = 500;
+            Lb_ValeurTimer.Text = Tb_Timer.Value.ToString() + " ms";
+
+            if (B_Areter.Enabled) MajIhmLancerStop();
+        }
+
+        private void MajIhmLancerStop()
+        {
+            // Inverser l'état enable des checkbox et certaines textbox
+            B_Areter.Enabled = !B_Areter.Enabled;
+            B_Lancer.Enabled = !B_Lancer.Enabled;
+            Cb_DeuxTypes.Enabled = !Cb_DeuxTypes.Enabled;
+            Cb_ImageIn.Enabled = !Cb_ImageIn.Enabled;
+            Cb_ImageSc.Enabled = !Cb_ImageSc.Enabled;
+            Cb_ToutesImages.Enabled = !Cb_ToutesImages.Enabled;
+            Cb_ImageSeule.Enabled = !Cb_ImageSeule.Enabled;
+            Cb_Intervalle.Enabled = !Cb_Intervalle.Enabled;
+            Cb_TypeSE.Enabled = !Cb_TypeSE.Enabled;
+            Tb_LargeurSE.Enabled = !Tb_LargeurSE.Enabled;
+            Tb_HauteurSE.Enabled = !Tb_HauteurSE.Enabled;
+            Tb_DebutInterval.Enabled = !Tb_DebutInterval.Enabled;
+            Tb_FinInterval.Enabled = !Tb_FinInterval.Enabled;
+
         }
 
         private void B_Quitter_Click(object sender, EventArgs e)
@@ -62,21 +135,25 @@ namespace ProjetC__
                 using (StreamWriter file = new StreamWriter(filepath))
                 {
                     // Ent�tes des colonnes
-                    file.WriteLine("Type d'image, Numéro d'image, Score");
+                    file.WriteLine("Type d'image; Numero d'image; Score");
 
                     for (int i = 0; i < ValeurScores.Count; i++)
                     {
-
-                        string imageType = Cb_ImageIn.Checked ? "In" : "Sc";
+                        string imageType;
+                        if (!Cb_DeuxTypes.Checked) imageType = Cb_ImageIn.Checked ? "In" : "Sc";
+                        else imageType = i < (ValeurScores.Count / 2) ? "In" : "Sc";
                         float score = ValeurScores[i];
+                        float numero;
+                        if (Cb_DeuxTypes.Checked) numero = i < (ValeurScores.Count / 2) ? i + 1 : i - (ValeurScores.Count / 2) + 1;
+                        else numero = i + 1;
 
-                        // �crire chaque ligne pour l'image
-                        file.WriteLine($"{imageType}, {i + 1}, {score}");
+                        // Ecrire chaque ligne pour l'image
+                        file.WriteLine($"{imageType}; {numero}; {score}");
                     }
 
 
                     // �crire la moyenne en derni�re ligne
-                    file.WriteLine($"Moyenne totale du score,,{ValeurMoyenneScore}");
+                    file.WriteLine($"Moyenne totale du score;;{ValeurMoyenneScore}");
                     Lb_Error.Text = "Export CSV réussi !";
                 }
             }
@@ -109,17 +186,6 @@ namespace ProjetC__
                 panel.BackColor = Color.Red;
         }
 
-        //private void Test()
-        //{
-        //    Random random = new Random();
-        //    ValeurScore = random.Next(100);
-        //    ValeurScoreMoyen = random.Next(100);
-        //    AfficheScore(Lb_ValeurScore, ValeurScore);
-        //    AfficheScore(Lb_ValeurScoreMoy, ValeurScoreMoyen);
-        //    ColorePanel(P_AffichageScore, ValeurScore);
-        //    ColorePanel(P_AffichageScoreMoy, ValeurScoreMoyen);
-        //}
-
         private void Traitement()
         {
             try
@@ -133,8 +199,6 @@ namespace ProjetC__
                 {
                     if (Cb_TypeSE.SelectedItem.ToString() == "V4") type = "V4";
                     else if (Cb_TypeSE.SelectedItem.ToString() == "V8") type = "V8";
-                    else if (Cb_TypeSE.SelectedItem.ToString() == "Disque") type = "disk";
-                    else if (Cb_TypeSE.SelectedItem.ToString() == "Ellipse") type = "elli";
                     else if (Cb_TypeSE.SelectedItem.ToString() == "Ligne Verticale") type = "ligV";
                     else if (Cb_TypeSE.SelectedItem.ToString() == "Ligne Horizontale") type = "ligH";
                     else if (Cb_TypeSE.SelectedItem.ToString() == "Rectangle") type = "rect";
@@ -157,8 +221,8 @@ namespace ProjetC__
                 else if (Cb_ImageSc.Checked) boolIn = false;
                 else
                 {
-                    if (Cb_DeuxTypes.Checked && firstDone) boolIn = true;
-                    else boolIn = false;
+                    if (Cb_DeuxTypes.Checked && firstDone) boolIn = false;
+                    else boolIn = true;
                 }
 
                 unsafe
@@ -174,6 +238,7 @@ namespace ProjetC__
                         GroundTruthBmp.UnlockBits(bmpDataImageGroundTruth);
 
                         ValeurScore = processor.objetLibValeurChamp(0) * 100;
+                        ValeurScores.Add((float)ValeurScore);
                         ValeurSommeScores += ValeurScore;
                         AfficheScore(Lb_ValeurScore, P_AffichageScore, ValeurScore);
                     }
@@ -246,6 +311,8 @@ namespace ProjetC__
                 if (done)
                 {
                     timer1.Stop();
+                    MajIhmLancerStop();
+                    pause = false;
 
                     if (Cb_ExportCSV.Checked)
                     {
@@ -273,8 +340,13 @@ namespace ProjetC__
                 MajAffichage();
 
                 // Calcul de la moyenne
-                if (!Cb_DeuxTypes.Checked) ValeurMoyenneScore = ValeurSommeScores / (ValeurIntervalleMax - ValeurIntervalleMin + 1);
-                else ValeurMoyenneScore = ValeurSommeScores / ((ValeurIntervalleMax - ValeurIntervalleMin + 1) * 2);
+                if (!Cb_DeuxTypes.Checked) ValeurMoyenneScore = ValeurSommeScores / (indiceImage - ValeurIntervalleMin + 1);
+                else
+                {
+                    if(firstDone) ValeurMoyenneScore = ValeurSommeScores / ((indiceImage - ValeurIntervalleMin + 1) * 2);
+                    else ValeurMoyenneScore = ValeurSommeScores / (indiceImage - ValeurIntervalleMin + 1);
+                }
+
                 AfficheScore(Lb_ValeurScoreMoy, P_AffichageScoreMoy, ValeurMoyenneScore);
                 indiceImage++;
             }
