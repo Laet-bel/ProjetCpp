@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ImageNdg.h"
+#include "ImageClasse.h"
 #include "ImageCouleur.h"
 #include "ElementStructurant.h"
 

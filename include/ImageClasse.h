@@ -76,6 +76,8 @@ class CImageClasse {
 		_declspec(dllexport) CImageClasse(const CImageNdg& im, const std::vector<int>& germes, double tolerance = 5); // croissange région avec ensemble de germes sous la forme x0,y0,x1,y1,x2,y2 etc
 		_declspec(dllexport) ~CImageClasse(); // destructeur
 
+		_declspec(dllexport) CImageNdg ToNdg();
+
 		// sauvegarde au format bmp
 		// attention : cast des informations car pertes potentielles
 		_declspec(dllexport) void sauvegarde(const std::string& fixe = ""); // sauvegarde data au format BMP avec cast des long en char
