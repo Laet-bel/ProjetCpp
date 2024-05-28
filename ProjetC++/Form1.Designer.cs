@@ -288,13 +288,13 @@
             // 
             Tb_Timer.Location = new Point(14, 40);
             Tb_Timer.Maximum = 1500;
-            Tb_Timer.Minimum = 100;
+            Tb_Timer.Minimum = 10;
             Tb_Timer.Name = "Tb_Timer";
             Tb_Timer.Size = new Size(229, 69);
             Tb_Timer.TabIndex = 18;
             Tb_Timer.TickFrequency = 100;
             Tb_Timer.TickStyle = TickStyle.Both;
-            Tb_Timer.Value = 500;
+            Tb_Timer.Value = 10;
             Tb_Timer.ValueChanged += Tb_Timer_ValueChanged;
             // 
             // Lb_ValeurScore

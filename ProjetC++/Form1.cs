@@ -97,7 +97,7 @@ namespace ProjetC__
             P_AffichageScore.BackColor = Color.Empty;
             P_AffichageScoreMoy.BackColor = Color.Empty;
 
-            Tb_Timer.Value = 500;
+            Tb_Timer.Value = 10;
             Lb_ValeurTimer.Text = Tb_Timer.Value.ToString() + " ms";
 
             if (B_Areter.Enabled) MajIhmLancerStop();
