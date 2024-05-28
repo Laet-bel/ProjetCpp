@@ -28,651 +28,658 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            Pb_InitialImage = new PictureBox();
-            Pb_TreatedImage = new PictureBox();
-            Pb_TreatedImage1 = new PictureBox();
-            Pb_TreatedImage2 = new PictureBox();
-            Pb_TreatedImage3 = new PictureBox();
-            Pb_GroundTruth = new PictureBox();
-            Lb_InitialImage = new Label();
-            Lb_GroundTruth = new Label();
-            Lb_TreatedImage = new Label();
-            Lb_Options = new Label();
-            Lb_TextScore = new Label();
-            Lb_Score = new Label();
-            B_Lancer = new Button();
-            ofd = new OpenFileDialog();
-            P_IntervalleImages = new Panel();
-            Lb_TextA = new Label();
-            Tb_FinInterval = new TextBox();
-            Tb_DebutInterval = new TextBox();
-            Lb_TextDe = new Label();
-            Tb_Timer = new TrackBar();
-            Lb_ValeurScore = new Label();
-            P_AffichageScore = new Panel();
-            Lb_ScoreMoyenne = new Label();
-            Lb_ValeurScoreMoy = new Label();
-            P_AffichageScoreMoy = new Panel();
-            B_Quitter = new Button();
-            Cb_ExportCSV = new CheckBox();
-            Lb_TextTimer = new Label();
-            Lb_ValeurTimer = new Label();
-            P_NbImages = new Panel();
-            Cb_ToutesImages = new CheckBox();
-            Cb_Intervalle = new CheckBox();
-            Cb_ImageSeule = new CheckBox();
-            P_TypeImage = new Panel();
-            Cb_ImageSc = new CheckBox();
-            Cb_DeuxTypes = new CheckBox();
-            Cb_ImageIn = new CheckBox();
-            B_Test = new Button();
-            timer1 = new System.Windows.Forms.Timer(components);
-            P_Error = new Panel();
-            Lb_Error = new Label();
-            P_Timer = new Panel();
-            L_TextHistorique = new Label();
-            B_Areter = new Button();
-            L_info = new Label();
-            Cb_TypeSE = new ComboBox();
-            P_SE = new Panel();
-            Tb_LargeurSE = new TextBox();
-            Tb_HauteurSE = new TextBox();
-            L_TexteLargeurSE = new Label();
-            L_TexteHauteurSE = new Label();
-            fileSystemWatcher1 = new FileSystemWatcher();
-            ((System.ComponentModel.ISupportInitialize)Pb_InitialImage).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Pb_TreatedImage).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Pb_TreatedImage1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Pb_TreatedImage2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Pb_TreatedImage3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Pb_GroundTruth).BeginInit();
-            P_IntervalleImages.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)Tb_Timer).BeginInit();
-            P_AffichageScore.SuspendLayout();
-            P_AffichageScoreMoy.SuspendLayout();
-            P_NbImages.SuspendLayout();
-            P_TypeImage.SuspendLayout();
-            P_Error.SuspendLayout();
-            P_Timer.SuspendLayout();
-            P_SE.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
-            SuspendLayout();
+            this.components = new System.ComponentModel.Container();
+            this.Pb_InitialImage = new System.Windows.Forms.PictureBox();
+            this.Pb_TreatedImage = new System.Windows.Forms.PictureBox();
+            this.Pb_TreatedImage1 = new System.Windows.Forms.PictureBox();
+            this.Pb_TreatedImage2 = new System.Windows.Forms.PictureBox();
+            this.Pb_TreatedImage3 = new System.Windows.Forms.PictureBox();
+            this.Pb_GroundTruth = new System.Windows.Forms.PictureBox();
+            this.Lb_InitialImage = new System.Windows.Forms.Label();
+            this.Lb_GroundTruth = new System.Windows.Forms.Label();
+            this.Lb_TreatedImage = new System.Windows.Forms.Label();
+            this.Lb_Options = new System.Windows.Forms.Label();
+            this.Lb_TextScore = new System.Windows.Forms.Label();
+            this.Lb_Score = new System.Windows.Forms.Label();
+            this.B_Lancer = new System.Windows.Forms.Button();
+            this.ofd = new System.Windows.Forms.OpenFileDialog();
+            this.P_IntervalleImages = new System.Windows.Forms.Panel();
+            this.Lb_TextA = new System.Windows.Forms.Label();
+            this.Tb_FinInterval = new System.Windows.Forms.TextBox();
+            this.Tb_DebutInterval = new System.Windows.Forms.TextBox();
+            this.Lb_TextDe = new System.Windows.Forms.Label();
+            this.Tb_Timer = new System.Windows.Forms.TrackBar();
+            this.Lb_ValeurScore = new System.Windows.Forms.Label();
+            this.P_AffichageScore = new System.Windows.Forms.Panel();
+            this.Lb_ScoreMoyenne = new System.Windows.Forms.Label();
+            this.Lb_ValeurScoreMoy = new System.Windows.Forms.Label();
+            this.P_AffichageScoreMoy = new System.Windows.Forms.Panel();
+            this.B_Quitter = new System.Windows.Forms.Button();
+            this.Cb_ExportCSV = new System.Windows.Forms.CheckBox();
+            this.Lb_TextTimer = new System.Windows.Forms.Label();
+            this.Lb_ValeurTimer = new System.Windows.Forms.Label();
+            this.P_NbImages = new System.Windows.Forms.Panel();
+            this.Cb_ToutesImages = new System.Windows.Forms.CheckBox();
+            this.Cb_Intervalle = new System.Windows.Forms.CheckBox();
+            this.Cb_ImageSeule = new System.Windows.Forms.CheckBox();
+            this.P_TypeImage = new System.Windows.Forms.Panel();
+            this.Cb_ImageSc = new System.Windows.Forms.CheckBox();
+            this.Cb_DeuxTypes = new System.Windows.Forms.CheckBox();
+            this.Cb_ImageIn = new System.Windows.Forms.CheckBox();
+            this.B_Test = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.P_Error = new System.Windows.Forms.Panel();
+            this.Lb_Error = new System.Windows.Forms.Label();
+            this.P_Timer = new System.Windows.Forms.Panel();
+            this.L_TextHistorique = new System.Windows.Forms.Label();
+            this.B_Areter = new System.Windows.Forms.Button();
+            this.L_info = new System.Windows.Forms.Label();
+            this.Cb_TypeSE = new System.Windows.Forms.ComboBox();
+            this.P_SE = new System.Windows.Forms.Panel();
+            this.Tb_LargeurSE = new System.Windows.Forms.TextBox();
+            this.Tb_HauteurSE = new System.Windows.Forms.TextBox();
+            this.L_TexteLargeurSE = new System.Windows.Forms.Label();
+            this.L_TexteHauteurSE = new System.Windows.Forms.Label();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            ((System.ComponentModel.ISupportInitialize)(this.Pb_InitialImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pb_TreatedImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pb_TreatedImage1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pb_TreatedImage2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pb_TreatedImage3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pb_GroundTruth)).BeginInit();
+            this.P_IntervalleImages.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Tb_Timer)).BeginInit();
+            this.P_AffichageScore.SuspendLayout();
+            this.P_AffichageScoreMoy.SuspendLayout();
+            this.P_NbImages.SuspendLayout();
+            this.P_TypeImage.SuspendLayout();
+            this.P_Error.SuspendLayout();
+            this.P_Timer.SuspendLayout();
+            this.P_SE.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
+            this.SuspendLayout();
             // 
             // Pb_InitialImage
             // 
-            Pb_InitialImage.BackColor = SystemColors.Highlight;
-            Pb_InitialImage.BorderStyle = BorderStyle.Fixed3D;
-            Pb_InitialImage.Location = new Point(15, 15);
-            Pb_InitialImage.Margin = new Padding(4);
-            Pb_InitialImage.Name = "Pb_InitialImage";
-            Pb_InitialImage.Size = new Size(400, 340);
-            Pb_InitialImage.SizeMode = PictureBoxSizeMode.StretchImage;
-            Pb_InitialImage.TabIndex = 0;
-            Pb_InitialImage.TabStop = false;
+            this.Pb_InitialImage.BackColor = System.Drawing.SystemColors.Highlight;
+            this.Pb_InitialImage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.Pb_InitialImage.Location = new System.Drawing.Point(15, 15);
+            this.Pb_InitialImage.Margin = new System.Windows.Forms.Padding(4);
+            this.Pb_InitialImage.Name = "Pb_InitialImage";
+            this.Pb_InitialImage.Size = new System.Drawing.Size(400, 340);
+            this.Pb_InitialImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Pb_InitialImage.TabIndex = 0;
+            this.Pb_InitialImage.TabStop = false;
             // 
             // Pb_TreatedImage
             // 
-            Pb_TreatedImage.BackColor = SystemColors.GradientActiveCaption;
-            Pb_TreatedImage.BorderStyle = BorderStyle.FixedSingle;
-            Pb_TreatedImage.Location = new Point(425, 15);
-            Pb_TreatedImage.Margin = new Padding(4);
-            Pb_TreatedImage.Name = "Pb_TreatedImage";
-            Pb_TreatedImage.Size = new Size(400, 340);
-            Pb_TreatedImage.SizeMode = PictureBoxSizeMode.StretchImage;
-            Pb_TreatedImage.TabIndex = 1;
-            Pb_TreatedImage.TabStop = false;
+            this.Pb_TreatedImage.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Pb_TreatedImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Pb_TreatedImage.Location = new System.Drawing.Point(425, 15);
+            this.Pb_TreatedImage.Margin = new System.Windows.Forms.Padding(4);
+            this.Pb_TreatedImage.Name = "Pb_TreatedImage";
+            this.Pb_TreatedImage.Size = new System.Drawing.Size(400, 340);
+            this.Pb_TreatedImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Pb_TreatedImage.TabIndex = 1;
+            this.Pb_TreatedImage.TabStop = false;
             // 
             // Pb_TreatedImage1
             // 
-            Pb_TreatedImage1.BackColor = SystemColors.GradientActiveCaption;
-            Pb_TreatedImage1.BorderStyle = BorderStyle.FixedSingle;
-            Pb_TreatedImage1.Location = new Point(1307, 54);
-            Pb_TreatedImage1.Name = "Pb_TreatedImage1";
-            Pb_TreatedImage1.Size = new Size(180, 97);
-            Pb_TreatedImage1.SizeMode = PictureBoxSizeMode.StretchImage;
-            Pb_TreatedImage1.TabIndex = 2;
-            Pb_TreatedImage1.TabStop = false;
+            this.Pb_TreatedImage1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Pb_TreatedImage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Pb_TreatedImage1.Location = new System.Drawing.Point(1307, 54);
+            this.Pb_TreatedImage1.Name = "Pb_TreatedImage1";
+            this.Pb_TreatedImage1.Size = new System.Drawing.Size(180, 97);
+            this.Pb_TreatedImage1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Pb_TreatedImage1.TabIndex = 2;
+            this.Pb_TreatedImage1.TabStop = false;
             // 
             // Pb_TreatedImage2
             // 
-            Pb_TreatedImage2.BackColor = SystemColors.GradientActiveCaption;
-            Pb_TreatedImage2.BorderStyle = BorderStyle.FixedSingle;
-            Pb_TreatedImage2.Location = new Point(1307, 156);
-            Pb_TreatedImage2.Name = "Pb_TreatedImage2";
-            Pb_TreatedImage2.Size = new Size(180, 97);
-            Pb_TreatedImage2.SizeMode = PictureBoxSizeMode.StretchImage;
-            Pb_TreatedImage2.TabIndex = 3;
-            Pb_TreatedImage2.TabStop = false;
+            this.Pb_TreatedImage2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Pb_TreatedImage2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Pb_TreatedImage2.Location = new System.Drawing.Point(1307, 156);
+            this.Pb_TreatedImage2.Name = "Pb_TreatedImage2";
+            this.Pb_TreatedImage2.Size = new System.Drawing.Size(180, 97);
+            this.Pb_TreatedImage2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Pb_TreatedImage2.TabIndex = 3;
+            this.Pb_TreatedImage2.TabStop = false;
             // 
             // Pb_TreatedImage3
             // 
-            Pb_TreatedImage3.BackColor = SystemColors.GradientActiveCaption;
-            Pb_TreatedImage3.BorderStyle = BorderStyle.FixedSingle;
-            Pb_TreatedImage3.Location = new Point(1307, 258);
-            Pb_TreatedImage3.Name = "Pb_TreatedImage3";
-            Pb_TreatedImage3.Size = new Size(180, 97);
-            Pb_TreatedImage3.SizeMode = PictureBoxSizeMode.StretchImage;
-            Pb_TreatedImage3.TabIndex = 4;
-            Pb_TreatedImage3.TabStop = false;
+            this.Pb_TreatedImage3.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Pb_TreatedImage3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Pb_TreatedImage3.Location = new System.Drawing.Point(1307, 258);
+            this.Pb_TreatedImage3.Name = "Pb_TreatedImage3";
+            this.Pb_TreatedImage3.Size = new System.Drawing.Size(180, 97);
+            this.Pb_TreatedImage3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Pb_TreatedImage3.TabIndex = 4;
+            this.Pb_TreatedImage3.TabStop = false;
             // 
             // Pb_GroundTruth
             // 
-            Pb_GroundTruth.BackColor = SystemColors.ActiveCaption;
-            Pb_GroundTruth.BorderStyle = BorderStyle.FixedSingle;
-            Pb_GroundTruth.Location = new Point(833, 15);
-            Pb_GroundTruth.Margin = new Padding(4);
-            Pb_GroundTruth.Name = "Pb_GroundTruth";
-            Pb_GroundTruth.Size = new Size(400, 340);
-            Pb_GroundTruth.SizeMode = PictureBoxSizeMode.StretchImage;
-            Pb_GroundTruth.TabIndex = 5;
-            Pb_GroundTruth.TabStop = false;
+            this.Pb_GroundTruth.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Pb_GroundTruth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Pb_GroundTruth.Location = new System.Drawing.Point(833, 15);
+            this.Pb_GroundTruth.Margin = new System.Windows.Forms.Padding(4);
+            this.Pb_GroundTruth.Name = "Pb_GroundTruth";
+            this.Pb_GroundTruth.Size = new System.Drawing.Size(400, 340);
+            this.Pb_GroundTruth.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Pb_GroundTruth.TabIndex = 5;
+            this.Pb_GroundTruth.TabStop = false;
             // 
             // Lb_InitialImage
             // 
-            Lb_InitialImage.AutoSize = true;
-            Lb_InitialImage.Location = new Point(155, 359);
-            Lb_InitialImage.Name = "Lb_InitialImage";
-            Lb_InitialImage.Size = new Size(109, 25);
-            Lb_InitialImage.TabIndex = 6;
-            Lb_InitialImage.Text = "Initial Image";
+            this.Lb_InitialImage.AutoSize = true;
+            this.Lb_InitialImage.Location = new System.Drawing.Point(155, 359);
+            this.Lb_InitialImage.Name = "Lb_InitialImage";
+            this.Lb_InitialImage.Size = new System.Drawing.Size(109, 25);
+            this.Lb_InitialImage.TabIndex = 6;
+            this.Lb_InitialImage.Text = "Initial Image";
             // 
             // Lb_GroundTruth
             // 
-            Lb_GroundTruth.AutoSize = true;
-            Lb_GroundTruth.Location = new Point(976, 359);
-            Lb_GroundTruth.Name = "Lb_GroundTruth";
-            Lb_GroundTruth.Size = new Size(116, 25);
-            Lb_GroundTruth.TabIndex = 7;
-            Lb_GroundTruth.Text = "Ground Truth";
+            this.Lb_GroundTruth.AutoSize = true;
+            this.Lb_GroundTruth.Location = new System.Drawing.Point(976, 359);
+            this.Lb_GroundTruth.Name = "Lb_GroundTruth";
+            this.Lb_GroundTruth.Size = new System.Drawing.Size(116, 25);
+            this.Lb_GroundTruth.TabIndex = 7;
+            this.Lb_GroundTruth.Text = "Ground Truth";
             // 
             // Lb_TreatedImage
             // 
-            Lb_TreatedImage.AutoSize = true;
-            Lb_TreatedImage.Location = new Point(565, 359);
-            Lb_TreatedImage.Name = "Lb_TreatedImage";
-            Lb_TreatedImage.Size = new Size(124, 25);
-            Lb_TreatedImage.TabIndex = 8;
-            Lb_TreatedImage.Text = "Treated Image";
+            this.Lb_TreatedImage.AutoSize = true;
+            this.Lb_TreatedImage.Location = new System.Drawing.Point(565, 359);
+            this.Lb_TreatedImage.Name = "Lb_TreatedImage";
+            this.Lb_TreatedImage.Size = new System.Drawing.Size(124, 25);
+            this.Lb_TreatedImage.TabIndex = 8;
+            this.Lb_TreatedImage.Text = "Treated Image";
             // 
             // Lb_Options
             // 
-            Lb_Options.AutoSize = true;
-            Lb_Options.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            Lb_Options.Location = new Point(177, 416);
-            Lb_Options.Name = "Lb_Options";
-            Lb_Options.Size = new Size(92, 25);
-            Lb_Options.TabIndex = 9;
-            Lb_Options.Text = "OPTIONS";
+            this.Lb_Options.AutoSize = true;
+            this.Lb_Options.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Lb_Options.Location = new System.Drawing.Point(177, 416);
+            this.Lb_Options.Name = "Lb_Options";
+            this.Lb_Options.Size = new System.Drawing.Size(92, 25);
+            this.Lb_Options.TabIndex = 9;
+            this.Lb_Options.Text = "OPTIONS";
             // 
             // Lb_TextScore
             // 
-            Lb_TextScore.AutoSize = true;
-            Lb_TextScore.Location = new Point(3, 15);
-            Lb_TextScore.Name = "Lb_TextScore";
-            Lb_TextScore.Size = new Size(70, 25);
-            Lb_TextScore.TabIndex = 13;
-            Lb_TextScore.Text = "Score : ";
+            this.Lb_TextScore.AutoSize = true;
+            this.Lb_TextScore.Location = new System.Drawing.Point(3, 15);
+            this.Lb_TextScore.Name = "Lb_TextScore";
+            this.Lb_TextScore.Size = new System.Drawing.Size(70, 25);
+            this.Lb_TextScore.TabIndex = 13;
+            this.Lb_TextScore.Text = "Score : ";
             // 
             // Lb_Score
             // 
-            Lb_Score.AutoSize = true;
-            Lb_Score.Location = new Point(103, 15);
-            Lb_Score.Name = "Lb_Score";
-            Lb_Score.Size = new Size(0, 25);
-            Lb_Score.TabIndex = 14;
+            this.Lb_Score.AutoSize = true;
+            this.Lb_Score.Location = new System.Drawing.Point(103, 15);
+            this.Lb_Score.Name = "Lb_Score";
+            this.Lb_Score.Size = new System.Drawing.Size(0, 25);
+            this.Lb_Score.TabIndex = 14;
             // 
             // B_Lancer
             // 
-            B_Lancer.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            B_Lancer.ForeColor = Color.Green;
-            B_Lancer.Location = new Point(993, 503);
-            B_Lancer.Name = "B_Lancer";
-            B_Lancer.Size = new Size(112, 34);
-            B_Lancer.TabIndex = 15;
-            B_Lancer.Text = "Lancer";
-            B_Lancer.UseVisualStyleBackColor = true;
-            B_Lancer.Click += B_Lancer_Click;
+            this.B_Lancer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.B_Lancer.ForeColor = System.Drawing.Color.Green;
+            this.B_Lancer.Location = new System.Drawing.Point(993, 503);
+            this.B_Lancer.Name = "B_Lancer";
+            this.B_Lancer.Size = new System.Drawing.Size(112, 34);
+            this.B_Lancer.TabIndex = 15;
+            this.B_Lancer.Text = "Lancer";
+            this.B_Lancer.UseVisualStyleBackColor = true;
+            this.B_Lancer.Click += new System.EventHandler(this.B_Lancer_Click);
             // 
             // ofd
             // 
-            ofd.FileName = "openFileDialog1";
+            this.ofd.FileName = "openFileDialog1";
             // 
             // P_IntervalleImages
             // 
-            P_IntervalleImages.Anchor = AnchorStyles.None;
-            P_IntervalleImages.Controls.Add(Lb_TextA);
-            P_IntervalleImages.Controls.Add(Tb_FinInterval);
-            P_IntervalleImages.Controls.Add(Tb_DebutInterval);
-            P_IntervalleImages.Controls.Add(Lb_TextDe);
-            P_IntervalleImages.Location = new Point(12, 649);
-            P_IntervalleImages.Name = "P_IntervalleImages";
-            P_IntervalleImages.Size = new Size(193, 64);
-            P_IntervalleImages.TabIndex = 17;
+            this.P_IntervalleImages.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.P_IntervalleImages.Controls.Add(this.Lb_TextA);
+            this.P_IntervalleImages.Controls.Add(this.Tb_FinInterval);
+            this.P_IntervalleImages.Controls.Add(this.Tb_DebutInterval);
+            this.P_IntervalleImages.Controls.Add(this.Lb_TextDe);
+            this.P_IntervalleImages.Location = new System.Drawing.Point(12, 649);
+            this.P_IntervalleImages.Name = "P_IntervalleImages";
+            this.P_IntervalleImages.Size = new System.Drawing.Size(193, 64);
+            this.P_IntervalleImages.TabIndex = 17;
             // 
             // Lb_TextA
             // 
-            Lb_TextA.AutoSize = true;
-            Lb_TextA.Location = new Point(98, 20);
-            Lb_TextA.Name = "Lb_TextA";
-            Lb_TextA.Size = new Size(30, 25);
-            Lb_TextA.TabIndex = 4;
-            Lb_TextA.Text = "à :";
+            this.Lb_TextA.AutoSize = true;
+            this.Lb_TextA.Location = new System.Drawing.Point(98, 20);
+            this.Lb_TextA.Name = "Lb_TextA";
+            this.Lb_TextA.Size = new System.Drawing.Size(30, 25);
+            this.Lb_TextA.TabIndex = 4;
+            this.Lb_TextA.Text = "à :";
             // 
             // Tb_FinInterval
             // 
-            Tb_FinInterval.Location = new Point(124, 17);
-            Tb_FinInterval.Name = "Tb_FinInterval";
-            Tb_FinInterval.Size = new Size(40, 31);
-            Tb_FinInterval.TabIndex = 3;
-            Tb_FinInterval.TextChanged += Tb_FinInterval_TextChanged;
+            this.Tb_FinInterval.Location = new System.Drawing.Point(124, 17);
+            this.Tb_FinInterval.Name = "Tb_FinInterval";
+            this.Tb_FinInterval.Size = new System.Drawing.Size(40, 31);
+            this.Tb_FinInterval.TabIndex = 3;
+            this.Tb_FinInterval.TextChanged += new System.EventHandler(this.Tb_FinInterval_TextChanged_1);
             // 
             // Tb_DebutInterval
             // 
-            Tb_DebutInterval.Location = new Point(45, 17);
-            Tb_DebutInterval.Name = "Tb_DebutInterval";
-            Tb_DebutInterval.Size = new Size(40, 31);
-            Tb_DebutInterval.TabIndex = 1;
-            Tb_DebutInterval.TextChanged += Tb_DebutInterval_TextChanged;
+            this.Tb_DebutInterval.Location = new System.Drawing.Point(45, 17);
+            this.Tb_DebutInterval.Name = "Tb_DebutInterval";
+            this.Tb_DebutInterval.Size = new System.Drawing.Size(40, 31);
+            this.Tb_DebutInterval.TabIndex = 1;
+            this.Tb_DebutInterval.TextChanged += new System.EventHandler(this.Tb_DebutInterval_TextChanged_1);
             // 
             // Lb_TextDe
             // 
-            Lb_TextDe.AutoSize = true;
-            Lb_TextDe.Location = new Point(5, 17);
-            Lb_TextDe.Name = "Lb_TextDe";
-            Lb_TextDe.Size = new Size(48, 25);
-            Lb_TextDe.TabIndex = 0;
-            Lb_TextDe.Text = "De : ";
+            this.Lb_TextDe.AutoSize = true;
+            this.Lb_TextDe.Location = new System.Drawing.Point(5, 17);
+            this.Lb_TextDe.Name = "Lb_TextDe";
+            this.Lb_TextDe.Size = new System.Drawing.Size(48, 25);
+            this.Lb_TextDe.TabIndex = 0;
+            this.Lb_TextDe.Text = "De : ";
             // 
             // Tb_Timer
             // 
-            Tb_Timer.Location = new Point(14, 40);
-            Tb_Timer.Maximum = 1500;
-            Tb_Timer.Minimum = 100;
-            Tb_Timer.Name = "Tb_Timer";
-            Tb_Timer.Size = new Size(229, 69);
-            Tb_Timer.TabIndex = 18;
-            Tb_Timer.TickFrequency = 100;
-            Tb_Timer.TickStyle = TickStyle.Both;
-            Tb_Timer.Value = 500;
-            Tb_Timer.ValueChanged += Tb_Timer_ValueChanged;
+            this.Tb_Timer.Location = new System.Drawing.Point(14, 40);
+            this.Tb_Timer.Maximum = 1500;
+            this.Tb_Timer.Minimum = 100;
+            this.Tb_Timer.Name = "Tb_Timer";
+            this.Tb_Timer.Size = new System.Drawing.Size(229, 69);
+            this.Tb_Timer.TabIndex = 18;
+            this.Tb_Timer.TickFrequency = 100;
+            this.Tb_Timer.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.Tb_Timer.Value = 500;
+            this.Tb_Timer.ValueChanged += new System.EventHandler(this.Tb_Timer_ValueChanged);
             // 
             // Lb_ValeurScore
             // 
-            Lb_ValeurScore.AutoSize = true;
-            Lb_ValeurScore.Location = new Point(191, 15);
-            Lb_ValeurScore.Name = "Lb_ValeurScore";
-            Lb_ValeurScore.Size = new Size(27, 25);
-            Lb_ValeurScore.TabIndex = 19;
-            Lb_ValeurScore.Text = "%";
+            this.Lb_ValeurScore.AutoSize = true;
+            this.Lb_ValeurScore.Location = new System.Drawing.Point(191, 15);
+            this.Lb_ValeurScore.Name = "Lb_ValeurScore";
+            this.Lb_ValeurScore.Size = new System.Drawing.Size(27, 25);
+            this.Lb_ValeurScore.TabIndex = 19;
+            this.Lb_ValeurScore.Text = "%";
             // 
             // P_AffichageScore
             // 
-            P_AffichageScore.Controls.Add(Lb_TextScore);
-            P_AffichageScore.Controls.Add(Lb_ValeurScore);
-            P_AffichageScore.Location = new Point(517, 499);
-            P_AffichageScore.Name = "P_AffichageScore";
-            P_AffichageScore.Size = new Size(264, 56);
-            P_AffichageScore.TabIndex = 20;
+            this.P_AffichageScore.Controls.Add(this.Lb_TextScore);
+            this.P_AffichageScore.Controls.Add(this.Lb_ValeurScore);
+            this.P_AffichageScore.Location = new System.Drawing.Point(517, 499);
+            this.P_AffichageScore.Name = "P_AffichageScore";
+            this.P_AffichageScore.Size = new System.Drawing.Size(264, 56);
+            this.P_AffichageScore.TabIndex = 20;
             // 
             // Lb_ScoreMoyenne
             // 
-            Lb_ScoreMoyenne.AutoSize = true;
-            Lb_ScoreMoyenne.Location = new Point(3, 15);
-            Lb_ScoreMoyenne.Name = "Lb_ScoreMoyenne";
-            Lb_ScoreMoyenne.Size = new Size(188, 25);
-            Lb_ScoreMoyenne.TabIndex = 13;
-            Lb_ScoreMoyenne.Text = "Moyenne des scores : ";
+            this.Lb_ScoreMoyenne.AutoSize = true;
+            this.Lb_ScoreMoyenne.Location = new System.Drawing.Point(3, 15);
+            this.Lb_ScoreMoyenne.Name = "Lb_ScoreMoyenne";
+            this.Lb_ScoreMoyenne.Size = new System.Drawing.Size(188, 25);
+            this.Lb_ScoreMoyenne.TabIndex = 13;
+            this.Lb_ScoreMoyenne.Text = "Moyenne des scores : ";
             // 
             // Lb_ValeurScoreMoy
             // 
-            Lb_ValeurScoreMoy.AutoSize = true;
-            Lb_ValeurScoreMoy.Location = new Point(197, 15);
-            Lb_ValeurScoreMoy.Name = "Lb_ValeurScoreMoy";
-            Lb_ValeurScoreMoy.Size = new Size(27, 25);
-            Lb_ValeurScoreMoy.TabIndex = 19;
-            Lb_ValeurScoreMoy.Text = "%";
+            this.Lb_ValeurScoreMoy.AutoSize = true;
+            this.Lb_ValeurScoreMoy.Location = new System.Drawing.Point(197, 15);
+            this.Lb_ValeurScoreMoy.Name = "Lb_ValeurScoreMoy";
+            this.Lb_ValeurScoreMoy.Size = new System.Drawing.Size(27, 25);
+            this.Lb_ValeurScoreMoy.TabIndex = 19;
+            this.Lb_ValeurScoreMoy.Text = "%";
             // 
             // P_AffichageScoreMoy
             // 
-            P_AffichageScoreMoy.Controls.Add(Lb_ScoreMoyenne);
-            P_AffichageScoreMoy.Controls.Add(Lb_ValeurScoreMoy);
-            P_AffichageScoreMoy.Controls.Add(Lb_Score);
-            P_AffichageScoreMoy.Location = new Point(517, 561);
-            P_AffichageScoreMoy.Name = "P_AffichageScoreMoy";
-            P_AffichageScoreMoy.Size = new Size(264, 56);
-            P_AffichageScoreMoy.TabIndex = 21;
+            this.P_AffichageScoreMoy.Controls.Add(this.Lb_ScoreMoyenne);
+            this.P_AffichageScoreMoy.Controls.Add(this.Lb_ValeurScoreMoy);
+            this.P_AffichageScoreMoy.Controls.Add(this.Lb_Score);
+            this.P_AffichageScoreMoy.Location = new System.Drawing.Point(517, 561);
+            this.P_AffichageScoreMoy.Name = "P_AffichageScoreMoy";
+            this.P_AffichageScoreMoy.Size = new System.Drawing.Size(264, 56);
+            this.P_AffichageScoreMoy.TabIndex = 21;
             // 
             // B_Quitter
             // 
-            B_Quitter.BackColor = SystemColors.ButtonHighlight;
-            B_Quitter.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            B_Quitter.ForeColor = Color.Firebrick;
-            B_Quitter.Location = new Point(1377, 15);
-            B_Quitter.Name = "B_Quitter";
-            B_Quitter.Size = new Size(112, 34);
-            B_Quitter.TabIndex = 22;
-            B_Quitter.Text = "Quitter";
-            B_Quitter.UseVisualStyleBackColor = false;
-            B_Quitter.Click += B_Quitter_Click;
+            this.B_Quitter.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.B_Quitter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.B_Quitter.ForeColor = System.Drawing.Color.Firebrick;
+            this.B_Quitter.Location = new System.Drawing.Point(1377, 15);
+            this.B_Quitter.Name = "B_Quitter";
+            this.B_Quitter.Size = new System.Drawing.Size(112, 34);
+            this.B_Quitter.TabIndex = 22;
+            this.B_Quitter.Text = "Quitter";
+            this.B_Quitter.UseVisualStyleBackColor = false;
+            this.B_Quitter.Click += new System.EventHandler(this.B_Quitter_Click_1);
             // 
             // Cb_ExportCSV
             // 
-            Cb_ExportCSV.AutoSize = true;
-            Cb_ExportCSV.Location = new Point(993, 583);
-            Cb_ExportCSV.Name = "Cb_ExportCSV";
-            Cb_ExportCSV.Size = new Size(121, 29);
-            Cb_ExportCSV.TabIndex = 23;
-            Cb_ExportCSV.Text = "ExportCSV";
-            Cb_ExportCSV.UseVisualStyleBackColor = true;
+            this.Cb_ExportCSV.AutoSize = true;
+            this.Cb_ExportCSV.Location = new System.Drawing.Point(993, 583);
+            this.Cb_ExportCSV.Name = "Cb_ExportCSV";
+            this.Cb_ExportCSV.Size = new System.Drawing.Size(121, 29);
+            this.Cb_ExportCSV.TabIndex = 23;
+            this.Cb_ExportCSV.Text = "ExportCSV";
+            this.Cb_ExportCSV.UseVisualStyleBackColor = true;
             // 
             // Lb_TextTimer
             // 
-            Lb_TextTimer.AutoSize = true;
-            Lb_TextTimer.Location = new Point(63, 6);
-            Lb_TextTimer.Name = "Lb_TextTimer";
-            Lb_TextTimer.Size = new Size(109, 25);
-            Lb_TextTimer.TabIndex = 20;
-            Lb_TextTimer.Text = "Timer (ms) : ";
+            this.Lb_TextTimer.AutoSize = true;
+            this.Lb_TextTimer.Location = new System.Drawing.Point(63, 6);
+            this.Lb_TextTimer.Name = "Lb_TextTimer";
+            this.Lb_TextTimer.Size = new System.Drawing.Size(109, 25);
+            this.Lb_TextTimer.TabIndex = 20;
+            this.Lb_TextTimer.Text = "Timer (ms) : ";
             // 
             // Lb_ValeurTimer
             // 
-            Lb_ValeurTimer.AutoSize = true;
-            Lb_ValeurTimer.Location = new Point(100, 104);
-            Lb_ValeurTimer.Name = "Lb_ValeurTimer";
-            Lb_ValeurTimer.Size = new Size(0, 25);
-            Lb_ValeurTimer.TabIndex = 25;
+            this.Lb_ValeurTimer.AutoSize = true;
+            this.Lb_ValeurTimer.Location = new System.Drawing.Point(100, 104);
+            this.Lb_ValeurTimer.Name = "Lb_ValeurTimer";
+            this.Lb_ValeurTimer.Size = new System.Drawing.Size(0, 25);
+            this.Lb_ValeurTimer.TabIndex = 25;
             // 
             // P_NbImages
             // 
-            P_NbImages.BackColor = SystemColors.ButtonHighlight;
-            P_NbImages.Controls.Add(Cb_ToutesImages);
-            P_NbImages.Controls.Add(Cb_Intervalle);
-            P_NbImages.Controls.Add(Cb_ImageSeule);
-            P_NbImages.Location = new Point(14, 546);
-            P_NbImages.Name = "P_NbImages";
-            P_NbImages.Size = new Size(191, 89);
-            P_NbImages.TabIndex = 26;
+            this.P_NbImages.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.P_NbImages.Controls.Add(this.Cb_ToutesImages);
+            this.P_NbImages.Controls.Add(this.Cb_Intervalle);
+            this.P_NbImages.Controls.Add(this.Cb_ImageSeule);
+            this.P_NbImages.Location = new System.Drawing.Point(14, 546);
+            this.P_NbImages.Name = "P_NbImages";
+            this.P_NbImages.Size = new System.Drawing.Size(191, 89);
+            this.P_NbImages.TabIndex = 26;
             // 
             // Cb_ToutesImages
             // 
-            Cb_ToutesImages.AutoSize = true;
-            Cb_ToutesImages.Location = new Point(5, 30);
-            Cb_ToutesImages.Name = "Cb_ToutesImages";
-            Cb_ToutesImages.Size = new Size(189, 29);
-            Cb_ToutesImages.TabIndex = 2;
-            Cb_ToutesImages.Text = "Totalité des images";
-            Cb_ToutesImages.UseVisualStyleBackColor = true;
-            Cb_ToutesImages.CheckedChanged += Cb_ToutesImages_CheckedChanged;
+            this.Cb_ToutesImages.AutoSize = true;
+            this.Cb_ToutesImages.Location = new System.Drawing.Point(5, 30);
+            this.Cb_ToutesImages.Name = "Cb_ToutesImages";
+            this.Cb_ToutesImages.Size = new System.Drawing.Size(189, 29);
+            this.Cb_ToutesImages.TabIndex = 2;
+            this.Cb_ToutesImages.Text = "Totalité des images";
+            this.Cb_ToutesImages.UseVisualStyleBackColor = true;
+            this.Cb_ToutesImages.CheckedChanged += new System.EventHandler(this.Cb_ToutesImages_CheckedChanged_1);
             // 
             // Cb_Intervalle
             // 
-            Cb_Intervalle.AutoSize = true;
-            Cb_Intervalle.Location = new Point(5, 55);
-            Cb_Intervalle.Name = "Cb_Intervalle";
-            Cb_Intervalle.Size = new Size(109, 29);
-            Cb_Intervalle.TabIndex = 1;
-            Cb_Intervalle.Text = "Intervalle";
-            Cb_Intervalle.UseVisualStyleBackColor = true;
-            Cb_Intervalle.CheckedChanged += Cb_Intervalle_CheckedChanged;
+            this.Cb_Intervalle.AutoSize = true;
+            this.Cb_Intervalle.Location = new System.Drawing.Point(5, 55);
+            this.Cb_Intervalle.Name = "Cb_Intervalle";
+            this.Cb_Intervalle.Size = new System.Drawing.Size(109, 29);
+            this.Cb_Intervalle.TabIndex = 1;
+            this.Cb_Intervalle.Text = "Intervalle";
+            this.Cb_Intervalle.UseVisualStyleBackColor = true;
+            this.Cb_Intervalle.CheckedChanged += new System.EventHandler(this.Cb_Intervalle_CheckedChanged_1);
             // 
             // Cb_ImageSeule
             // 
-            Cb_ImageSeule.AutoSize = true;
-            Cb_ImageSeule.Checked = true;
-            Cb_ImageSeule.CheckState = CheckState.Checked;
-            Cb_ImageSeule.Location = new Point(5, 5);
-            Cb_ImageSeule.Name = "Cb_ImageSeule";
-            Cb_ImageSeule.Size = new Size(135, 29);
-            Cb_ImageSeule.TabIndex = 0;
-            Cb_ImageSeule.Text = "Image Seule";
-            Cb_ImageSeule.UseVisualStyleBackColor = true;
-            Cb_ImageSeule.CheckedChanged += Cb_ImageSeule_CheckedChanged;
+            this.Cb_ImageSeule.AutoSize = true;
+            this.Cb_ImageSeule.Checked = true;
+            this.Cb_ImageSeule.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Cb_ImageSeule.Location = new System.Drawing.Point(5, 5);
+            this.Cb_ImageSeule.Name = "Cb_ImageSeule";
+            this.Cb_ImageSeule.Size = new System.Drawing.Size(135, 29);
+            this.Cb_ImageSeule.TabIndex = 0;
+            this.Cb_ImageSeule.Text = "Image Seule";
+            this.Cb_ImageSeule.UseVisualStyleBackColor = true;
+            this.Cb_ImageSeule.CheckedChanged += new System.EventHandler(this.Cb_ImageSeule_CheckedChanged_1);
             // 
             // P_TypeImage
             // 
-            P_TypeImage.BackColor = SystemColors.ButtonHighlight;
-            P_TypeImage.Controls.Add(Cb_ImageSc);
-            P_TypeImage.Controls.Add(Cb_DeuxTypes);
-            P_TypeImage.Controls.Add(Cb_ImageIn);
-            P_TypeImage.Location = new Point(14, 444);
-            P_TypeImage.Name = "P_TypeImage";
-            P_TypeImage.Size = new Size(191, 89);
-            P_TypeImage.TabIndex = 27;
+            this.P_TypeImage.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.P_TypeImage.Controls.Add(this.Cb_ImageSc);
+            this.P_TypeImage.Controls.Add(this.Cb_DeuxTypes);
+            this.P_TypeImage.Controls.Add(this.Cb_ImageIn);
+            this.P_TypeImage.Location = new System.Drawing.Point(14, 444);
+            this.P_TypeImage.Name = "P_TypeImage";
+            this.P_TypeImage.Size = new System.Drawing.Size(191, 89);
+            this.P_TypeImage.TabIndex = 27;
             // 
             // Cb_ImageSc
             // 
-            Cb_ImageSc.AutoSize = true;
-            Cb_ImageSc.Location = new Point(5, 30);
-            Cb_ImageSc.Name = "Cb_ImageSc";
-            Cb_ImageSc.Size = new Size(111, 29);
-            Cb_ImageSc.TabIndex = 2;
-            Cb_ImageSc.Text = "Image Sc";
-            Cb_ImageSc.UseVisualStyleBackColor = true;
-            Cb_ImageSc.CheckedChanged += Cb_ImageSc_CheckedChanged;
+            this.Cb_ImageSc.AutoSize = true;
+            this.Cb_ImageSc.Location = new System.Drawing.Point(5, 30);
+            this.Cb_ImageSc.Name = "Cb_ImageSc";
+            this.Cb_ImageSc.Size = new System.Drawing.Size(111, 29);
+            this.Cb_ImageSc.TabIndex = 2;
+            this.Cb_ImageSc.Text = "Image Sc";
+            this.Cb_ImageSc.UseVisualStyleBackColor = true;
+            this.Cb_ImageSc.CheckedChanged += new System.EventHandler(this.Cb_ImageSc_CheckedChanged);
             // 
             // Cb_DeuxTypes
             // 
-            Cb_DeuxTypes.AutoSize = true;
-            Cb_DeuxTypes.Location = new Point(5, 55);
-            Cb_DeuxTypes.Name = "Cb_DeuxTypes";
-            Cb_DeuxTypes.Size = new Size(126, 29);
-            Cb_DeuxTypes.TabIndex = 1;
-            Cb_DeuxTypes.Text = "Deux types";
-            Cb_DeuxTypes.UseVisualStyleBackColor = true;
-            Cb_DeuxTypes.CheckedChanged += Cb_DeuxTypes_CheckedChanged;
+            this.Cb_DeuxTypes.AutoSize = true;
+            this.Cb_DeuxTypes.Location = new System.Drawing.Point(5, 55);
+            this.Cb_DeuxTypes.Name = "Cb_DeuxTypes";
+            this.Cb_DeuxTypes.Size = new System.Drawing.Size(126, 29);
+            this.Cb_DeuxTypes.TabIndex = 1;
+            this.Cb_DeuxTypes.Text = "Deux types";
+            this.Cb_DeuxTypes.UseVisualStyleBackColor = true;
+            this.Cb_DeuxTypes.CheckedChanged += new System.EventHandler(this.Cb_DeuxTypes_CheckedChanged_1);
             // 
             // Cb_ImageIn
             // 
-            Cb_ImageIn.AutoSize = true;
-            Cb_ImageIn.Checked = true;
-            Cb_ImageIn.CheckState = CheckState.Checked;
-            Cb_ImageIn.Location = new Point(5, 5);
-            Cb_ImageIn.Name = "Cb_ImageIn";
-            Cb_ImageIn.Size = new Size(108, 29);
-            Cb_ImageIn.TabIndex = 0;
-            Cb_ImageIn.Text = "Image In";
-            Cb_ImageIn.UseVisualStyleBackColor = true;
-            Cb_ImageIn.CheckedChanged += Cb_ImageIn_CheckedChanged;
+            this.Cb_ImageIn.AutoSize = true;
+            this.Cb_ImageIn.Checked = true;
+            this.Cb_ImageIn.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Cb_ImageIn.Location = new System.Drawing.Point(5, 5);
+            this.Cb_ImageIn.Name = "Cb_ImageIn";
+            this.Cb_ImageIn.Size = new System.Drawing.Size(108, 29);
+            this.Cb_ImageIn.TabIndex = 0;
+            this.Cb_ImageIn.Text = "Image In";
+            this.Cb_ImageIn.UseVisualStyleBackColor = true;
+            this.Cb_ImageIn.CheckedChanged += new System.EventHandler(this.Cb_ImageIn_CheckedChanged_1);
             // 
             // B_Test
             // 
-            B_Test.Location = new Point(806, 397);
-            B_Test.Name = "B_Test";
-            B_Test.Size = new Size(112, 34);
-            B_Test.TabIndex = 28;
-            B_Test.Text = "Test";
-            B_Test.UseVisualStyleBackColor = true;
-            B_Test.Click += BT_Test;
+            this.B_Test.Location = new System.Drawing.Point(806, 397);
+            this.B_Test.Name = "B_Test";
+            this.B_Test.Size = new System.Drawing.Size(112, 34);
+            this.B_Test.TabIndex = 28;
+            this.B_Test.Text = "Test";
+            this.B_Test.UseVisualStyleBackColor = true;
             // 
             // timer1
             // 
-            timer1.Tick += timer1_Tick;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // P_Error
             // 
-            P_Error.Controls.Add(Lb_Error);
-            P_Error.Location = new Point(12, 722);
-            P_Error.Name = "P_Error";
-            P_Error.Size = new Size(1507, 47);
-            P_Error.TabIndex = 30;
+            this.P_Error.Controls.Add(this.Lb_Error);
+            this.P_Error.Location = new System.Drawing.Point(12, 722);
+            this.P_Error.Name = "P_Error";
+            this.P_Error.Size = new System.Drawing.Size(1507, 47);
+            this.P_Error.TabIndex = 30;
             // 
             // Lb_Error
             // 
-            Lb_Error.AutoSize = true;
-            Lb_Error.Dock = DockStyle.Fill;
-            Lb_Error.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            Lb_Error.ForeColor = Color.Firebrick;
-            Lb_Error.Location = new Point(0, 0);
-            Lb_Error.Name = "Lb_Error";
-            Lb_Error.Size = new Size(0, 28);
-            Lb_Error.TabIndex = 0;
+            this.Lb_Error.AutoSize = true;
+            this.Lb_Error.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Lb_Error.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Lb_Error.ForeColor = System.Drawing.Color.Firebrick;
+            this.Lb_Error.Location = new System.Drawing.Point(0, 0);
+            this.Lb_Error.Name = "Lb_Error";
+            this.Lb_Error.Size = new System.Drawing.Size(0, 28);
+            this.Lb_Error.TabIndex = 0;
             // 
             // P_Timer
             // 
-            P_Timer.BackColor = SystemColors.GradientInactiveCaption;
-            P_Timer.Controls.Add(Lb_TextTimer);
-            P_Timer.Controls.Add(Tb_Timer);
-            P_Timer.Controls.Add(Lb_ValeurTimer);
-            P_Timer.Location = new Point(209, 579);
-            P_Timer.Name = "P_Timer";
-            P_Timer.Size = new Size(252, 134);
-            P_Timer.TabIndex = 31;
+            this.P_Timer.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.P_Timer.Controls.Add(this.Lb_TextTimer);
+            this.P_Timer.Controls.Add(this.Tb_Timer);
+            this.P_Timer.Controls.Add(this.Lb_ValeurTimer);
+            this.P_Timer.Location = new System.Drawing.Point(209, 579);
+            this.P_Timer.Name = "P_Timer";
+            this.P_Timer.Size = new System.Drawing.Size(252, 134);
+            this.P_Timer.TabIndex = 31;
             // 
             // L_TextHistorique
             // 
-            L_TextHistorique.AutoSize = true;
-            L_TextHistorique.Location = new Point(1352, 359);
-            L_TextHistorique.Name = "L_TextHistorique";
-            L_TextHistorique.Size = new Size(94, 25);
-            L_TextHistorique.TabIndex = 32;
-            L_TextHistorique.Text = "Historique";
+            this.L_TextHistorique.AutoSize = true;
+            this.L_TextHistorique.Location = new System.Drawing.Point(1352, 359);
+            this.L_TextHistorique.Name = "L_TextHistorique";
+            this.L_TextHistorique.Size = new System.Drawing.Size(94, 25);
+            this.L_TextHistorique.TabIndex = 32;
+            this.L_TextHistorique.Text = "Historique";
             // 
             // B_Areter
             // 
-            B_Areter.Enabled = false;
-            B_Areter.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            B_Areter.ForeColor = Color.Red;
-            B_Areter.Location = new Point(993, 543);
-            B_Areter.Name = "B_Areter";
-            B_Areter.Size = new Size(112, 34);
-            B_Areter.TabIndex = 33;
-            B_Areter.Text = "Arrêter";
-            B_Areter.UseVisualStyleBackColor = true;
+            this.B_Areter.Enabled = false;
+            this.B_Areter.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.B_Areter.ForeColor = System.Drawing.Color.Red;
+            this.B_Areter.Location = new System.Drawing.Point(993, 543);
+            this.B_Areter.Name = "B_Areter";
+            this.B_Areter.Size = new System.Drawing.Size(112, 34);
+            this.B_Areter.TabIndex = 33;
+            this.B_Areter.Text = "Arrêter";
+            this.B_Areter.UseVisualStyleBackColor = true;
             // 
             // L_info
             // 
-            L_info.AutoSize = true;
-            L_info.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            L_info.Location = new Point(517, 463);
-            L_info.Name = "L_info";
-            L_info.Size = new Size(77, 25);
-            L_info.TabIndex = 34;
-            L_info.Text = "Image : ";
+            this.L_info.AutoSize = true;
+            this.L_info.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.L_info.Location = new System.Drawing.Point(517, 463);
+            this.L_info.Name = "L_info";
+            this.L_info.Size = new System.Drawing.Size(77, 25);
+            this.L_info.TabIndex = 34;
+            this.L_info.Text = "Image : ";
             // 
             // Cb_TypeSE
             // 
-            Cb_TypeSE.FormattingEnabled = true;
-            Cb_TypeSE.Items.AddRange(new object[] { "V4", "V8", "Disque", "Ellipse", "Ligne Verticale ", "Ligne Horizontale ", "Rectangle" });
-            Cb_TypeSE.Location = new Point(5, 3);
-            Cb_TypeSE.Name = "Cb_TypeSE";
-            Cb_TypeSE.Size = new Size(238, 33);
-            Cb_TypeSE.TabIndex = 35;
-            Cb_TypeSE.Text = "Type Element Structurant";
+            this.Cb_TypeSE.FormattingEnabled = true;
+            this.Cb_TypeSE.Items.AddRange(new object[] {
+            "V4",
+            "V8",
+            "Disque",
+            "Ellipse",
+            "Ligne Verticale ",
+            "Ligne Horizontale ",
+            "Rectangle"});
+            this.Cb_TypeSE.Location = new System.Drawing.Point(5, 3);
+            this.Cb_TypeSE.Name = "Cb_TypeSE";
+            this.Cb_TypeSE.Size = new System.Drawing.Size(238, 33);
+            this.Cb_TypeSE.TabIndex = 35;
+            this.Cb_TypeSE.Text = "Type Element Structurant";
             // 
             // P_SE
             // 
-            P_SE.BackColor = SystemColors.GradientInactiveCaption;
-            P_SE.Controls.Add(Tb_LargeurSE);
-            P_SE.Controls.Add(Tb_HauteurSE);
-            P_SE.Controls.Add(L_TexteLargeurSE);
-            P_SE.Controls.Add(L_TexteHauteurSE);
-            P_SE.Controls.Add(Cb_TypeSE);
-            P_SE.Location = new Point(209, 444);
-            P_SE.Name = "P_SE";
-            P_SE.Size = new Size(252, 129);
-            P_SE.TabIndex = 36;
+            this.P_SE.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.P_SE.Controls.Add(this.Tb_LargeurSE);
+            this.P_SE.Controls.Add(this.Tb_HauteurSE);
+            this.P_SE.Controls.Add(this.L_TexteLargeurSE);
+            this.P_SE.Controls.Add(this.L_TexteHauteurSE);
+            this.P_SE.Controls.Add(this.Cb_TypeSE);
+            this.P_SE.Location = new System.Drawing.Point(209, 444);
+            this.P_SE.Name = "P_SE";
+            this.P_SE.Size = new System.Drawing.Size(252, 129);
+            this.P_SE.TabIndex = 36;
             // 
             // Tb_LargeurSE
             // 
-            Tb_LargeurSE.Location = new Point(100, 87);
-            Tb_LargeurSE.Name = "Tb_LargeurSE";
-            Tb_LargeurSE.Size = new Size(50, 31);
-            Tb_LargeurSE.TabIndex = 39;
-            Tb_LargeurSE.Text = "3";
+            this.Tb_LargeurSE.Location = new System.Drawing.Point(100, 87);
+            this.Tb_LargeurSE.Name = "Tb_LargeurSE";
+            this.Tb_LargeurSE.Size = new System.Drawing.Size(50, 31);
+            this.Tb_LargeurSE.TabIndex = 39;
+            this.Tb_LargeurSE.Text = "3";
             // 
             // Tb_HauteurSE
             // 
-            Tb_HauteurSE.Location = new Point(100, 47);
-            Tb_HauteurSE.Name = "Tb_HauteurSE";
-            Tb_HauteurSE.Size = new Size(50, 31);
-            Tb_HauteurSE.TabIndex = 38;
-            Tb_HauteurSE.Text = "3";
+            this.Tb_HauteurSE.Location = new System.Drawing.Point(100, 47);
+            this.Tb_HauteurSE.Name = "Tb_HauteurSE";
+            this.Tb_HauteurSE.Size = new System.Drawing.Size(50, 31);
+            this.Tb_HauteurSE.TabIndex = 38;
+            this.Tb_HauteurSE.Text = "3";
             // 
             // L_TexteLargeurSE
             // 
-            L_TexteLargeurSE.AutoSize = true;
-            L_TexteLargeurSE.Location = new Point(14, 89);
-            L_TexteLargeurSE.Name = "L_TexteLargeurSE";
-            L_TexteLargeurSE.Size = new Size(80, 25);
-            L_TexteLargeurSE.TabIndex = 37;
-            L_TexteLargeurSE.Text = "Largeur :";
+            this.L_TexteLargeurSE.AutoSize = true;
+            this.L_TexteLargeurSE.Location = new System.Drawing.Point(14, 89);
+            this.L_TexteLargeurSE.Name = "L_TexteLargeurSE";
+            this.L_TexteLargeurSE.Size = new System.Drawing.Size(80, 25);
+            this.L_TexteLargeurSE.TabIndex = 37;
+            this.L_TexteLargeurSE.Text = "Largeur :";
             // 
             // L_TexteHauteurSE
             // 
-            L_TexteHauteurSE.AutoSize = true;
-            L_TexteHauteurSE.Location = new Point(14, 50);
-            L_TexteHauteurSE.Name = "L_TexteHauteurSE";
-            L_TexteHauteurSE.Size = new Size(89, 25);
-            L_TexteHauteurSE.TabIndex = 36;
-            L_TexteHauteurSE.Text = "Hauteur : ";
+            this.L_TexteHauteurSE.AutoSize = true;
+            this.L_TexteHauteurSE.Location = new System.Drawing.Point(14, 50);
+            this.L_TexteHauteurSE.Name = "L_TexteHauteurSE";
+            this.L_TexteHauteurSE.Size = new System.Drawing.Size(89, 25);
+            this.L_TexteHauteurSE.TabIndex = 36;
+            this.L_TexteHauteurSE.Text = "Hauteur : ";
             // 
             // fileSystemWatcher1
             // 
-            fileSystemWatcher1.EnableRaisingEvents = true;
-            fileSystemWatcher1.SynchronizingObject = this;
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1532, 772);
-            ControlBox = false;
-            Controls.Add(P_IntervalleImages);
-            Controls.Add(P_NbImages);
-            Controls.Add(P_TypeImage);
-            Controls.Add(Lb_Options);
-            Controls.Add(L_info);
-            Controls.Add(P_Timer);
-            Controls.Add(P_SE);
-            Controls.Add(B_Areter);
-            Controls.Add(L_TextHistorique);
-            Controls.Add(P_Error);
-            Controls.Add(B_Test);
-            Controls.Add(Cb_ExportCSV);
-            Controls.Add(B_Quitter);
-            Controls.Add(P_AffichageScoreMoy);
-            Controls.Add(P_AffichageScore);
-            Controls.Add(B_Lancer);
-            Controls.Add(Lb_TreatedImage);
-            Controls.Add(Lb_GroundTruth);
-            Controls.Add(Lb_InitialImage);
-            Controls.Add(Pb_GroundTruth);
-            Controls.Add(Pb_TreatedImage3);
-            Controls.Add(Pb_TreatedImage2);
-            Controls.Add(Pb_TreatedImage1);
-            Controls.Add(Pb_TreatedImage);
-            Controls.Add(Pb_InitialImage);
-            Margin = new Padding(4);
-            Name = "Form1";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Projet C++";
-            ((System.ComponentModel.ISupportInitialize)Pb_InitialImage).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Pb_TreatedImage).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Pb_TreatedImage1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Pb_TreatedImage2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Pb_TreatedImage3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Pb_GroundTruth).EndInit();
-            P_IntervalleImages.ResumeLayout(false);
-            P_IntervalleImages.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)Tb_Timer).EndInit();
-            P_AffichageScore.ResumeLayout(false);
-            P_AffichageScore.PerformLayout();
-            P_AffichageScoreMoy.ResumeLayout(false);
-            P_AffichageScoreMoy.PerformLayout();
-            P_NbImages.ResumeLayout(false);
-            P_NbImages.PerformLayout();
-            P_TypeImage.ResumeLayout(false);
-            P_TypeImage.PerformLayout();
-            P_Error.ResumeLayout(false);
-            P_Error.PerformLayout();
-            P_Timer.ResumeLayout(false);
-            P_Timer.PerformLayout();
-            P_SE.ResumeLayout(false);
-            P_SE.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1532, 772);
+            this.ControlBox = false;
+            this.Controls.Add(this.P_IntervalleImages);
+            this.Controls.Add(this.P_NbImages);
+            this.Controls.Add(this.P_TypeImage);
+            this.Controls.Add(this.Lb_Options);
+            this.Controls.Add(this.L_info);
+            this.Controls.Add(this.P_Timer);
+            this.Controls.Add(this.P_SE);
+            this.Controls.Add(this.B_Areter);
+            this.Controls.Add(this.L_TextHistorique);
+            this.Controls.Add(this.P_Error);
+            this.Controls.Add(this.B_Test);
+            this.Controls.Add(this.Cb_ExportCSV);
+            this.Controls.Add(this.B_Quitter);
+            this.Controls.Add(this.P_AffichageScoreMoy);
+            this.Controls.Add(this.P_AffichageScore);
+            this.Controls.Add(this.B_Lancer);
+            this.Controls.Add(this.Lb_TreatedImage);
+            this.Controls.Add(this.Lb_GroundTruth);
+            this.Controls.Add(this.Lb_InitialImage);
+            this.Controls.Add(this.Pb_GroundTruth);
+            this.Controls.Add(this.Pb_TreatedImage3);
+            this.Controls.Add(this.Pb_TreatedImage2);
+            this.Controls.Add(this.Pb_TreatedImage1);
+            this.Controls.Add(this.Pb_TreatedImage);
+            this.Controls.Add(this.Pb_InitialImage);
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Projet C++";
+            ((System.ComponentModel.ISupportInitialize)(this.Pb_InitialImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pb_TreatedImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pb_TreatedImage1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pb_TreatedImage2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pb_TreatedImage3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pb_GroundTruth)).EndInit();
+            this.P_IntervalleImages.ResumeLayout(false);
+            this.P_IntervalleImages.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Tb_Timer)).EndInit();
+            this.P_AffichageScore.ResumeLayout(false);
+            this.P_AffichageScore.PerformLayout();
+            this.P_AffichageScoreMoy.ResumeLayout(false);
+            this.P_AffichageScoreMoy.PerformLayout();
+            this.P_NbImages.ResumeLayout(false);
+            this.P_NbImages.PerformLayout();
+            this.P_TypeImage.ResumeLayout(false);
+            this.P_TypeImage.PerformLayout();
+            this.P_Error.ResumeLayout(false);
+            this.P_Error.PerformLayout();
+            this.P_Timer.ResumeLayout(false);
+            this.P_Timer.PerformLayout();
+            this.P_SE.ResumeLayout(false);
+            this.P_SE.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

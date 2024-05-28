@@ -40,19 +40,9 @@ namespace ProjetC__
 
 
         //TODO LABE lancer tick du timer et extraire le tout dans une fonction traitement
-        private void B_Lancer_Click(object sender, EventArgs e)
-        {
-            ValeurSommeScores = 0;
-            indiceImage = ValeurIntervalleMin;
-            firstDone = false;
-            done = false;
-            timer1.Start();
-        }
+        
 
-        private void B_Quitter_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+       
 
         //TODO LABE utiliser des variables globales
         private void ExportCSV(string filepath)
@@ -64,7 +54,7 @@ namespace ProjetC__
                 using (StreamWriter file = new StreamWriter(filepath))
                 {
                     // Ent�tes des colonnes
-                    file.WriteLine("Type d'image, Numéro d'image, Score");
+                    file.WriteLine("Type d'image; Numéro d'image; Score");
 
                     for (int i = 0; i < ValeurScores.Count; i++)
                     {
@@ -73,12 +63,12 @@ namespace ProjetC__
                         float score = ValeurScores[i];
 
                         // �crire chaque ligne pour l'image
-                        file.WriteLine($"{imageType}, {i + 1}, {score}");
+                        file.WriteLine($"{imageType}; {i + 1}; {score}");
                     }
 
 
                     // �crire la moyenne en derni�re ligne
-                    file.WriteLine($"Moyenne totale du score,,{ValeurMoyenneScore}");
+                    file.WriteLine($"Moyenne totale du score;;{ValeurMoyenneScore}");
                     Lb_Error.Text = "Export CSV réussi !";
                 }
             }
@@ -282,25 +272,9 @@ namespace ProjetC__
             }
         }
 
-        private void Tb_DebutInterval_TextChanged(object sender, EventArgs e)
-        {
-            if (!int.TryParse(Tb_DebutInterval.Text, out ValeurIntervalleMin))
-            {
-                Tb_DebutInterval.Text = "1";
-            }
-            ValeurIntervalleMin = int.Parse(Tb_DebutInterval.Text);
-            MiseAJourIntervalle();
-        }
+       
 
-        private void Tb_FinInterval_TextChanged(object sender, EventArgs e)
-        {
-            if (!int.TryParse(Tb_FinInterval.Text, out ValeurIntervalleMax))
-            {
-                Tb_FinInterval.Text = "300";
-            }
-            ValeurIntervalleMax = int.Parse(Tb_FinInterval.Text);
-            MiseAJourIntervalle();
-        }
+       
 
         private void MiseAJourIntervalle()
         {
@@ -333,19 +307,10 @@ namespace ProjetC__
             Tb_FinInterval.Text = ValeurIntervalleMax.ToString();
         }
 
-        private void Cb_ImageSeule_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Cb_ImageSeule.Checked == true) MiseAJourCheckBoxIntervalles(Cb_ImageSeule);
-        }
-        private void Cb_Intervalle_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Cb_Intervalle.Checked == true) MiseAJourCheckBoxIntervalles(Cb_Intervalle);
-        }
+        
+     
 
-        private void Cb_ToutesImages_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Cb_ToutesImages.Checked == true) MiseAJourCheckBoxIntervalles(Cb_ToutesImages);
-        }
+       
 
         private void MiseAJourCheckBoxIntervalles(System.Windows.Forms.CheckBox checkBox)
         {
@@ -356,9 +321,42 @@ namespace ProjetC__
 
             MiseAJourIntervalle();
         }
-        private void Cb_ImageIn_CheckedChanged(object sender, EventArgs e)
+       
+      
+
+
+        
+        private void MiseAJourCheckBoxTypeImages(System.Windows.Forms.CheckBox checkBox)
         {
-            if (Cb_ImageIn.Checked == true) MiseAJourCheckBoxTypeImages(Cb_ImageIn);
+            if (Cb_ImageIn != checkBox) Cb_ImageIn.Checked = false;
+            if (Cb_ImageSc != checkBox) Cb_ImageSc.Checked = false;
+            if (Cb_DeuxTypes != checkBox) Cb_DeuxTypes.Checked = false;
+            if (Cb_ImageIn.Checked != true && Cb_ImageSc.Checked != true && Cb_DeuxTypes.Checked != true) Cb_ImageIn.Checked = true;
+        }
+
+        private void Cb_ImageIn_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (Cb_ImageSc.Checked == true) MiseAJourCheckBoxTypeImages(Cb_ImageSc);
+        }
+
+        private void Cb_ImageSeule_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (Cb_ImageSeule.Checked == true) MiseAJourCheckBoxIntervalles(Cb_ImageSeule);
+        }
+
+        private void Cb_ToutesImages_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (Cb_ToutesImages.Checked == true) MiseAJourCheckBoxIntervalles(Cb_ToutesImages);
+        }
+
+        private void Cb_Intervalle_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (Cb_Intervalle.Checked == true) MiseAJourCheckBoxIntervalles(Cb_Intervalle);
+        }
+
+        private void Cb_DeuxTypes_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (Cb_DeuxTypes.Checked == true) MiseAJourCheckBoxTypeImages(Cb_DeuxTypes);
         }
 
         private void Cb_ImageSc_CheckedChanged(object sender, EventArgs e)
@@ -366,17 +364,43 @@ namespace ProjetC__
             if (Cb_ImageSc.Checked == true) MiseAJourCheckBoxTypeImages(Cb_ImageSc);
         }
 
-        private void Cb_DeuxTypes_CheckedChanged(object sender, EventArgs e)
+        private void Tb_DebutInterval_TextChanged_1(object sender, EventArgs e)
         {
-            if (Cb_DeuxTypes.Checked == true) MiseAJourCheckBoxTypeImages(Cb_DeuxTypes);
+            if (!int.TryParse(Tb_DebutInterval.Text, out ValeurIntervalleMin))
+            {
+                Tb_DebutInterval.Text = "1";
+            }
+            ValeurIntervalleMin = int.Parse(Tb_DebutInterval.Text);
+            MiseAJourIntervalle();
         }
 
-        private void MiseAJourCheckBoxTypeImages(System.Windows.Forms.CheckBox checkBox)
+        private void Tb_FinInterval_TextChanged_1(object sender, EventArgs e)
         {
-            if (Cb_ImageIn != checkBox) Cb_ImageIn.Checked = false;
-            if (Cb_ImageSc != checkBox) Cb_ImageSc.Checked = false;
-            if (Cb_DeuxTypes != checkBox) Cb_DeuxTypes.Checked = false;
-            if (Cb_ImageIn.Checked != true && Cb_ImageSc.Checked != true && Cb_DeuxTypes.Checked != true) Cb_ImageIn.Checked = true;
+            if (!int.TryParse(Tb_FinInterval.Text, out ValeurIntervalleMax))
+            {
+                Tb_FinInterval.Text = "300";
+            }
+            ValeurIntervalleMax = int.Parse(Tb_FinInterval.Text);
+            MiseAJourIntervalle();
+        }
+
+        private void B_Quitter_Click_1(object sender, EventArgs e)
+        {
+          Close();
+        }
+
+        private void B_Lancer_Click(object sender, EventArgs e)
+        {
+            ValeurSommeScores = 0;
+            indiceImage = ValeurIntervalleMin;
+            firstDone = false;
+            done = false;
+            timer1.Start();
+            if (Cb_ExportCSV.Checked)
+            {
+               
+                ExportCSV("C:\\Users\\MD272295\\Documents\\prjetcpp.csv");
+            }
         }
     }
 }
