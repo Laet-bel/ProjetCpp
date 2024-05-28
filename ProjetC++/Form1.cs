@@ -59,8 +59,6 @@ namespace ProjetC__
         {
             try
             {
-                //TEST COMMIT
-                //TEST COMMIT
                 using (StreamWriter file = new StreamWriter(filepath))
                 {
                     // Ent�tes des colonnes
