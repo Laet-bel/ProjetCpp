@@ -21,6 +21,8 @@ namespace ProjetC__
             MiseAJourLabelIntervalle();
 
             Lb_ValeurTimer.Text = Tb_Timer.Value.ToString() + " ms";
+            ExportCSV_Sc = new List<string>();
+            ExportCSV_In = new List<string>();
         }
 
         private double ValeurScore = 0;
@@ -37,46 +39,66 @@ namespace ProjetC__
         private bool done = false;
 
         private List<float> ValeurScores = new List<float>();
-
-
+        private List<string>  ExportCSV_Sc;
+        private List<string> ExportCSV_In;
         //TODO LABE lancer tick du timer et extraire le tout dans une fonction traitement
-        
 
-       
+
+
 
         //TODO LABE utiliser des variables globales
         private void ExportCSV(string filepath)
         {
-            try
+            string ExportCSV_In = "resultat.csv";
+            string ExportCSV_Sc = "resultat.csv";
+        }
+        private string GetCurrentImageType()
+        {
+            if (!Cb_DeuxTypes.Checked)
             {
-                //TEST COMMIT
-                //TEST COMMIT
-                using (StreamWriter file = new StreamWriter(filepath))
-                {
-                    // Ent�tes des colonnes
-                    file.WriteLine("Type d'image; Numéro d'image; Score");
-
-                    for (int i = 0; i < ValeurScores.Count; i++)
-                    {
-
-                        string imageType = Cb_ImageIn.Checked ? "In" : "Sc";
-                        float score = ValeurScores[i];
-
-                        // �crire chaque ligne pour l'image
-                        file.WriteLine($"{imageType}; {i + 1}; {score}");
-                    }
-
-
-                    // �crire la moyenne en derni�re ligne
-                    file.WriteLine($"Moyenne totale du score;;{ValeurMoyenneScore}");
-                    Lb_Error.Text = "Export CSV réussi !";
-                }
+                if (Cb_ImageIn.Checked) return "In";
+                else if (Cb_ImageSc.Checked) return "Sc";
+                else return "Unknown"; // ou gestion d'erreur
             }
-            catch (Exception ex)
+            else
             {
-                Lb_Error.Text = ex.Message;
+                // Cette logique doit être adaptée si vous avez une manière spécifique de déterminer le type quand les deux types sont sélectionnés
+                return firstDone ? "Sc" : "In";
             }
         }
+
+        //private void ExportCSV(string filepath)
+        //{
+        //    try
+        //    {
+        //        //TEST COMMIT
+        //        //TEST COMMIT
+        //        using (StreamWriter file = new StreamWriter(filepath))
+        //        {
+        //            // Ent�tes des colonnes
+        //            file.WriteLine("Type d'image; Numéro d'image; Score");
+
+        //            for (int i = 0; i < ValeurScores.Count; i++)
+        //            {
+
+        //                string imageType = Cb_ImageIn.Checked ? "In" : "Sc";
+        //                float score = ValeurScores[i];
+
+        //                // �crire chaque ligne pour l'image
+        //                file.WriteLine($"{imageType}; {i + 1}; {score}");
+        //            }
+
+
+        //            // �crire la moyenne en derni�re ligne
+        //            file.WriteLine($"Moyenne totale du score;;{ValeurMoyenneScore}");
+        //            Lb_Error.Text = "Export CSV réussi !";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Lb_Error.Text = ex.Message;
+        //    }
+        //}
 
         void AfficheScore(System.Windows.Forms.Label label, System.Windows.Forms.Panel panel, double score)
         {
@@ -113,7 +135,8 @@ namespace ProjetC__
         //}
 
         private void Traitement()
-        {
+        {  
+
             try
             {
                 ClImage processor = new ClImage();
