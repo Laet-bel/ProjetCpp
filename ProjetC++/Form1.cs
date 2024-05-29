@@ -127,7 +127,7 @@ namespace ProjetC__
             Close();
         }
 
-        //TODO LABE utiliser des variables globales
+
         private void ExportCSV(string filepath)
         {
             try
@@ -168,13 +168,6 @@ namespace ProjetC__
             label.Text = score.ToString("F2") + "%";
             ColorePanel(panel, score);
         }
-
-        //TODO LABE enlever
-        private void BT_Test(object sender, EventArgs e) // but test
-        {
-            timer1.Start();
-        }
-
 
         void ColorePanel(System.Windows.Forms.Panel panel, double score)
         {
