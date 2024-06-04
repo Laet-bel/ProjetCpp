@@ -19,14 +19,16 @@ ClibIHM::ClibIHM() {
 
 ClibIHM::ClibIHM(int nbChamps, byte* dataImage1, int strideImage1, const byte* dataImage2, const int strideImage2, int nbLig, int nbCol, const bool imageIn, char* typeSE, const int largeurSE, const int hauteurSE)
 {
+	// Récupération des données de l'image
 	this->nbDataImg = nbChamps;
 	this->dataFromImg.resize(nbChamps);
 	this->imgPt = new CImageCouleur(nbLig, nbCol);
+
+	// Création des images couleurs qui serviront pour le traitement
 	CImageCouleur groundTruth(nbLig, nbCol);
 	CImageCouleur out(nbLig, nbCol);
 
-	// on remplit les pixels 
-
+	// Récupération des données de l'image dans les images couleurs
 	byte* pixPtr = (byte*)dataImage1;
 	byte* pixPtr2 = (byte*)dataImage2;
 
@@ -45,8 +47,11 @@ ClibIHM::ClibIHM(int nbChamps, byte* dataImage1, int strideImage1, const byte* d
 		pixPtr2 += strideImage2; // largeur une seule ligne gestion multiple 32 bits
 	}
 
+	// Conversion des images couleurs en images ndg
 	CImageNdg image = this->imgPt->plan(3);
 	CImageNdg groundTruthNdg = groundTruth.plan(3);
+
+	// Initialisation du score
 	float score = 0.0;
 
 	// Faire le traitement sur l'image et ressortir le score et l'image traitée.
@@ -57,8 +62,10 @@ ClibIHM::ClibIHM(int nbChamps, byte* dataImage1, int strideImage1, const byte* d
 
 	this->dataFromImg[0] = score; // Récupération du scrore dans dataFromImg
 
+	// Conversion de l'image traitée en image couleur qui sera l'image de sortie
 	out = CImageCouleur(traitee);
 
+	// Récupération des données de l'image traitée dans les données de l'image véritée en entrée
 	pixPtr = (byte*)dataImage1;
 	for (int y = 0; y < nbLig; y++)
 	{
@@ -68,10 +75,11 @@ ClibIHM::ClibIHM(int nbChamps, byte* dataImage1, int strideImage1, const byte* d
 			pixPtr[3 * x + 1] = out(y, x)[1];
 			pixPtr[3 * x] = out(y, x)[2];
 		}
-		pixPtr += strideImage1; // largeur une seule ligne gestion multiple 32 bits
+		pixPtr += strideImage1;
 	}
 }
 
+// Destructeur
 ClibIHM::~ClibIHM() {
 
 	if (imgPt)
@@ -79,11 +87,13 @@ ClibIHM::~ClibIHM() {
 	this->dataFromImg.clear();
 }
 
+// Méthode pour récupérer le score des image de type In
 CImageNdg ClibIHM::Image_In(const CImageNdg& image, CImageNdg& imageGroundTruth, float& score, ElementStructurant& se)
 {
 	CImageNdg imageTraitee(image);
-	imageTraitee = imageTraitee.transformation("complement");
 
+	// Traitement sur l'image
+	imageTraitee = imageTraitee.transformation("complement");
 	imageTraitee = imageTraitee.whiteTopHatavecSE(imageTraitee, se, 30);
 	imageTraitee = imageTraitee.seuillage();
 	imageTraitee = imageTraitee.erosionImageavecSE(imageTraitee, se);
@@ -96,7 +106,7 @@ CImageNdg ClibIHM::Image_In(const CImageNdg& image, CImageNdg& imageGroundTruth,
 	return imageTraitee;
 }
 
-
+// Méthode pour récupérer le score des image de type Sc
 CImageNdg ClibIHM::Image_Sc(const CImageNdg& image, CImageNdg& imageGroundTruth, float& score, ElementStructurant& se)
 {
 	CImageNdg imageTraitee(image);

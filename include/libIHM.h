@@ -14,12 +14,9 @@ private:
 	///////////////////////////////////////
 
 	// data nécessaires à l'IHM donc fonction de l'application ciblée
-	int						nbDataImg; // nb champs Texte de l'IHM
+	int						nbDataImg;    // nb champs Texte de l'IHM
 	std::vector<double>		dataFromImg; // champs Texte de l'IHM
-	CImageCouleur* imgPt;       // 
-
-private:
-	//ElementStructurant se; // élément structurant
+	CImageCouleur*			imgPt;		// image vérité qui sera utilisée pour le traitement
 
 	///////////////////////////////////////
 public:
@@ -57,12 +54,14 @@ extern "C" _declspec(dllexport) ClibIHM * objetLib()
 	return pImg;
 }
 
+// Fonction exporté qui crée un objet ClibIHM et qui effectue le traitement sur l'image
 extern "C" _declspec(dllexport) ClibIHM * objetLibDataImg(int nbChamps, byte * dataImage1, int strideImage1, byte * dataImage2, int strideImage2, int nbLig, int nbCol, bool imageIn, char* typeSE, int largeurSE, int hauteurSE)
 {
 	ClibIHM* pImg = new ClibIHM(nbChamps, dataImage1, strideImage1, dataImage2, strideImage2, nbLig, nbCol, imageIn, typeSE, largeurSE, hauteurSE);
 	return pImg;
 }
 
+// Fonction exporté qui retourne la valeur à l'indice i de dataFromImg
 extern "C" _declspec(dllexport) double valeurChamp(ClibIHM * pImg, int i)
 {
 	return pImg->lireChamp(i);
