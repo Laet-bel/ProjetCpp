@@ -18,11 +18,11 @@ namespace ProjetC__
         public Form1()
         {
             InitializeComponent();
+            //initialisation de l'IHM
             MiseAJourLabelIntervalle();
-
             Lb_ValeurTimer.Text = Tb_Timer.Value.ToString() + " ms";
         }
-
+         //initialisation des variables globales
         private double ValeurScore = 0;
         private double ValeurSommeScores = 0;
         private double ValeurMoyenneScore = 0;
@@ -40,7 +40,8 @@ namespace ProjetC__
         private List<float> ValeurScores = new List<float>();
 
 
-        //TODO LABE lancer tick du timer et extraire le tout dans une fonction traitement
+        
+        // bouton qui permet de lancer le traitement
         private void B_Lancer_Click(object sender, EventArgs e)
         {
             if (!pause)
@@ -61,12 +62,14 @@ namespace ProjetC__
                 MajIhmLancerStop();
             }
         }
+        // bouton qui permet de mettre en pause le traitement,de mettre à jour le traitement qu'a déclencher le bouton lancer 
         private void B_Areter_Click(object sender, EventArgs e)
         {
             timer1.Stop();
             MajIhmLancerStop();
             pause = true;
         }
+        //bouton qui permet de remettre toutes les fontions comme au lancement de l'IHM
         private void B_Reinitialiser_Click(object sender, EventArgs e)
         {
             timer1.Stop();
@@ -102,7 +105,7 @@ namespace ProjetC__
 
             if (B_Areter.Enabled) MajIhmLancerStop();
         }
-
+       // fonction qui permet d'inverser les différent états des composants voulus dans l'IHM
         private void MajIhmLancerStop()
         {
             // Inverser l'état enable des checkbox et certaines textbox
@@ -121,13 +124,14 @@ namespace ProjetC__
             Tb_FinInterval.Enabled = !Tb_FinInterval.Enabled;
 
         }
-
+        //bouton qui permet de quitter tous les traitements et de revenir sur les fenêtres de codes
         private void B_Quitter_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-
+        //fonction qui permet d'exporter sur un fichier excel untableau contenant sur les colonnes le Type d'image;le  Numero d'image et le Score
+        //et sur les lignes leur valeur aisi que le scoremoyenne de tous les scores
         private void ExportCSV(string filepath)
         {
             try
@@ -162,13 +166,14 @@ namespace ProjetC__
                 Lb_Error.Text = ex.Message;
             }
         }
-
+        //fonction qui permet d'afficher le score de ressemblence entre les image tratitées et les images vérités terrains 
         void AfficheScore(System.Windows.Forms.Label label, System.Windows.Forms.Panel panel, double score)
         {
             label.Text = score.ToString("F2") + "%";
             ColorePanel(panel, score);
         }
-
+        
+        // fonction qui permet de colorer les panels selon la valeur de leur score, vert si le score est bon, orangesi c'est moyen et rouge si c'est pas bon
         void ColorePanel(System.Windows.Forms.Panel panel, double score)
         {
             if (score >= 60)
@@ -178,7 +183,7 @@ namespace ProjetC__
             else
                 panel.BackColor = Color.Red;
         }
-
+        //fonction qui permet de choisir le type de traitement qu'on veut en fonction des élèments structurants et aussi de dimensionner les images avec la hauteur et la largeur
         private void Traitement()
         {
             try
@@ -248,13 +253,14 @@ namespace ProjetC__
 
         }
 
-
+        //fonction qui permet de mettre à jour l'affichage des images traitées et les informations
         private void MajAffichage()
         {
             MiseAJourImages();
             MiseAJourInformations();
         }
 
+        //fonction qui permet de décaller les images traitées sur les picturesbox une par une 
         private void MiseAJourImages()
         {
             // Décalage des images traitées
@@ -276,7 +282,7 @@ namespace ProjetC__
             Pb_TreatedImage.Image = TreatedBmp;
             Pb_GroundTruth.Image = GroundTruthBmp;
         }
-
+        //fonction qui permet de mettre à jour l'affichage du type d'image traitée si ce type d'image est sélectionné
         private void MiseAJourInformations()
         {
             string type;
@@ -285,13 +291,15 @@ namespace ProjetC__
             L_info.Text = "Image : " + indiceImage + " \t Type : " + type;
         }
 
-
+        //Testbox qui permet de mettre la valeur du timer
         private void Tb_Timer_ValueChanged(object sender, EventArgs e)
         {
             timer1.Interval = Tb_Timer.Value;
             Lb_ValeurTimer.Text = Tb_Timer.Value.ToString() + " ms";
         }
-
+        // timer qui permet de traiter les images en série, de mettre à jour l'affichage et de calculer des scores, 
+       
+     //IL permet aussi de gérer les intervalles d'images à traiter , les types d'images à traiter, et d'exportation les résultats en fchier CSV.
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (indiceImage > ValeurIntervalleMax)
@@ -344,7 +352,7 @@ namespace ProjetC__
                 indiceImage++;
             }
         }
-
+        // textbox qui permet d'écrire la valeur d début d'intervalle d'image à traiter
         private void Tb_DebutInterval_TextChanged(object sender, EventArgs e)
         {
             if (!int.TryParse(Tb_DebutInterval.Text, out ValeurIntervalleMin))
@@ -354,7 +362,7 @@ namespace ProjetC__
             ValeurIntervalleMin = int.Parse(Tb_DebutInterval.Text);
             MiseAJourIntervalle();
         }
-
+        // textbox qui permet d'écrire la valeur de la fin d'intervalle d'image à traiter
         private void Tb_FinInterval_TextChanged(object sender, EventArgs e)
         {
             if (!int.TryParse(Tb_FinInterval.Text, out ValeurIntervalleMax))
@@ -364,7 +372,7 @@ namespace ProjetC__
             ValeurIntervalleMax = int.Parse(Tb_FinInterval.Text);
             MiseAJourIntervalle();
         }
-
+        // fonction qui permet de mettre à jour les valeur de début et de fi d'intrevalle en fonction du checkbox sélectionné
         private void MiseAJourIntervalle()
         {
             if (Cb_ToutesImages.Checked)
@@ -389,27 +397,30 @@ namespace ProjetC__
             }
             MiseAJourLabelIntervalle();
         }
-
+        //fonction qui permet de mettre à jour le début d'intervalle à 1 et la fin à 300
         private void MiseAJourLabelIntervalle()
         {
             Tb_DebutInterval.Text = ValeurIntervalleMin.ToString();
             Tb_FinInterval.Text = ValeurIntervalleMax.ToString();
         }
-
+        //si on coche sur checkbox ImageSeule, on met à jour les intervalles qui vont avoir la même valeur, de ce fait on affiche qu'une seule image
         private void Cb_ImageSeule_CheckedChanged(object sender, EventArgs e)
         {
             if (Cb_ImageSeule.Checked == true) MiseAJourCheckBoxIntervalles(Cb_ImageSeule);
         }
+        //si on coche sur checkbox Intervalle, on met à jour les intervalles qui vont avoir des valeurs différentes, de ce fait on affiche l'intervalle d'image qu'on veut
+
         private void Cb_Intervalle_CheckedChanged(object sender, EventArgs e)
         {
             if (Cb_Intervalle.Checked == true) MiseAJourCheckBoxIntervalles(Cb_Intervalle);
         }
+        //si on coche sur checkbox ToutesImages, on met à jour les intervalles qui seront 1 et 300, de ce fait on affiche toutes les images
 
         private void Cb_ToutesImages_CheckedChanged(object sender, EventArgs e)
         {
             if (Cb_ToutesImages.Checked == true) MiseAJourCheckBoxIntervalles(Cb_ToutesImages);
         }
-
+        //fonction qui permet de décocher un checkbox lorsqu'on coche un autre, il permet de choisir l'intervalle d'images qu'on veut afficher
         private void MiseAJourCheckBoxIntervalles(System.Windows.Forms.CheckBox checkBox)
         {
             if (Cb_ImageSeule != checkBox) Cb_ImageSeule.Checked = false;
@@ -419,20 +430,23 @@ namespace ProjetC__
 
             MiseAJourIntervalle();
         }
+        //si on coche sur checkbox ImageIn, on affichera que les images In
+
         private void Cb_ImageIn_CheckedChanged(object sender, EventArgs e)
         {
             if (Cb_ImageIn.Checked == true) MiseAJourCheckBoxTypeImages(Cb_ImageIn);
         }
-
+        //si on coche sur checkbox ImageSc, on affichera que les images Sc
         private void Cb_ImageSc_CheckedChanged(object sender, EventArgs e)
         {
             if (Cb_ImageSc.Checked == true) MiseAJourCheckBoxTypeImages(Cb_ImageSc);
         }
-
+        //si on coche sur checkbox DeuxTypes, on affichera tous les types d'images
         private void Cb_DeuxTypes_CheckedChanged(object sender, EventArgs e)
         {
             if (Cb_DeuxTypes.Checked == true) MiseAJourCheckBoxTypeImages(Cb_DeuxTypes);
         }
+        //fonction qui permet de décocher un checkbox lorsqu'on coche un autre, il permet de choisir le ou les types d'images qu'on veut afficher
 
         private void MiseAJourCheckBoxTypeImages(System.Windows.Forms.CheckBox checkBox)
         {
